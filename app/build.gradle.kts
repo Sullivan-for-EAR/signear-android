@@ -31,6 +31,10 @@ android {
             proguardFiles(file("proguard-rules.pro"))
         }
     }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -46,6 +50,7 @@ dependencies {
 
     implementation(Dep.AndroidX.activity.ktx)
     implementation(Dep.AndroidX.lifecycle.viewModelKtx)
+    implementation(Dep.AndroidX.StartUp.runtime)
 
     // Android UI
     implementation(Dep.AndroidX.UI.material)

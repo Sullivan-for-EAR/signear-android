@@ -5,9 +5,12 @@ object Dep {
         const val androidStudioGradlePluginVersion = "4.1.3"
         const val android = "com.android.tools.build:gradle:$androidStudioGradlePluginVersion"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
-        const val kotlinSerialization = "org.jetbrains.kotlin:kotlin-serialization:${Kotlin.version}"
+        const val kotlinSerialization =
+            "org.jetbrains.kotlin:kotlin-serialization:${Kotlin.version}"
         const val ktlint = "org.jlleitschuh.gradle:ktlint-gradle:10.0.0"
         const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Dagger.version}"
+        const val navSafeArgPlugin =
+            "androidx.navigation:navigation-safe-args-gradle-plugin:${AndroidX.Navigation.navSafArgPluginVersion}"
     }
 
     object AndroidX {
@@ -36,7 +39,10 @@ object Dep {
             private const val lifecycleVersion = "2.3.1"
             const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
             const val liveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
-            const val runtimeTesting = "androidx.lifecycle:lifecycle-runtime-testing:$lifecycleVersion"
+            const val runtimeTesting =
+                "androidx.lifecycle:lifecycle-runtime-testing:$lifecycleVersion"
+            const val commonJava8 =
+                "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
         }
 
         object room {
@@ -45,6 +51,16 @@ object Dep {
             const val compiler = "androidx.room:room-compiler:$roomVersion"
             const val ktx = "androidx.room:room-ktx:$roomVersion"
             const val testing = "androidx.room:room-testing:$roomVersion"
+        }
+
+        object Navigation {
+            const val navSafArgPluginVersion = "2.3.5"
+
+        }
+
+        object StartUp {
+            private const val startupVersion = "1.0.0"
+            const val runtime = "androidx.startup:startup-runtime:${startupVersion}"
         }
 
         object UI {
@@ -64,13 +80,16 @@ object Dep {
             const val ui = "androidx.compose.ui:ui:${version}"
             const val layout = "androidx.compose.foundation:foundation-layout:${version}"
             const val material = "androidx.compose.material:material:${version}"
-            const val materialAdapter = "com.google.android.material:compose-theme-adapter:${version}"
+            const val materialAdapter =
+                "com.google.android.material:compose-theme-adapter:${version}"
             const val tooling = "androidx.compose.ui:ui-tooling:${version}"
             const val livedata = "androidx.compose.runtime:runtime-livedata:$version"
             const val animation = "androidx.compose.animation:animation:$version"
 
-            const val activity = "androidx.activity:activity-compose:${AndroidX.activity.activityVersion}"
-            const val constraintlayout = "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha05"
+            const val activity =
+                "androidx.activity:activity-compose:${AndroidX.activity.activityVersion}"
+            const val constraintlayout =
+                "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha05"
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha04"
         }
 

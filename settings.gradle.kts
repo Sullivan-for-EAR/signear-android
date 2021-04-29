@@ -10,14 +10,14 @@ dependencyResolutionManagement {
 rootProject.name = "signear-android"
 
 include(
-    ":app"
+    ":app",
 //    ":data",
 //    ":core",
 //    ":core-android",
 //    ":model",
 //    ":domain",
 //    ":site",
-//    ":ui-common",
+    ":ui-common"
 //    ":ui-weekly",
 //    ":ui-episode",
 //    ":ui-setting",

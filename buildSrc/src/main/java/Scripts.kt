@@ -42,5 +42,6 @@ fun ScriptHandlerScope.addScriptDependencies() {
         classpath(Dep.GradlePlugin.kotlinSerialization)
         classpath(Dep.GradlePlugin.ktlint)
         classpath(Dep.GradlePlugin.hilt)
+        classpath(Dep.GradlePlugin.navSafeArgPlugin)
     }
 }
