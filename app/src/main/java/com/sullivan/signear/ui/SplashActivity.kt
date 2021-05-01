@@ -3,9 +3,10 @@ package com.sullivan.signear.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.sullivan.sigenear.common.databinding.ActivitySplashBinding
 import com.sullivan.sigenear.common.navigator.LoginNavigator
 import com.sullivan.signear.common.ex.viewBinding
-import com.sullivan.signear.databinding.ActivitySplashBinding
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import javax.inject.Inject
