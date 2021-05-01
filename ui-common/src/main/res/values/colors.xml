@@ -10,4 +10,5 @@
 
     <color name="primary_color">#0A84FF</color>
     <color name="secondary_color">#00B2FF</color>
+    <color name="btn_next_disable">#B6B6B6</color>
 </resources>
