@@ -55,7 +55,9 @@ object Dep {
 
         object Navigation {
             const val navSafArgPluginVersion = "2.3.5"
-
+            private const val navaigationVersion = "2.2.2"
+            const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$navaigationVersion"
+            const val uiKtx = "androidx.navigation:navigation-ui-ktx:$navaigationVersion"
         }
 
         object StartUp {

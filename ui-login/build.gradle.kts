@@ -23,21 +23,22 @@ dependencies {
 
     implementation(project(":ui-common"))
 
+    // kotlin
     implementation(Dep.Kotlin.stdlibJvm)
+    implementation(Dep.Kotlin.coroutines.core)
+    implementation(Dep.Kotlin.coroutines.android)
 
     implementation(Dep.AndroidX.activity.ktx)
+    implementation(Dep.AndroidX.lifecycle.viewModelKtx)
+    implementation(Dep.AndroidX.lifecycle.liveDataKtx)
     implementation(Dep.AndroidX.UI.material)
 
     // Hilt
     implementation(Dep.Dagger.Hilt.android)
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     kapt(Dep.Dagger.Hilt.compiler)
 
-    // kotlin
-    implementation(Dep.Kotlin.coroutines.core)
-    implementation(Dep.Kotlin.coroutines.android)
+    implementation(Dep.AndroidX.Navigation.fragmentKtx)
+    implementation(Dep.AndroidX.Navigation.uiKtx)
 
     implementation(Dep.timber)
 }

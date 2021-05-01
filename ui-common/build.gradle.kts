@@ -26,6 +26,8 @@ dependencies {
     implementation(Dep.AndroidX.UI.material)
 
     implementation(Dep.AndroidX.StartUp.runtime)
+    implementation(Dep.AndroidX.Navigation.fragmentKtx)
+    implementation(Dep.AndroidX.Navigation.uiKtx)
 
     implementation(Dep.timber)
 }
