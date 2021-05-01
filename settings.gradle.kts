@@ -17,7 +17,8 @@ include(
 //    ":model",
 //    ":domain",
 //    ":site",
-    ":ui-common"
+    ":ui-common",
+    ":ui-login"
 //    ":ui-weekly",
 //    ":ui-episode",
 //    ":ui-setting",

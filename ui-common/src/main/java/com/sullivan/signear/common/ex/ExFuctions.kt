@@ -1,4 +1,4 @@
-package com.project.noticeme.common.ex
+package com.sullivan.signear.common.ex
 
 import android.app.Activity
 import android.content.Context
@@ -28,12 +28,10 @@ inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
 }
 
 // 액티비티 전환 후 종료하는 함수
-inline fun <reified T : Activity> Activity.launchActivityWithFinish() {
+inline fun <reified T : Activity> Context.launchActivity() {
     val intent = Intent(this, T::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
     startActivity(intent)
-    overridePendingTransition(0, 0)
-    finish()
 }
 
 fun <T> Fragment.viewLifecycle(): ReadWriteProperty<Fragment, T> =
@@ -116,4 +114,4 @@ fun Context.isConnected(): Boolean {
     return connectivityManager != null
 }
 
-fun Context.getResourceId(title: String) = resources.getIdentifier(title,"drawable", packageName)
+fun Context.getResourceId(title: String) = resources.getIdentifier(title, "drawable", packageName)

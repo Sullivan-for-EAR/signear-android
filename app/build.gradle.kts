@@ -46,23 +46,23 @@ android {
 
 dependencies {
 
+    implementation(project(":ui-common"))
+    implementation(project(":ui-login"))
+
+    // kotlin
     implementation(Dep.Kotlin.stdlibJvm)
+    implementation(Dep.Kotlin.coroutines.core)
+    implementation(Dep.Kotlin.coroutines.android)
 
     implementation(Dep.AndroidX.activity.ktx)
     implementation(Dep.AndroidX.lifecycle.viewModelKtx)
     implementation(Dep.AndroidX.StartUp.runtime)
-
-    // Android UI
     implementation(Dep.AndroidX.UI.material)
 
     // Hilt
     implementation(Dep.Dagger.Hilt.android)
     kapt(Dep.Dagger.Hilt.compiler)
-
-    // kotlin
-    implementation(Dep.Kotlin.coroutines.core)
-    implementation(Dep.Kotlin.coroutines.android)
-
+    
     implementation(Dep.timber)
 }
 
