@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingBottom="32dp"
     android:background="@drawable/bottom_view_bg"
-    tools:context=".ui.login.LoginFragment">
+    tools:context=".ui.login.LoginStartFragment">
 
     <ImageView
         android:id="@+id/iv_logo"
