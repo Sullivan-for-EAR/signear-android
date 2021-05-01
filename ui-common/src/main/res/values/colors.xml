@@ -9,5 +9,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary_color">#0A84FF</color>
-    <color name="splash_bottom_color">#00B2FF</color>
+    <color name="secondary_color">#00B2FF</color>
 </resources>
