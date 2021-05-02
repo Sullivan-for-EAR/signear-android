@@ -82,10 +82,46 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                                 hideKeyboard()
                             }
                         } else {
-
                         }
                     }
+                    is LoginState.EmailNotValid -> {
+                        findAccountLayout.tvFindAccountGuideMsg.makeVisible()
+                        findAccountLayout.etEmailInput.makeVisible()
+                        findAccountLayout.btnNext.makeVisible()
+                    }
                 }
+            }
+
+            btnFindAccount.setOnClickListener {
+                viewModel.updateLoginState(LoginState.EmailNotValid)
+                tvTitle.text = "계정 찾기"
+
+                ivHuman.makeGone()
+                etEmailInput.makeGone()
+                btnFindAccount.makeGone()
+                btnNext.makeGone()
+
+                findAccountLayout.tvFindAccountGuideMsg.makeVisible()
+                findAccountLayout.ivHuman.makeVisible()
+                findAccountLayout.etEmailInput.makeVisible()
+                findAccountLayout.btnNext.makeVisible()
+            }
+
+            findAccountLayout.btnNext.setOnClickListener {
+                findAccountLayout.tvFindAccountGuideMsg.makeGone()
+                findAccountLayout.ivHuman.makeGone()
+                findAccountLayout.etEmailInput.apply {
+                    clearFocus()
+                    hideKeyboard()
+                    makeGone()
+                }
+                findAccountLayout.btnNext.makeGone()
+
+
+                findAccountLayout.ivVoyage.makeVisible()
+                findAccountLayout.guideMsg.makeVisible()
+                findAccountLayout.guideMsg2.makeVisible()
+                findAccountLayout.btnLogin.makeVisible()
             }
         }
     }
@@ -140,6 +176,36 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         })
 
+        binding.findAccountLayout.etEmailInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                email = binding.findAccountLayout.etEmailInput.text.toString().trim()
+                if (email.isNotEmpty() && checkEmailValidation(email)) {
+                    ViewCompat.setBackgroundTintList(
+                        binding.findAccountLayout.btnNext,
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                } else {
+                    ViewCompat.setBackgroundTintList(
+                        binding.findAccountLayout.btnNext,
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.btn_next_disable
+                        )
+                    )
+                }
+            }
+
+        })
+
         var phone: String
         binding.etPhoneInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -180,7 +246,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
             override fun afterTextChanged(s: Editable?) {
                 password = binding.etPasswordInput.text.toString().trim()
-                if(password.isEmpty()){
+                if (password.isEmpty()) {
                     ViewCompat.setBackgroundTintList(
                         binding.btnJoin,
                         ContextCompat.getColorStateList(

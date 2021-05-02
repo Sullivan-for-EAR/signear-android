@@ -28,6 +28,7 @@
         android:text="로그인"
         android:textColor="@color/black"
         android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="65dp"
         android:background="@drawable/human"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
@@ -47,7 +48,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="24dp"
         android:hint="이메일을 입력하세요"
         android:inputType="textEmailAddress"
@@ -148,11 +149,11 @@
         android:id="@+id/tv_rule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="이어의 개인정보 취급방침과 이용약관에 따라 개인정보를\n수집 및 사용하고, 제 3자에게 제공한다는 점에 동의합니다."
         android:textColor="@color/black"
         android:textSize="14sp"
         android:visibility="gone"
-        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_join"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -175,4 +176,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_rule" />
+
+    <include
+        android:id="@+id/find_account_layout"
+        layout="@layout/find_account_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
