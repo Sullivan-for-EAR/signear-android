@@ -17,6 +17,15 @@
         android:id="@+id/loginFragment"
         android:name="com.sullivan.ui_login.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_loginFinishFragment"
+            app:destination="@id/loginFinishFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFinishFragment"
+        android:name="com.sullivan.ui_login.ui.login.LoginFinishFragment"
+        android:label="fragment_login_finish"
+        tools:layout="@layout/fragment_login_finish" />
 
 </navigation>

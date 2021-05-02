@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.signear.common.ex.*
 import com.sullivan.ui_login.R
 import com.sullivan.ui_login.databinding.FragmentLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private val viewModel: LoginViewModel by viewModels()
@@ -82,9 +85,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
                         }
                     }
-                    is LoginState.Success -> {
-
-                    }
                 }
             }
         }
@@ -100,6 +100,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                                 ivPassword.makeVisible()
                                 etPasswordInput.makeVisible()
                             }
+                        }
+                        is LoginState.Success -> {
+                            findNavController().navigate(R.id.action_loginFragment_to_loginFinishFragment)
                         }
                     }
                 }
@@ -197,9 +200,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
 
         })
-
     }
-
 
     private fun checkEmailValidation(input: String) = validEmailRegex.matcher(input).matches()
 

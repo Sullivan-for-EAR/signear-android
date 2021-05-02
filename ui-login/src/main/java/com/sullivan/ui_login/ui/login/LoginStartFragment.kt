@@ -8,7 +8,9 @@ import androidx.navigation.fragment.findNavController
 import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.ui_login.R
 import com.sullivan.ui_login.databinding.FragmentLoginStartBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginStartFragment : BaseFragment<FragmentLoginStartBinding>() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
