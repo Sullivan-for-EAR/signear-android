@@ -29,7 +29,6 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launchWhenCreated {
             delay(1_500)
             loginNavigator.openLogin(this@SplashActivity)
-//            finish()
         }
     }
 }
