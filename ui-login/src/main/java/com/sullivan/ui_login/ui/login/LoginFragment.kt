@@ -11,6 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.sullivan.signear.common.base.BaseFragment
+import com.sullivan.signear.common.ex.hideKeyboard
+import com.sullivan.signear.common.ex.showKeyboard
 import com.sullivan.ui_login.R
 import com.sullivan.ui_login.databinding.FragmentLoginBinding
 import java.util.regex.Pattern
@@ -40,9 +42,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         binding.apply {
             btnNext.setOnClickListener {
                 when (viewModel.checkCurrentState()) {
-                    is LoginState.Init -> viewModel.updateLoginState(LoginState.EmailValid)
-                    is LoginState.EmailValid -> viewModel.updateLoginState(LoginState.Sucess)
-                    is LoginState.Sucess -> viewModel.updateLoginState(LoginState.Sucess)
+                    is LoginState.Init -> {
+                        viewModel.updateLoginState(LoginState.EmailValid)
+                        etEmailInput.clearFocus()
+                        etPasswordInput.apply {
+                            requestFocus()
+                            showKeyboard()
+                        }
+                    }
+                    is LoginState.EmailValid -> {
+                        viewModel.updateLoginState(LoginState.Sucess)
+                        etPasswordInput.apply {
+                            clearFocus()
+                            hideKeyboard()
+                        }
+                    }
+                    is LoginState.Sucess -> {
+
+                    }
                 }
             }
         }

@@ -32,6 +32,8 @@ inline fun <reified T : Activity> Context.launchActivity() {
     val intent = Intent(this, T::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
     startActivity(intent)
+    ( this as Activity).overridePendingTransition(0,0)
+    finish()
 }
 
 fun <T> Fragment.viewLifecycle(): ReadWriteProperty<Fragment, T> =
