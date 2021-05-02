@@ -76,12 +76,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     is LoginState.EmailValid -> {
                         val password = etPasswordInput.text.toString().trim()
                         if (password.isNotEmpty()) {
-                            viewModel.updateLoginState(LoginState.Success)
                             etPasswordInput.apply {
                                 clearFocus()
                                 hideKeyboard()
                             }
-                        } else {
                         }
                     }
                     is LoginState.EmailNotValid -> {
@@ -90,6 +88,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         findAccountLayout.btnNext.makeVisible()
                     }
                 }
+            }
+
+            btnJoin.setOnClickListener {
+                viewModel.updateLoginState(LoginState.Success)
             }
 
             btnFindAccount.setOnClickListener {
@@ -236,36 +238,36 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         })
 
-        var password: String
-        binding.etPasswordInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                password = binding.etPasswordInput.text.toString().trim()
-                if (password.isEmpty()) {
-                    ViewCompat.setBackgroundTintList(
-                        binding.btnJoin,
-                        ContextCompat.getColorStateList(
-                            requireContext(),
-                            R.color.btn_next_disable
-                        )
-                    )
-                } else {
-                    ViewCompat.setBackgroundTintList(
-                        binding.btnJoin,
-                        ContextCompat.getColorStateList(
-                            requireContext(),
-                            R.color.black
-                        )
-                    )
-                }
-            }
-
-        })
+//        var password: String
+//        binding.etPasswordInput.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {
+//                password = binding.etPasswordInput.text.toString().trim()
+//                if (password.isEmpty()) {
+//                    ViewCompat.setBackgroundTintList(
+//                        binding.btnJoin,
+//                        ContextCompat.getColorStateList(
+//                            requireContext(),
+//                            R.color.btn_next_disable
+//                        )
+//                    )
+//                } else {
+//                    ViewCompat.setBackgroundTintList(
+//                        binding.btnJoin,
+//                        ContextCompat.getColorStateList(
+//                            requireContext(),
+//                            R.color.black
+//                        )
+//                    )
+//                }
+//            }
+//
+//        })
     }
 
     private fun checkEmailValidation(input: String) = validEmailRegex.matcher(input).matches()
