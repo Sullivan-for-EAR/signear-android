@@ -5,5 +5,6 @@ sealed class LoginState {
     object EmailValid : LoginState()
     object EmailNotValid : LoginState()
     data class PasswordNotValid (val errorCode : Int) : LoginState()
-    object Sucess : LoginState()
+    object JoinMember : LoginState()
+    object Success : LoginState()
 }
