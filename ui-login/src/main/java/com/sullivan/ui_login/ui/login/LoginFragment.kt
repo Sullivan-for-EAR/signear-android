@@ -16,7 +16,6 @@ import com.sullivan.signear.common.ex.*
 import com.sullivan.ui_login.R
 import com.sullivan.ui_login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
@@ -80,6 +79,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         is LoginState.JoinMember -> {
                             showLoginView()
                         }
+                        is LoginState.FindAccount -> {
+                            showLoginView()
+                        }
+                        is LoginState.EmailValid -> {
+                            showLoginView()
+                        }
                     }
                 }
 
@@ -98,10 +103,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
 
                 btnLogin.setOnClickListener {
-                    showLoginView()
-                }
-
-                btnBack.setOnClickListener {
                     showLoginView()
                 }
             }
