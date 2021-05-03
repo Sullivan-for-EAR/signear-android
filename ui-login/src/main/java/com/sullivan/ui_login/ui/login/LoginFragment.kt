@@ -47,67 +47,71 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private fun setupView() {
         binding.apply {
-            btnNext.setOnClickListener {
-                when (viewModel.checkCurrentState()) {
-                    is LoginState.Init -> {
-                        val email = etEmailInput.text.toString().trim()
-                        if (email.isNotEmpty()) {
-                            viewModel.updateLoginState(LoginState.EmailValid)
-                            etEmailInput.clearFocus()
-                            etPasswordInput.apply {
-                                requestFocus()
-                                showKeyboard()
-                            }
-                        } else {
-                            viewModel.updateLoginState(LoginState.JoinMember)
+            loginLayout.apply {
+                btnNext.setOnClickListener {
+                    when (viewModel.checkCurrentState()) {
+                        is LoginState.Init -> {
+                            val email = etEmailInput.text.toString().trim()
+                            if (email.isNotEmpty()) {
+                                viewModel.updateLoginState(LoginState.EmailValid)
+                                etEmailInput.clearFocus()
+                                etPasswordInput.apply {
+                                    requestFocus()
+                                    showKeyboard()
+                                }
+                            } else {
+                                viewModel.updateLoginState(LoginState.JoinMember)
 
-                            tvTitle.text = "회원가입"
-                            ivPhone.makeVisible()
-                            etPhoneInput.makeVisible()
-                            btnNext.makeGone()
-                            btnFindAccount.makeGone()
-                            tvRule.makeVisible()
-                            btnJoin.makeVisible()
-                        }
+                                tvTitle.text = "회원가입"
+                                ivPhone.makeVisible()
+                                etPhoneInput.makeVisible()
+                                btnNext.makeGone()
+                                btnFindAccount.makeGone()
+                                tvRule.makeVisible()
+                                btnJoin.makeVisible()
+                            }
 
-                        ivPassword.makeVisible()
-                        etPasswordInput.makeVisible()
-                    }
-                    is LoginState.EmailValid -> {
-                        val password = etPasswordInput.text.toString().trim()
-                        if (password.isNotEmpty()) {
-                            etPasswordInput.apply {
-                                clearFocus()
-                                hideKeyboard()
+                            ivPassword.makeVisible()
+                            etPasswordInput.makeVisible()
+                        }
+                        is LoginState.EmailValid -> {
+                            val password = etPasswordInput.text.toString().trim()
+                            if (password.isNotEmpty()) {
+                                etPasswordInput.apply {
+                                    clearFocus()
+                                    hideKeyboard()
+                                }
                             }
                         }
-                    }
-                    is LoginState.EmailNotValid -> {
-                        findAccountLayout.tvFindAccountGuideMsg.makeVisible()
-                        findAccountLayout.etEmailInput.makeVisible()
-                        findAccountLayout.btnNext.makeVisible()
+                        is LoginState.EmailNotValid -> {
+                            findAccountLayout.tvFindAccountGuideMsg.makeVisible()
+                            findAccountLayout.etEmailInput.makeVisible()
+                            findAccountLayout.btnNext.makeVisible()
+                        }
                     }
                 }
-            }
 
-            btnJoin.setOnClickListener {
-                viewModel.updateLoginState(LoginState.Success)
-            }
+                btnJoin.setOnClickListener {
+                    viewModel.updateLoginState(LoginState.Success)
+                }
 
-            btnFindAccount.setOnClickListener {
-                viewModel.updateLoginState(LoginState.EmailNotValid)
-                tvTitle.text = "계정 찾기"
+                btnFindAccount.setOnClickListener {
+                    viewModel.updateLoginState(LoginState.EmailNotValid)
+                    tvTitle.text = "계정 찾기"
 
-                ivHuman.makeGone()
-                etEmailInput.makeGone()
-                btnFindAccount.makeGone()
-                btnNext.makeGone()
+//                    ivHuman.makeGone()
+//                    etEmailInput.makeGone()
+//                    btnFindAccount.makeGone()
+//                    btnNext.makeGone()
+                    loginLayout.makeGone()
+                    loginLayout.hideKeyboard()
 
-                findAccountLayout.findAccountLayout.makeVisible()
+                    findAccountLayout.findAccountLayout.makeVisible()
 //                findAccountLayout.tvFindAccountGuideMsg.makeVisible()
 //                findAccountLayout.ivHuman.makeVisible()
 //                findAccountLayout.etEmailInput.makeVisible()
 //                findAccountLayout.btnNext.makeVisible()
+                }
             }
 
             findAccountLayout.apply {
@@ -145,7 +149,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 run {
                     when (loginState) {
                         is LoginState.EmailValid -> {
-                            binding.apply {
+                            binding.loginLayout.apply {
                                 ivPassword.makeVisible()
                                 etPasswordInput.makeVisible()
                             }
@@ -162,16 +166,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun setTextWatcher() {
 
         var email: String
-        binding.etEmailInput.addTextChangedListener(object : TextWatcher {
+        binding.loginLayout.etEmailInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                email = binding.etEmailInput.text.toString().trim()
+                email = binding.loginLayout.etEmailInput.text.toString().trim()
                 if (email.isNotEmpty() && checkEmailValidation(email)) {
                     ViewCompat.setBackgroundTintList(
-                        binding.btnNext,
+                        binding.loginLayout.btnNext,
                         ContextCompat.getColorStateList(
                             requireContext(),
                             R.color.black
@@ -179,7 +183,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     )
                 } else {
                     ViewCompat.setBackgroundTintList(
-                        binding.btnNext,
+                        binding.loginLayout.btnNext,
                         ContextCompat.getColorStateList(
                             requireContext(),
                             R.color.btn_next_disable
