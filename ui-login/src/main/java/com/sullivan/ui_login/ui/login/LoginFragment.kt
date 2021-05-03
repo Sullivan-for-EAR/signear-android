@@ -103,27 +103,38 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 btnFindAccount.makeGone()
                 btnNext.makeGone()
 
-                findAccountLayout.tvFindAccountGuideMsg.makeVisible()
-                findAccountLayout.ivHuman.makeVisible()
-                findAccountLayout.etEmailInput.makeVisible()
-                findAccountLayout.btnNext.makeVisible()
+                findAccountLayout.findAccountLayout.makeVisible()
+//                findAccountLayout.tvFindAccountGuideMsg.makeVisible()
+//                findAccountLayout.ivHuman.makeVisible()
+//                findAccountLayout.etEmailInput.makeVisible()
+//                findAccountLayout.btnNext.makeVisible()
             }
 
-            findAccountLayout.btnNext.setOnClickListener {
-                findAccountLayout.tvFindAccountGuideMsg.makeGone()
-                findAccountLayout.ivHuman.makeGone()
-                findAccountLayout.etEmailInput.apply {
-                    clearFocus()
-                    hideKeyboard()
-                    makeGone()
+            findAccountLayout.apply {
+                btnNext.setOnClickListener {
+                    tvFindAccountGuideMsg.makeGone()
+                    ivHuman.makeGone()
+                    etEmailInput.apply {
+                        clearFocus()
+                        hideKeyboard()
+                        makeGone()
+                    }
+                    btnNext.makeGone()
+
+                    ivVoyage.makeVisible()
+                    guideMsg.makeVisible()
+                    guideMsg2.makeVisible()
+                    btnLogin.makeVisible()
                 }
-                findAccountLayout.btnNext.makeGone()
 
+                btnLogin.setOnClickListener {
+                    ivVoyage.makeGone()
+                    guideMsg.makeGone()
+                    guideMsg2.makeGone()
+                    btnLogin.makeGone()
 
-                findAccountLayout.ivVoyage.makeVisible()
-                findAccountLayout.guideMsg.makeVisible()
-                findAccountLayout.guideMsg2.makeVisible()
-                findAccountLayout.btnLogin.makeVisible()
+                    findAccountLayout.makeGone()
+                }
             }
         }
     }
