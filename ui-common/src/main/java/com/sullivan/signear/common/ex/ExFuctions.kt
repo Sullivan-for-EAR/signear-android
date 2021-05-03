@@ -11,6 +11,7 @@ import android.view.animation.LayoutAnimationController
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -32,7 +33,7 @@ inline fun <reified T : Activity> Context.launchActivity() {
     val intent = Intent(this, T::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
     startActivity(intent)
-    ( this as Activity).overridePendingTransition(0,0)
+    (this as Activity).overridePendingTransition(0, 0)
     finish()
 }
 
@@ -87,11 +88,19 @@ fun View.showKeyboard() {
 }
 
 fun View.makeVisible() {
-    this.visibility = View.VISIBLE
+    this.isVisible = true
 }
 
 fun View.makeGone() {
-    this.visibility = View.GONE
+    this.isVisible = false
+}
+
+fun View.makeEnable() {
+    this.isEnabled = true
+}
+
+fun View.makeDisable() {
+    this.isEnabled = false
 }
 
 fun RecyclerView.runLayoutAnimation() {

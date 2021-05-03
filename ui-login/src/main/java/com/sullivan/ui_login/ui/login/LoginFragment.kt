@@ -195,6 +195,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             R.color.black
                         )
                     )
+                    binding.findAccountLayout.btnNext.makeEnable()
                 } else {
                     ViewCompat.setBackgroundTintList(
                         binding.findAccountLayout.btnNext,
@@ -203,9 +204,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             R.color.btn_next_disable
                         )
                     )
+                    binding.findAccountLayout.btnNext.makeDisable()
                 }
             }
-
         })
 
         var phone: String
