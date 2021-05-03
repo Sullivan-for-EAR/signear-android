@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun moveToLoginScreen() {
         lifecycleScope.launchWhenCreated {
-//            delay(1_500)
+            delay(1_000)
             loginNavigator.openLogin(this@SplashActivity)
         }
     }
