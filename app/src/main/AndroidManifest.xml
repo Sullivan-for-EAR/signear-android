@@ -13,6 +13,7 @@
         android:theme="@style/Theme.Signearandroid">
         <activity
             android:name=".ui.SplashActivity"
+            android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
