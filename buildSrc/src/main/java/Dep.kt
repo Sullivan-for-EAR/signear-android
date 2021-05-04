@@ -119,7 +119,7 @@ object Dep {
     }
 
     object Kotlin {
-        const val version = "1.4.32"
+        const val version = "1.5.0"
         const val stdlibJvm = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
 
         object coroutines {
