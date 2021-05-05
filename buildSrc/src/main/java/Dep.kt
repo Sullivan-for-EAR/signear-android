@@ -2,7 +2,7 @@
 
 object Dep {
     object GradlePlugin {
-        const val androidStudioGradlePluginVersion = "4.1.3"
+        const val androidStudioGradlePluginVersion = "4.2.0"
         const val android = "com.android.tools.build:gradle:$androidStudioGradlePluginVersion"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
         const val kotlinSerialization =
