@@ -147,6 +147,13 @@ object Dep {
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
     }
 
+    object Retrofit {
+        private const val version = "2.9.0"
+        const val retrofit = "com.squareup.retrofit2:retrofit:$version"
+        const val gson = "com.google.code.gson:gson:2.8.6"
+        const val converterGson = "com.squareup.retrofit2:converter-gson:$version"
+    }
+
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.6"
 
@@ -156,5 +163,10 @@ object Dep {
         const val mockito = "org.mockito:mockito-core:3.7.0"
         const val androidJunit = "androidx.test.ext:junit:1.1.3-alpha03"
         const val espressoCore = "androidx.test.espresso:espresso-core:3.4.0-alpha03"
+    }
+
+    object Tool {
+        private const val desugarJdkVersion = "1.1.1"
+        const val desugarJdk = "com.android.tools:desugar_jdk_libs:$desugarJdkVersion"
     }
 }

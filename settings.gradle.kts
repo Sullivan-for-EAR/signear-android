@@ -11,7 +11,7 @@ rootProject.name = "signear-android"
 
 include(
     ":app",
-//    ":data",
+    ":data",
 //    ":core",
 //    ":core-android",
 //    ":model",

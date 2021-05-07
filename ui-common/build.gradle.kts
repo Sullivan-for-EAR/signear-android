@@ -30,4 +30,6 @@ dependencies {
     implementation(Dep.AndroidX.Navigation.uiKtx)
 
     implementation(Dep.timber)
+
+    coreLibraryDesugaring (Dep.Tool.desugarJdk)
 }

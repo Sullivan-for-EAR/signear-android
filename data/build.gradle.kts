@@ -12,33 +12,20 @@ listOf(
     apply(from = "${rootProject.projectDir}/gradle/${file}")
 }
 
-android {
-    buildFeatures {
-        viewBinding = true
-    }
-}
-
 dependencies {
-
-    implementation(project(":ui-common"))
+    
 
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.Kotlin.coroutines.core)
     implementation(Dep.Kotlin.coroutines.android)
 
-    implementation(Dep.AndroidX.activity.ktx)
-    implementation(Dep.AndroidX.fragment.ktx)
-    implementation(Dep.AndroidX.lifecycle.viewModelKtx)
-    implementation(Dep.AndroidX.lifecycle.liveDataKtx)
-    implementation(Dep.AndroidX.UI.material)
-
     implementation(Dep.Dagger.Hilt.android)
     kapt(Dep.Dagger.Hilt.compiler)
 
-    implementation(Dep.AndroidX.Navigation.fragmentKtx)
-    implementation(Dep.AndroidX.Navigation.uiKtx)
-
-    implementation(Dep.timber)
+    implementation(Dep.Retrofit.retrofit)
+    implementation(Dep.Retrofit.gson)
+    implementation(Dep.Retrofit.converterGson)
+    implementation(Dep.OkHttp.loggingInterceptor)
 
     coreLibraryDesugaring (Dep.Tool.desugarJdk)
 }
