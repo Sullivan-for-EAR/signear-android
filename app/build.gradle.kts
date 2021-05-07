@@ -17,6 +17,8 @@ android {
         versionName = ProjectConfigurations.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -31,25 +33,47 @@ android {
             proguardFiles(file("proguard-rules.pro"))
         }
     }
+
     buildFeatures {
         viewBinding = true
         dataBinding = true
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    testOptions {
+        animationsDisabled = true
+        unitTests.apply {
+            isReturnDefaultValues = true
+            isIncludeAndroidResources = true
+        }
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+    }
+
+    packagingOptions {
+        exclude("**/*.kotlin_module")
+        exclude("**/*.version")
+        exclude("**/kotlin/**")
+        exclude("**/*.txt")
+        exclude("**/*.xml")
+        exclude("**/*.properties")
     }
 }
 
 dependencies {
 
+    implementation(project(":data"))
+    implementation(project(":domain"))
     implementation(project(":ui-common"))
     implementation(project(":ui-login"))
 
-    // kotlin
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.Kotlin.coroutines.core)
     implementation(Dep.Kotlin.coroutines.android)
@@ -59,13 +83,21 @@ dependencies {
     implementation(Dep.AndroidX.StartUp.runtime)
     implementation(Dep.AndroidX.UI.material)
 
-    // Hilt
     implementation(Dep.Dagger.Hilt.android)
     kapt(Dep.Dagger.Hilt.compiler)
+
+    implementation(Dep.OkHttp.core)
+    implementation(Dep.Retrofit.retrofit)
     
     implementation(Dep.timber)
 }
 
 kapt {
     useBuildCache = true
+    mapDiagnosticLocations = true
+    arguments {
+        arg("dagger.formatGeneratedSource", "disabled")
+        arg("dagger.fastInit", "enabled")
+        arg("dagger.experimentalDaggerErrorMessages", "enabled")
+    }
 }

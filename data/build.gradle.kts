@@ -25,6 +25,7 @@ dependencies {
     implementation(Dep.Retrofit.retrofit)
     implementation(Dep.Retrofit.gson)
     implementation(Dep.Retrofit.converterGson)
+    implementation(Dep.OkHttp.core)
     implementation(Dep.OkHttp.loggingInterceptor)
 
     coreLibraryDesugaring (Dep.Tool.desugarJdk)
@@ -32,4 +33,10 @@ dependencies {
 
 kapt {
     useBuildCache = true
+    mapDiagnosticLocations = true
+    arguments {
+        arg("dagger.formatGeneratedSource", "disabled")
+        arg("dagger.fastInit", "enabled")
+        arg("dagger.experimentalDaggerErrorMessages", "enabled")
+    }
 }

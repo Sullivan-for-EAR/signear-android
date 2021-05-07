@@ -25,3 +25,4 @@ include(
 //    ":ui-detail",
 //    ":compose"
 )
+include(":domain")
