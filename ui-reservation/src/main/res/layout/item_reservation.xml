@@ -40,5 +40,5 @@
         android:layout_marginTop="14dp"
         android:layout_marginEnd="20dp"
         android:layout_toStartOf="@id/btn_navigation"
-        android:background="@drawable/not_read_icon" />
+        tools:background="@drawable/not_read_icon" />
 </RelativeLayout>

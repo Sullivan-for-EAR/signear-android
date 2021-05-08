@@ -2,9 +2,13 @@ package com.sullivan.signear.ui_reservation.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemReservationBinding
 import com.sullivan.signear.ui_reservation.model.Reservation
+import com.sullivan.signear.ui_reservation.state.ReservationState
 
 class ReservationListAdapter(private val reservationList: List<Reservation>) :
     RecyclerView.Adapter<ReservationListAdapter.ReservationListViewHolder>() {
@@ -16,6 +20,43 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
             binding.apply {
                 tvPlace.text = item.place
                 tvDate.text = item.date
+                showReservationState(item.currentState, ivState)
+            }
+        }
+
+        private fun showReservationState(currentState: ReservationState, ivState: ImageView) {
+            when (currentState) {
+                is ReservationState.NotRead -> ivState.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        ivState.context.resources,
+                        R.drawable.not_read_icon, null
+                    )
+                )
+                is ReservationState.Cancel -> ivState.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        ivState.context.resources,
+                        R.drawable.cancel_icon, null
+                    )
+                )
+                is ReservationState.NotConfirm -> ivState.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        ivState.context.resources,
+                        R.drawable.not_confirm_icon, null
+                    )
+                )
+                is ReservationState.Confirm -> ivState.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        ivState.context.resources,
+                        R.drawable.confirm_icon, null
+                    )
+                )
+                is ReservationState.Reject -> ivState.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        ivState.context.resources,
+                        R.drawable.reject_icon, null
+                    )
+                )
+                ReservationState.Served -> TODO()
             }
         }
     }

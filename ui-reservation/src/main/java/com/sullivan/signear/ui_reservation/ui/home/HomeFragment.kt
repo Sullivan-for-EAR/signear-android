@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.sigenear.ui_reservation.databinding.HomeFragmentBinding
 import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.signear.ui_reservation.model.Reservation
+import com.sullivan.signear.ui_reservation.state.ReservationState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,10 +38,14 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 ReservationListAdapter(
                     listOf(
                         Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원", ReservationState.NotConfirm),
+                        Reservation(
+                            "4월 30일(금) 오전 9시",
+                            "서초좋은병원",
+                            ReservationState.Reject("reason")
+                        ),
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원", ReservationState.Confirm),
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원", ReservationState.Cancel),
                         Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
                         Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
                         Reservation("4월 30일(금) 오전 9시", "서초좋은병원")
