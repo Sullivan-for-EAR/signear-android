@@ -24,7 +24,12 @@
         </activity>
 
         <activity
-            android:name="com.sullivan.ui_login.ui.LoginActivity"
+            android:name=".ui_login.ui.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui_reservation.ReservationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 

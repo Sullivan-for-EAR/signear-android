@@ -6,7 +6,7 @@
     app:startDestination="@id/loginStartFragment">
     <fragment
         android:id="@+id/loginStartFragment"
-        android:name="com.sullivan.ui_login.ui.login.LoginStartFragment"
+        android:name="com.sullivan.signear.ui_login.ui.login.LoginStartFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_login_start" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.sullivan.ui_login.ui.login.LoginFragment"
+        android:name="com.sullivan.signear.ui_login.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFinishFragment"
-        android:name="com.sullivan.ui_login.ui.login.LoginFinishFragment"
+        android:name="com.sullivan.signear.ui_login.ui.login.LoginFinishFragment"
         android:label="fragment_login_finish"
         tools:layout="@layout/fragment_login_finish" />
 

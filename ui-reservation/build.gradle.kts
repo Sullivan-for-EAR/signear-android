@@ -1,45 +1,55 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
+}
+
+listOf(
+    "commonConfiguration.gradle",
+    "libraryConfiguration.gradle"
+).forEach { file ->
+    apply(from = "${rootProject.projectDir}/gradle/${file}")
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
-
-    defaultConfig {
-        applicationId "com.bentley.ui_reservation"
-        minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
+    buildFeatures {
+        viewBinding = true
     }
 }
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation(project(":ui-common"))
+    implementation(project(":domain"))
+
+    implementation(Dep.Kotlin.stdlibJvm)
+    implementation(Dep.Kotlin.coroutines.core)
+    implementation(Dep.Kotlin.coroutines.android)
+
+    implementation(Dep.AndroidX.activity.ktx)
+    implementation(Dep.AndroidX.fragment.ktx)
+    implementation(Dep.AndroidX.lifecycle.viewModelKtx)
+    implementation(Dep.AndroidX.lifecycle.liveDataKtx)
+    implementation(Dep.AndroidX.UI.material)
+
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
+
+    implementation(Dep.AndroidX.Navigation.fragmentKtx)
+    implementation(Dep.AndroidX.Navigation.uiKtx)
+
+    implementation(Dep.timber)
+
+    coreLibraryDesugaring (Dep.Tool.desugarJdk)
+}
+
+kapt {
+    useBuildCache = true
+    mapDiagnosticLocations = true
+    arguments {
+        arg("dagger.formatGeneratedSource", "disabled")
+        arg("dagger.fastInit", "enabled")
+        arg("dagger.experimentalDaggerErrorMessages", "enabled")
+    }
 }

@@ -5,8 +5,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.sullivan.sigenear.common.databinding.ActivitySplashBinding
-import com.sullivan.sigenear.common.navigator.LoginNavigator
 import com.sullivan.signear.common.ex.viewBinding
+import com.sullivan.signear.common.navigator.LoginNavigator
+import com.sullivan.signear.common.navigator.ReservationNavigator
 import com.sullivan.signear.core.DataState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,18 +24,29 @@ class SplashActivity : AppCompatActivity() {
 
     @Inject
     lateinit var loginNavigator: LoginNavigator
+    @Inject
+    lateinit var reservationNavigator: ReservationNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(binding.root)
 //        moveToLoginScreen()
         checkApi()
+
+        moveToMainScreen()
     }
 
     private fun moveToLoginScreen() {
         lifecycleScope.launchWhenCreated {
             delay(1_000)
             loginNavigator.openLogin(this@SplashActivity)
+        }
+    }
+
+    private fun moveToMainScreen() {
+        lifecycleScope.launchWhenCreated {
+            delay(1_000)
+            reservationNavigator.openReservationHome(this@SplashActivity)
         }
     }
 

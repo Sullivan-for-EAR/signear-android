@@ -1,7 +1,8 @@
-package com.bentley.ui_reservation
+package com.sullivan.signear.ui_reservation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.sullivan.sigenear.ui_reservation.R
 
 class ReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

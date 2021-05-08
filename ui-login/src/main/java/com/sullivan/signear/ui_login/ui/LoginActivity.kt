@@ -1,8 +1,8 @@
-package com.sullivan.ui_login.ui
+package com.sullivan.signear.ui_login.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.sullivan.ui_login.R
+import com.sullivan.signear.ui_login.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

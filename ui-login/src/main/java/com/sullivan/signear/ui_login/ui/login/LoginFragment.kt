@@ -1,4 +1,4 @@
-package com.sullivan.ui_login.ui.login
+package com.sullivan.signear.ui_login.ui.login
 
 import android.os.Bundle
 import android.text.Editable
@@ -13,8 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.signear.common.ex.*
-import com.sullivan.ui_login.R
-import com.sullivan.ui_login.databinding.FragmentLoginBinding
+import com.sullivan.signear.ui_login.R
+import com.sullivan.signear.ui_login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 

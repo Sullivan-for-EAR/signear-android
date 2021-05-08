@@ -1,9 +1,10 @@
-package com.sullivan.ui_login.ui.login
+package com.sullivan.signear.ui_login.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sullivan.signear.domain.SignearRepository
+import com.sullivan.signear.ui_login.ui.login.LoginState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
-package com.bentley.ui_reservation.di
+package com.sullivan.signear.ui_reservation.di
 
-import com.bentley.ui_reservation.navigator.ReservationNavigatorImpl
-import com.sullivan.sigenear.common.navigator.ReservationNavigator
+import com.sullivan.signear.common.navigator.ReservationNavigator
+import com.sullivan.signear.ui_reservation.navigator.ReservationNavigatorImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

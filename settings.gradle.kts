@@ -18,7 +18,8 @@ include(
     ":domain",
 //    ":site",
     ":ui-common",
-    ":ui-login"
+    ":ui-login",
+    ":ui-reservation"
 //    ":ui-weekly",
 //    ":ui-episode",
 //    ":ui-setting",

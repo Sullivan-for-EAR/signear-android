@@ -74,6 +74,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":ui-common"))
     implementation(project(":ui-login"))
+    implementation(project(":ui-reservation"))
 
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.Kotlin.coroutines.core)

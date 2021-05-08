@@ -1,4 +1,4 @@
-package com.sullivan.ui_login.ui.login
+package com.sullivan.signear.ui_login.ui.login
 
 sealed class LoginState {
     object Init : LoginState()
