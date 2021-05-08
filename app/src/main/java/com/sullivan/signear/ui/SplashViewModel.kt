@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import timber.log.Timber
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -25,6 +26,7 @@ constructor(private val repository: SignearRepository) : ViewModel() {
             }
         } catch (e: Exception) {
             emit(DataState.Error(e))
+            Timber.e(DataState.Error(e).toString())
         }
     }
 }
