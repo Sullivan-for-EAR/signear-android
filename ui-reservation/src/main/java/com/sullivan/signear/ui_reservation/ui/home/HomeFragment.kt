@@ -37,7 +37,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             reservationListAdapter =
                 ReservationListAdapter(
                     listOf(
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원", ReservationState.Urgent),
                         Reservation("4월 30일(금) 오전 9시", "서초좋은병원", ReservationState.NotConfirm),
                         Reservation(
                             "4월 30일(금) 오전 9시",

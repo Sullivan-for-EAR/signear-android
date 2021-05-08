@@ -14,11 +14,20 @@
         tools:text="서초좋은병원" />
 
     <TextView
+        android:id="@+id/tv_urgent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="긴급 통역 연결 중"
+        android:textColor="@color/urgent_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_place"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="30dp"
         android:textColor="@color/date_text"
         android:textSize="18sp"
         tools:text="4월 30일(금) 오전 9시" />

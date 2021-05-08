@@ -7,6 +7,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemReservationBinding
+import com.sullivan.signear.common.ex.makeGone
+import com.sullivan.signear.common.ex.makeVisible
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
 
@@ -18,7 +20,17 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Reservation) {
             binding.apply {
-                tvPlace.text = item.place
+                if (item.currentState == ReservationState.Urgent) {
+                    tvUrgent.makeVisible()
+                    tvPlace.makeGone()
+                } else {
+                    tvPlace.apply {
+                        makeVisible()
+                        text = item.place
+                    }
+                    tvUrgent.makeGone()
+                }
+
                 tvDate.text = item.date
                 showReservationState(item.currentState, ivState)
             }
@@ -56,7 +68,7 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
                         R.drawable.reject_icon, null
                     )
                 )
-                ReservationState.Served -> TODO()
+                else -> ivState.makeGone()
             }
         }
     }

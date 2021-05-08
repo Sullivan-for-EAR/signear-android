@@ -11,5 +11,5 @@ data class Reservation(
     val place: String,
 //    val purpose: String,
     val currentState: ReservationState = ReservationState.NotRead,
-    val isUrgent: Boolean = false
+    val isContactless: Boolean = false
 )
