@@ -29,7 +29,7 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".ui_reservation.ReservationActivity"
+            android:name=".ui_reservation.ui.ReservationActivity"
             android:theme="@style/ReservationTheme"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />

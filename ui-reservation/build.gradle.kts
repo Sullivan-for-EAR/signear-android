@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("kotlin-android")
 }
 
 listOf(
@@ -34,6 +35,10 @@ dependencies {
     implementation(Dep.AndroidX.UI.material)
 
     implementation(Dep.Dagger.Hilt.android)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     kapt(Dep.Dagger.Hilt.compiler)
 
     implementation(Dep.AndroidX.Navigation.fragmentKtx)
