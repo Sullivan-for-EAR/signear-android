@@ -69,6 +69,7 @@ android {
 
 dependencies {
 
+    implementation(project(":core"))
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":ui-common"))
@@ -80,6 +81,7 @@ dependencies {
 
     implementation(Dep.AndroidX.activity.ktx)
     implementation(Dep.AndroidX.lifecycle.viewModelKtx)
+    implementation(Dep.AndroidX.lifecycle.liveDataKtx)
     implementation(Dep.AndroidX.StartUp.runtime)
     implementation(Dep.AndroidX.UI.material)
 

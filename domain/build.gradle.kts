@@ -14,6 +14,7 @@ listOf(
 
 dependencies {
 
+    implementation(project(":core"))
     implementation(project(":data"))
 
     implementation(Dep.Kotlin.stdlibJvm)
@@ -22,6 +23,8 @@ dependencies {
 
     implementation(Dep.Dagger.Hilt.android)
     kapt(Dep.Dagger.Hilt.compiler)
+
+    implementation(Dep.timber)
 
     coreLibraryDesugaring (Dep.Tool.desugarJdk)
 }

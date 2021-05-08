@@ -12,10 +12,10 @@ rootProject.name = "signear-android"
 include(
     ":app",
     ":data",
-//    ":core",
+    ":core",
 //    ":core-android",
 //    ":model",
-//    ":domain",
+    ":domain",
 //    ":site",
     ":ui-common",
     ":ui-login"
@@ -25,4 +25,3 @@ include(
 //    ":ui-detail",
 //    ":compose"
 )
-include(":domain")
