@@ -1,20 +1,22 @@
 package com.sullivan.signear.ui_reservation.ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.sullivan.sigenear.ui_reservation.R
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.sigenear.ui_reservation.databinding.HomeFragmentBinding
 import com.sullivan.signear.common.base.BaseFragment
+import com.sullivan.signear.ui_reservation.model.Reservation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
+    private lateinit var reservationListAdapter: ReservationListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +28,30 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupView()
     }
 
+    private fun setupView() {
+        binding.apply {
+            reservationListAdapter =
+                ReservationListAdapter(
+                    listOf(
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
+                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원")
+                    )
+                )
+
+            rvReservation.apply {
+                setHasFixedSize(true)
+                adapter = reservationListAdapter
+                addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            }
+        }
+    }
 }

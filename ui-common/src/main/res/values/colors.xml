@@ -14,4 +14,5 @@
 
 <!--    reservation  -->
     <color name="guide_msg_text">#979797</color>
+    <color name="date_text">#787878</color>
 </resources>
