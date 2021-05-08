@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.bentley.core.DataState
 import com.sullivan.sigenear.common.databinding.ActivitySplashBinding
 import com.sullivan.sigenear.common.navigator.LoginNavigator
-import com.sullivan.signear.R
 import com.sullivan.signear.common.ex.viewBinding
-import com.sullivan.ui_login.ui.login.LoginViewModel
+import com.sullivan.signear.core.DataState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay

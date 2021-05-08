@@ -1,7 +1,7 @@
-package com.bentley.domain.di
+package com.sullivan.signear.domain.di
 
-import com.bentley.domain.SignearRepositoryImpl
-import com.bentley.domain.SignearRepository
+import com.sullivan.signear.domain.SignearRepository
+import com.sullivan.signear.domain.SignearRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

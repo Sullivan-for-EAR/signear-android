@@ -1,4 +1,4 @@
-package com.bentley.core
+package com.sullivan.signear.core
 
 sealed class DataState<out R> {
     data class Success<out T>(val data: T) : DataState<T>()
