@@ -1,5 +1,6 @@
 package com.sullivan.signear.ui_reservation.ui.reservation
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,29 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
     override fun setupView() {
         binding.apply {
             spCenter.setItems(centerArray.toList())
+
+            rlSignTranslation.isSelected = true
+            rlOnlineTranslation.isSelected = !rlSignTranslation.isSelected
+
+            rlSignTranslation.setOnClickListener {
+                rlSignTranslation.isSelected = !rlSignTranslation.isSelected
+                rlOnlineTranslation.isSelected = !rlSignTranslation.isSelected
+                if (it.isSelected) {
+                    tvSignTranslation.typeface = Typeface.DEFAULT_BOLD
+                } else {
+                    tvSignTranslation.typeface = Typeface.DEFAULT
+                }
+            }
+
+            rlOnlineTranslation.setOnClickListener {
+                rlOnlineTranslation.isSelected = !rlOnlineTranslation.isSelected
+                rlSignTranslation.isSelected = !rlOnlineTranslation.isSelected
+                if (it.isSelected) {
+                    tvOnlineTranslation.typeface = Typeface.DEFAULT_BOLD
+                } else {
+                    tvOnlineTranslation.typeface = Typeface.DEFAULT
+                }
+            }
         }
     }
 

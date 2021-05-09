@@ -3,11 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:overScrollMode="never">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="32dp"
         tools:context="com.sullivan.signear.ui_reservation.ui.reservation.ReservationFragment">
 
         <androidx.constraintlayout.widget.Guideline
@@ -234,12 +236,262 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="45dp"
                 android:layout_gravity="center"
+                android:layout_marginStart="45dp"
                 android:background="#00000000"
                 android:foreground="?attr/selectableItemBackground"
                 android:src="@drawable/spinner_arrow" />
         </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_center_guide_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:text="수어통역 장소에 해당하는 구를 선택하세요"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/ll_center" />
+
+        <View
+            android:id="@+id/border4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/border_color"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_center_guide_msg" />
+
+        <ImageView
+            android:id="@+id/iv_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/place_icon"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/border4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="27dp"
+            android:text="수어통역 장소"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_place"
+            app:layout_constraintTop_toBottomOf="@+id/border4" />
+
+        <RelativeLayout
+            android:id="@+id/ll_place"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/reservation_time_view_bg"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_place">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="40dp"
+                android:background="@null"
+                android:hint="수어통역이 필요한 장소를 입력하세요"
+                android:maxLength="24"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint_color"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_place_guide_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:text="예: 서울대학교병원 가정의학과"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/ll_place" />
+
+        <View
+            android:id="@+id/border5"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/border_color"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_place_guide_msg" />
+
+        <ImageView
+            android:id="@+id/iv_translation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/translation_icon"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/border5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="27dp"
+            android:text="통역 방식"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_translation"
+            app:layout_constraintTop_toBottomOf="@+id/border5" />
+
+        <RelativeLayout
+            android:id="@+id/rl_sign_translation"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/translation_bg_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintEnd_toStartOf="@+id/rl_online_translation"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_translation">
+
+            <TextView
+                android:id="@+id/tv_sign_translation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="수어 통역"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_sign_translation"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="3dp"
+                android:text="대면"
+                android:textColor="@color/hint_color"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_online_translation"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/translation_bg_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/rl_sign_translation"
+            app:layout_constraintTop_toBottomOf="@+id/iv_translation">
+
+            <TextView
+                android:id="@+id/tv_online_translation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="화상 통역"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_online_translation"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="3dp"
+                android:text="비대면"
+                android:textColor="@color/hint_color"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/border6"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/border_color"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/rl_sign_translation" />
+
+        <ImageView
+            android:id="@+id/iv_purpose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/purpose_icon"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/border6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text="목적 및 요청사항"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_purpose"
+            app:layout_constraintTop_toBottomOf="@+id/border6" />
+
+        <RelativeLayout
+            android:id="@+id/ll_purpose"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/reservation_time_view_bg"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_purpose">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="-10dp"
+                android:layout_marginEnd="40dp"
+                android:background="@null"
+                android:hint="수어통역 목적과 요청사항을 입력하세요"
+                android:maxLength="24"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint_color"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_reservation"
+            android:layout_width="0dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/black"
+            android:text="예약하기"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:cornerRadius="5dp"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/ll_purpose" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

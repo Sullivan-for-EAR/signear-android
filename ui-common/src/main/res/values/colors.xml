@@ -18,4 +18,7 @@
     <color name="urgent_color">#FF453A</color>
     <color name="border_color">#D6D6D6</color>
     <color name="time_guide_color">#B6B6B6</color>
+    <color name="hint_color">#B6B6B6</color>
+    <color name="translation_press_stroke_color">#0A84FF</color>
+    <color name="translation_press_color">#0D0A84FF</color>
 </resources>
