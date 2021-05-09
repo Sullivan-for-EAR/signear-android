@@ -44,8 +44,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                 rlOnlineTranslation.isSelected = !rlSignTranslation.isSelected
                 if (it.isSelected) {
                     tvSignTranslation.typeface = Typeface.DEFAULT_BOLD
-                } else {
-                    tvSignTranslation.typeface = Typeface.DEFAULT
+                    tvOnlineTranslation.typeface = Typeface.DEFAULT
                 }
             }
 
@@ -54,8 +53,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                 rlSignTranslation.isSelected = !rlOnlineTranslation.isSelected
                 if (it.isSelected) {
                     tvOnlineTranslation.typeface = Typeface.DEFAULT_BOLD
-                } else {
-                    tvOnlineTranslation.typeface = Typeface.DEFAULT
+                    tvSignTranslation.typeface = Typeface.DEFAULT
                 }
             }
         }
