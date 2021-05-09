@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.sullivan.signear.ui_reservation.ui.reservation.ReservationFragment">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:background="#00000000"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/btn_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="예약하기"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/date_icon"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="27dp"
+            android:text="날짜"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_date"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_calendar"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/white"
+            android:text="4월 23일 금요일"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:cornerRadius="5dp"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_date" />
+
+        <View
+            android:id="@+id/border1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/border_color"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/btn_calendar" />
+
+        <ImageView
+            android:id="@+id/iv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/time_icon"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/border1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="27dp"
+            android:text="시간"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_time"
+            app:layout_constraintTop_toBottomOf="@+id/border1" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:background="@drawable/reservation_time_view_bg"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_time">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-3dp"
+                android:paddingStart="20dp"
+                android:text="시작"
+                android:textColor="@color/time_guide_color"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/btn_start_time"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:text="오전 00:00"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:cornerRadius="0dp"
+                app:icon="@drawable/start_icon"
+                app:iconGravity="textStart" />
+
+            <View
+                android:id="@+id/border2"
+                android:layout_width="1dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/border_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-3dp"
+                android:paddingStart="20dp"
+                android:text="종료"
+                android:textColor="@color/time_guide_color"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/btn_end_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:text="오전 00:00"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:cornerRadius="0dp"
+                app:icon="@drawable/end_icon"
+                app:iconGravity="textStart" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

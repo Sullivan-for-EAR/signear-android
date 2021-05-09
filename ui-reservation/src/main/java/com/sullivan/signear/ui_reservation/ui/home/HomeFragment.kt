@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.HomeFragmentBinding
 import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.signear.ui_reservation.model.Reservation
@@ -38,7 +40,11 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 ReservationListAdapter(
                     listOf(
                         Reservation("4월 30일(금) 오전 9시", "서초좋은병원", ReservationState.Urgent),
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원서초좋은병원서초좋은병원", ReservationState.NotConfirm),
+                        Reservation(
+                            "4월 30일(금) 오전 9시",
+                            "서초좋은병원서초좋은병원서초좋은병원",
+                            ReservationState.NotConfirm
+                        ),
                         Reservation(
                             "4월 30일(금) 오전 9시",
                             "서초좋은병원",
@@ -56,6 +62,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 setHasFixedSize(true)
                 adapter = reservationListAdapter
                 addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            }
+
+            btnReservation.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_reservationFragment)
             }
         }
     }

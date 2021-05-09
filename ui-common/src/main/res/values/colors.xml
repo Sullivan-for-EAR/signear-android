@@ -16,4 +16,6 @@
     <color name="guide_msg_text">#979797</color>
     <color name="date_text">#787878</color>
     <color name="urgent_color">#FF453A</color>
+    <color name="border_color">#D6D6D6</color>
+    <color name="time_guide_color">#B6B6B6</color>
 </resources>
