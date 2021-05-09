@@ -7,7 +7,7 @@
     android:background="@drawable/bottom_view_bg">
 
     <ImageButton
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -53,31 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_date"
-        tools:text="오전 00시부터 00시" />
-
-    <TextView
-        android:id="@+id/tv_time_guide_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="까지"
-        android:textColor="@color/guide_msg_text"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_time"
-        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
-
-    <TextView
-        android:id="@+id/tv_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:paddingHorizontal="32dp"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_time"
-        tools:text="장소가나다라마바사아자카차타파하가나다라마바" />
+        tools:text="오전 00시부터 00시까지" />
 
     <TextView
         android:id="@+id/tv_guide_msg"
@@ -88,8 +64,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_place" />
-
+        app:layout_constraintTop_toBottomOf="@+id/tv_time" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_view"

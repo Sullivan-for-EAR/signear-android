@@ -27,6 +27,7 @@ dependencies {
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.Kotlin.coroutines.core)
     implementation(Dep.Kotlin.coroutines.android)
+    implementation(Dep.AndroidX.legacySupport)
 
     implementation(Dep.AndroidX.activity.ktx)
     implementation(Dep.AndroidX.fragment.ktx)
@@ -35,10 +36,6 @@ dependencies {
     implementation(Dep.AndroidX.UI.material)
 
     implementation(Dep.Dagger.Hilt.android)
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     kapt(Dep.Dagger.Hilt.compiler)
 
     implementation(Dep.AndroidX.Navigation.fragmentKtx)
@@ -46,7 +43,7 @@ dependencies {
 
     implementation(Dep.timber)
 
-    coreLibraryDesugaring (Dep.Tool.desugarJdk)
+    coreLibraryDesugaring(Dep.Tool.desugarJdk)
 }
 
 kapt {

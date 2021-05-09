@@ -28,6 +28,7 @@ object Dep {
 
         const val appcompat = "androidx.appcompat:appcompat:1.3.0-rc01"
         const val coreKtx = "androidx.core:core-ktx:1.6.0-alpha02"
+        const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
 
         object fragment {
             private const val fragmentVersion = "1.3.3"
@@ -168,5 +169,9 @@ object Dep {
     object Tool {
         private const val desugarJdkVersion = "1.1.1"
         const val desugarJdk = "com.android.tools:desugar_jdk_libs:$desugarJdkVersion"
+    }
+
+    object CustomLib {
+        const val calendar = "com.github.prolificinteractive:material-calendarview:2.0.0"
     }
 }

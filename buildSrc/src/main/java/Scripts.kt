@@ -33,6 +33,7 @@ private fun RepositoryHandler.addScriptDependencies() {
             includeGroup("org.jlleitschuh.gradle")
         }
     }
+    maven ( "https://jitpack.io/")
 }
 
 fun ScriptHandlerScope.addScriptDependencies() {
