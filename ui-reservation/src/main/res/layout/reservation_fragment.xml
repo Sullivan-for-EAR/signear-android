@@ -115,11 +115,12 @@
             app:layout_constraintTop_toBottomOf="@+id/border1" />
 
         <LinearLayout
+            android:id="@+id/ll_time"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal"
             android:background="@drawable/reservation_time_view_bg"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toStartOf="@id/guideline2"
             app:layout_constraintStart_toEndOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/iv_time">
@@ -179,6 +180,68 @@
                 app:icon="@drawable/end_icon"
                 app:iconGravity="textStart" />
         </LinearLayout>
+
+        <View
+            android:id="@+id/border3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/border_color"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/ll_time" />
+
+        <ImageView
+            android:id="@+id/iv_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/center_icon"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/border3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="27dp"
+            android:text="수어통역센터"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_center"
+            app:layout_constraintTop_toBottomOf="@+id/border3" />
+
+        <RelativeLayout
+            android:id="@+id/ll_center"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/reservation_time_view_bg"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_center">
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/sp_center"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:ms_hide_arrow="true" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="-3dp"
+                android:layout_toEndOf="@id/sp_center"
+                android:background="#00000000"
+                android:foreground="?attr/selectableItemBackground"
+                android:src="@drawable/spinner_arrow" />
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

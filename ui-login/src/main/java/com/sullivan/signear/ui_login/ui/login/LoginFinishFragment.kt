@@ -18,4 +18,7 @@ class LoginFinishFragment : BaseFragment<FragmentLoginFinishBinding>() {
         binding = FragmentLoginFinishBinding.inflate(layoutInflater)
         return binding.root
     }
+
+    override fun setupView() {
+    }
 }

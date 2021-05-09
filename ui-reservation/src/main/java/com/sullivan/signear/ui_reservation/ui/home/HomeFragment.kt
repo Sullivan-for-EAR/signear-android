@@ -29,12 +29,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupView()
-    }
-
-    private fun setupView() {
+    override fun setupView() {
         binding.apply {
             reservationListAdapter =
                 ReservationListAdapter(

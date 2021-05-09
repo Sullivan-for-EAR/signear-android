@@ -41,12 +41,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupView()
         setupObserve()
         setTextWatcher()
     }
 
-    private fun setupView() {
+    override fun setupView() {
         binding.apply {
             loginLayout.apply {
                 btnNext.setOnClickListener {

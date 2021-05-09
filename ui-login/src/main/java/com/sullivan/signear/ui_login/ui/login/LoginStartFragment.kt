@@ -30,4 +30,7 @@ class LoginStartFragment : BaseFragment<FragmentLoginStartBinding>() {
             findNavController().navigate(R.id.action_loginStartFragment_to_loginFragment)
         }
     }
+
+    override fun setupView() {
+    }
 }
