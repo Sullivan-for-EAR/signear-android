@@ -172,7 +172,8 @@ object Dep {
     }
 
     object CustomLib {
-        const val calendar = "com.github.prolificinteractive:material-calendarview:2.0.0"
+        const val calendar = "com.applandeo:material-calendar-view:1.9.0-rc03"
         const val spinner = "com.jaredrummler:material-spinner:1.3.1"
+
     }
 }

@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ReservationFragmentBinding
 import com.sullivan.signear.common.base.BaseFragment
@@ -55,6 +57,11 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                     tvOnlineTranslation.typeface = Typeface.DEFAULT_BOLD
                     tvSignTranslation.typeface = Typeface.DEFAULT
                 }
+            }
+
+            btnCalendar.setOnClickListener {
+                val ft: FragmentTransaction = parentFragmentManager.beginTransaction()
+                CalendarDialogFragment.newInstance().show(ft, "calendar")
             }
         }
     }
