@@ -20,7 +20,6 @@ class CalendarDialogFragment : DialogFragment(R.layout.fragment_calendar_dialog)
     override fun onResume() {
         super.onResume()
 
-//        dialog?.window?.setLayout(250, 250)
         dialog?.setOnKeyListener { _, _, keyEvent ->
             if (keyEvent.keyCode == KeyEvent.KEYCODE_BACK) {
                 dismiss()
