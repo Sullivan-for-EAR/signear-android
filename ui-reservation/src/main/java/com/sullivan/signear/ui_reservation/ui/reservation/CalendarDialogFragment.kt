@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.DialogFragment
+import com.applandeo.materialcalendarview.utils.setSelectedDayColors
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentCalendarDialogBinding
 
@@ -14,7 +15,7 @@ class CalendarDialogFragment : DialogFragment(R.layout.fragment_calendar_dialog)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCalendarDialogBinding.bind(view)
-
+        setupView()
     }
 
     override fun onResume() {
@@ -31,6 +32,14 @@ class CalendarDialogFragment : DialogFragment(R.layout.fragment_calendar_dialog)
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    private fun setupView() {
+        binding?.apply {
+            calendarView.apply {
+                setSelectionBackground(R.drawable.selection_circle)
+            }
+        }
     }
 
     companion object {

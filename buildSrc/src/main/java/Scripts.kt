@@ -20,6 +20,9 @@ fun Project.addScriptRepository() {
 }
 
 private fun RepositoryHandler.addScriptDependencies() {
+    google()
+    jcenter()
+    mavenCentral()
     google {
         content {
             includeGroupByRegex("com.android.*")
@@ -27,13 +30,13 @@ private fun RepositoryHandler.addScriptDependencies() {
             includeGroupByRegex("com.google.*")
         }
     }
-    mavenCentral()
     maven("https://plugins.gradle.org/m2/") {
         content {
             includeGroup("org.jlleitschuh.gradle")
         }
     }
-    maven ( "https://jitpack.io/")
+    maven("https://storage.googleapis.com/r8-releases/raw")
+    maven("https://jitpack.io/")
 }
 
 fun ScriptHandlerScope.addScriptDependencies() {

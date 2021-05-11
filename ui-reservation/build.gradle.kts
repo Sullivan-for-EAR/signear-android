@@ -46,7 +46,7 @@ dependencies {
     implementation(Dep.timber)
 
     implementation(Dep.CustomLib.spinner)
-    implementation (Dep.CustomLib.calendar)
+    implementation(Dep.CustomLib.calendar)
 
     coreLibraryDesugaring(Dep.Tool.desugarJdk)
 }
