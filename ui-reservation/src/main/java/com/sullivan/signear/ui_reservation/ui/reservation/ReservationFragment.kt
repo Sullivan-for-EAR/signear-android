@@ -22,7 +22,7 @@ import java.util.*
 class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
 
     private val viewModel: ReservationViewModel by viewModels()
-    private val centerArray = arrayOf("강남구", "마포구")
+    private lateinit var centerArray: Array<String>
     private lateinit var centerAdapter: ArrayAdapter<String>
 
     override fun onCreateView(
@@ -40,6 +40,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
 
     override fun setupView() {
         binding.apply {
+            centerArray = resources.getStringArray(R.array.center_array)
             spCenter.setItems(centerArray.toList())
 
             rlSignTranslation.isSelected = true
@@ -86,6 +87,9 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                 openEndTimePicker()
             }
 
+            btnCenter.setOnClickListener {
+                spCenter.expand()
+            }
         }
     }
 
