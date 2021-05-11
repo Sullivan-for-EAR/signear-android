@@ -8,15 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.NumberPicker
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ReservationFragmentBinding
 import com.sullivan.signear.common.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
+import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
@@ -65,31 +63,32 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
             }
 
             btnCalendar.setOnClickListener {
-//                val ft: FragmentTransaction = parentFragmentManager.beginTransaction()
-//                CalendarDialogFragment.newInstance().show(ft, "calendar")
                 openDatePickerSpinner()
+            }
+
+            btnCalendar.apply {
+                val calendar = Calendar.getInstance()
+
+                text =
+                    "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${
+                        getCurrentDayOfName(
+                            calendar
+                        )
+                    }"
             }
         }
     }
 
     private fun openDatePickerSpinner() {
         val calendar = Calendar.getInstance()
-        var date: LocalDate
-
-//        val selectedDate = viewModel.getSelectedDate()
-//        if (selectedDate != null) {
-//            calendar.set(selectedDate.year, selectedDate.month - 1, 1)
-//        }
-
-        val monthArray = arrayOf("1월, 2월, 3월, 4월, 5월, 6월, 7월, 8월, 9월, 10월, 11월, 12월")
 
         val dialog = DatePickerDialog(
             requireContext(),
             R.style.CustomDatePickerDialog,
-            { _, year, month, day ->
-                date = LocalDate.of(year, month + 1, day)
-//                binding?.calendarView?.setCurrentDate(date)
-                binding.btnCalendar.text = "${month + 1}월 ${day}일"
+            { _, _, monthOfYear, day ->
+
+                val month = monthOfYear + 1
+                binding.btnCalendar.text = "${month}월 ${day}일 ${getCurrentDayOfName(calendar)}"
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -101,9 +100,15 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
             findViewById<View>(
                 Resources.getSystem().getIdentifier("year", "id", "android")
             ).isVisible = false
+            minDate = System.currentTimeMillis() - 1000
         }
 
         dialog.show()
     }
 
+    private fun getCurrentDayOfName(calendar: Calendar): String {
+        val date = calendar.time
+        val simpleDateFormat = SimpleDateFormat("EEEE", Locale.getDefault())
+        return simpleDateFormat.format(date)
+    }
 }
