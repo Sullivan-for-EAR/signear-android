@@ -142,14 +142,13 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical"
                 android:paddingStart="8dp"
                 android:text="오전 00:00"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                app:cornerRadius="0dp"
-                app:icon="@drawable/start_icon"
-                app:iconGravity="textStart" />
+                android:textSize="20sp" />
 
             <View
                 android:id="@+id/border2"
@@ -173,14 +172,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical"
                 android:paddingStart="8dp"
                 android:text="오전 00:00"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                app:cornerRadius="0dp"
-                app:icon="@drawable/end_icon"
-                app:iconGravity="textStart" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <View
