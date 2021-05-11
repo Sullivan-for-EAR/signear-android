@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.sullivan.sigenear.ui_reservation.R
@@ -124,7 +125,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
         val dialog = TimePickerDialog(
             requireContext(),
             R.style.CustomTimePickerDialog,
-            { _, hourOfDay, minute -> setStartTime(hourOfDay, minute) }, 0, 0, false
+            { _, hourOfDay, minute -> getTimeInfo(binding.btnStartTime,hourOfDay,minute)  }, 0, 0, false
         )
         dialog.show()
     }
@@ -133,7 +134,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
         val dialog = TimePickerDialog(
             requireContext(),
             R.style.CustomTimePickerDialog,
-            { _, hourOfDay, minute -> setEndTime(hourOfDay, minute) }, 0, 0, false
+            { _, hourOfDay, minute -> getTimeInfo(binding.btnEndTime,hourOfDay,minute) }, 0, 0, false
         )
         dialog.apply {
 
@@ -147,39 +148,18 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
         return simpleDateFormat.format(date)
     }
 
-    private fun setStartTime(hour: Int, minute: Int) {
-        binding.apply {
-            if (hour <= 12) {
-                if (minute <= 9) {
-                    btnStartTime.text = "오전 0$hour:0$minute"
-                } else {
-                    btnStartTime.text = "오전 0$hour:$minute"
-                }
-
+    private fun getTimeInfo(view: TextView, hour: Int, minute: Int) {
+        if (hour <= 12) {
+            if (minute <= 9) {
+                view.text = "오전 0$hour:0$minute"
             } else {
-                if (minute <= 9) {
-                    btnStartTime.text = "오후 0${hour - 12}:0$minute"
-                } else {
-                    btnStartTime.text = "오후 0${hour - 12}:$minute"
-                }
+                view.text = "오전 0$hour:$minute"
             }
-        }
-    }
-
-    private fun setEndTime(hour: Int, minute: Int) {
-        binding.apply {
-            if (hour <= 12) {
-                if (minute <= 9) {
-                    btnStartTime.text = "오전 0$hour:0$minute"
-                } else {
-                    btnEndTime.text = "오전 0$hour:$minute"
-                }
+        } else {
+            if (minute <= 9) {
+                view.text = "오후 0${hour - 12}:0$minute"
             } else {
-                if (minute <= 9) {
-                    btnEndTime.text = "오후 0${hour - 12}:0$minute"
-                } else {
-                    btnEndTime.text = "오후 0${hour - 12}:$minute"
-                }
+                view.text = "오후 0${hour - 12}:$minute"
             }
         }
     }
