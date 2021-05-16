@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.sullivan.signear.ui_reservation.ui.reservation.CalendarDialogFragment">
+    tools:context="com.sullivan.signear.ui_reservation.ui.reservation.ReservationConfirmDialogFragment">
 
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"

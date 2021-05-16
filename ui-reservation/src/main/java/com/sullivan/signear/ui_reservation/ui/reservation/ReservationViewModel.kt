@@ -8,5 +8,5 @@ import javax.inject.Inject
 @HiltViewModel
 class ReservationViewModel @Inject
 constructor(private val repository: SignearRepository) : ViewModel() {
-    // TODO: Implement the ViewModel
+
 }

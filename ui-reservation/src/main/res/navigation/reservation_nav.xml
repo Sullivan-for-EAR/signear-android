@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/calendarDialogFragment"
-        android:name="com.sullivan.signear.ui_reservation.ui.reservation.CalendarDialogFragment"
+        android:name="com.sullivan.signear.ui_reservation.ui.reservation.ReservationConfirmDialogFragment"
         android:label="fragment_calendar_dialog"
         tools:layout="@layout/fragment_calendar_dialog" />
 </navigation>

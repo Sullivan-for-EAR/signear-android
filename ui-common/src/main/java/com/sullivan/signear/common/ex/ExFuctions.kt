@@ -12,11 +12,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.sullivan.sigenear.common.R
 import kotlin.properties.ReadWriteProperty
@@ -126,3 +128,20 @@ fun Context.isConnected(): Boolean {
 }
 
 fun Context.getResourceId(title: String) = resources.getIdentifier(title, "drawable", packageName)
+
+fun Fragment.openDialog(fragment: BottomSheetDialogFragment, tag: String) {
+    val ft = parentFragmentManager.beginTransaction()
+    val prev: Fragment? = parentFragmentManager.findFragmentByTag(tag)
+    if (prev != null) {
+        ft.remove(prev).commit()
+    }
+    ft.addToBackStack(null)
+
+    try {
+        if (!fragment.isAdded) {
+            fragment.show(ft, tag)
+        }
+    } catch (e: Exception) {
+        // Exception is ignored.
+    }
+}

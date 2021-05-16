@@ -10,11 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ReservationFragmentBinding
 import com.sullivan.signear.common.base.BaseFragment
+import com.sullivan.signear.common.ex.openDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -91,6 +95,15 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
             btnCenter.setOnClickListener {
                 spCenter.expand()
             }
+
+            btnReservation.setOnClickListener {
+                showDialog()
+            }
+
+//            reservationConfirmDialogLayout.apply {
+//                bottomSheetBehavior = BottomSheetBehavior.from(confirmDialogLayout)
+//                hideDialog()
+//            }
         }
     }
 
@@ -125,7 +138,10 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
         val dialog = TimePickerDialog(
             requireContext(),
             R.style.CustomTimePickerDialog,
-            { _, hourOfDay, minute -> getTimeInfo(binding.btnStartTime,hourOfDay,minute)  }, 0, 0, false
+            { _, hourOfDay, minute -> getTimeInfo(binding.btnStartTime, hourOfDay, minute) },
+            0,
+            0,
+            false
         )
         dialog.show()
     }
@@ -134,7 +150,10 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
         val dialog = TimePickerDialog(
             requireContext(),
             R.style.CustomTimePickerDialog,
-            { _, hourOfDay, minute -> getTimeInfo(binding.btnEndTime,hourOfDay,minute) }, 0, 0, false
+            { _, hourOfDay, minute -> getTimeInfo(binding.btnEndTime, hourOfDay, minute) },
+            0,
+            0,
+            false
         )
         dialog.apply {
 
@@ -162,5 +181,14 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                 view.text = "오후 0${hour - 12}:$minute"
             }
         }
+    }
+
+
+    private fun hideDialog() {
+
+    }
+
+    private fun showDialog() {
+        openDialog(ReservationConfirmDialogFragment.newInstance(), "")
     }
 }
