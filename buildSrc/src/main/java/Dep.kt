@@ -2,7 +2,7 @@
 
 object Dep {
     object GradlePlugin {
-        const val androidStudioGradlePluginVersion = "4.2.0"
+        const val androidStudioGradlePluginVersion = "4.2.1"
         const val android = "com.android.tools.build:gradle:$androidStudioGradlePluginVersion"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
         const val kotlinSerialization =
@@ -124,7 +124,7 @@ object Dep {
         const val stdlibJvm = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
 
         object coroutines {
-            private const val coroutinesVersion = "1.4.3"
+            private const val coroutinesVersion = "1.5.0"
             const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
             const val android =
                 "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
