@@ -6,7 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ReservationViewModel @Inject
+class ReservationSharedViewModel @Inject
 constructor(private val repository: SignearRepository) : ViewModel() {
+
 
 }

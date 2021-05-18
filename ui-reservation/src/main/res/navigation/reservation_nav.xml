@@ -19,13 +19,5 @@
         android:name="com.sullivan.signear.ui_reservation.ui.reservation.ReservationFragment"
         android:label="reservation_fragment"
         tools:layout="@layout/reservation_fragment" >
-        <action
-            android:id="@+id/action_reservationFragment_to_calendarDialogFragment"
-            app:destination="@id/calendarDialogFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/calendarDialogFragment"
-        android:name="com.sullivan.signear.ui_reservation.ui.reservation.ReservationConfirmDialogFragment"
-        android:label="fragment_calendar_dialog"
-        tools:layout="@layout/fragment_calendar_dialog" />
 </navigation>

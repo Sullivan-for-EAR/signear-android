@@ -10,11 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ReservationFragmentBinding
 import com.sullivan.signear.common.base.BaseFragment
@@ -26,7 +24,7 @@ import java.util.*
 @AndroidEntryPoint
 class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
 
-    private val viewModel: ReservationViewModel by viewModels()
+    private val viewModel: ReservationSharedViewModel by activityViewModels()
     private lateinit var centerArray: Array<String>
     private lateinit var centerAdapter: ArrayAdapter<String>
 
@@ -113,9 +111,10 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
         val dialog = DatePickerDialog(
             requireContext(),
             R.style.CustomDatePickerDialog,
-            { _, _, monthOfYear, day ->
+            { _, year, monthOfYear, day ->
 
                 val month = monthOfYear + 1
+                calendar.set(year, monthOfYear, day)
                 binding.btnCalendar.text = "${month}월 ${day}일 ${getCurrentDayOfName(calendar)}"
             },
             calendar.get(Calendar.YEAR),

@@ -5,19 +5,23 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.sullivan.sigenear.ui_reservation.databinding.ReservationConfirmDialogBinding
+import com.sullivan.sigenear.ui_reservation.databinding.ReservationFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
 
-    private lateinit var binding: ReservationConfirmDialogBinding
+    private lateinit var binding: ReservationFragmentBinding
+    private val viewModel: ReservationSharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ReservationConfirmDialogBinding.inflate(layoutInflater)
+        binding = ReservationFragmentBinding.inflate(layoutInflater)
         return binding.root
     }
 
