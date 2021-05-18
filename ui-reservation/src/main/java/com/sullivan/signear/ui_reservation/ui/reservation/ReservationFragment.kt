@@ -12,13 +12,11 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ReservationFragmentBinding
 import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.signear.common.ex.openDialog
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
@@ -74,20 +72,29 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
             btnCalendar.apply {
                 val calendar = Calendar.getInstance()
 
-                text =
-                    "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${
-                        getCurrentDayOfName(
-                            calendar
-                        )
-                    }"
+                "${calendar.get(Calendar.MONTH) + 1}월 ${
+                    calendar.get(
+                        Calendar.DAY_OF_MONTH
+                    )
+                }일 ${
+                    viewModel.getCurrentDayOfName(
+                        calendar
+                    )
+                }".also { text = it }
             }
 
-            btnStartTime.setOnClickListener {
-                openStartTimePicker()
+            btnStartTime.apply {
+                setOnClickListener {
+                    openStartTimePicker()
+                }
+                viewModel.updateStartTime(text.toString())
             }
 
-            btnEndTime.setOnClickListener {
-                openEndTimePicker()
+            btnEndTime.apply {
+                setOnClickListener {
+                    openEndTimePicker()
+                }
+                viewModel.updateEndTime(text.toString())
             }
 
             btnCenter.setOnClickListener {
@@ -97,11 +104,6 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
             btnReservation.setOnClickListener {
                 showDialog()
             }
-
-//            reservationConfirmDialogLayout.apply {
-//                bottomSheetBehavior = BottomSheetBehavior.from(confirmDialogLayout)
-//                hideDialog()
-//            }
         }
     }
 
@@ -115,7 +117,10 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
 
                 val month = monthOfYear + 1
                 calendar.set(year, monthOfYear, day)
-                binding.btnCalendar.text = "${month}월 ${day}일 ${getCurrentDayOfName(calendar)}"
+                viewModel.updateDate(calendar)
+                "${month}월 ${day}일 ${viewModel.getCurrentDayOfName(calendar)}".also {
+                    binding.btnCalendar.text = it
+                }
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -137,7 +142,10 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
         val dialog = TimePickerDialog(
             requireContext(),
             R.style.CustomTimePickerDialog,
-            { _, hourOfDay, minute -> getTimeInfo(binding.btnStartTime, hourOfDay, minute) },
+            { _, hourOfDay, minute ->
+                getTimeInfo(binding.btnStartTime, hourOfDay, minute)
+                viewModel.updateStartTime(binding.btnStartTime.text.toString())
+            },
             0,
             0,
             false
@@ -149,7 +157,10 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
         val dialog = TimePickerDialog(
             requireContext(),
             R.style.CustomTimePickerDialog,
-            { _, hourOfDay, minute -> getTimeInfo(binding.btnEndTime, hourOfDay, minute) },
+            { _, hourOfDay, minute ->
+                getTimeInfo(binding.btnEndTime, hourOfDay, minute)
+                viewModel.updateEndTime(binding.btnEndTime.text.toString())
+            },
             0,
             0,
             false
@@ -160,24 +171,35 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
         dialog.show()
     }
 
-    private fun getCurrentDayOfName(calendar: Calendar): String {
-        val date = calendar.time
-        val simpleDateFormat = SimpleDateFormat("EEEE", Locale.getDefault())
-        return simpleDateFormat.format(date)
-    }
 
     private fun getTimeInfo(view: TextView, hour: Int, minute: Int) {
         if (hour <= 12) {
-            if (minute <= 9) {
-                view.text = "오전 0$hour:0$minute"
+            if (hour <= 9) {
+                if (minute <= 9) {
+                    "오전 0$hour:0$minute".also { view.text = it }
+                } else {
+                    "오전 0$hour:$minute".also { view.text = it }
+                }
             } else {
-                view.text = "오전 0$hour:$minute"
+                if (minute <= 9) {
+                    "오전 $hour:0$minute".also { view.text = it }
+                } else {
+                    "오전 $hour:$minute".also { view.text = it }
+                }
             }
         } else {
-            if (minute <= 9) {
-                view.text = "오후 0${hour - 12}:0$minute"
+            if (hour <= 9) {
+                if (minute <= 9) {
+                    "오후 0${hour - 12}:0$minute".also { view.text = it }
+                } else {
+                    "오후 0${hour - 12}:$minute".also { view.text = it }
+                }
             } else {
-                view.text = "오후 0${hour - 12}:$minute"
+                if (minute <= 9) {
+                    "오후 ${hour - 12}:0$minute".also { view.text = it }
+                } else {
+                    "오후 ${hour - 12}:$minute".also { view.text = it }
+                }
             }
         }
     }

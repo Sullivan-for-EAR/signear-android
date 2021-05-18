@@ -6,29 +6,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.sullivan.sigenear.ui_reservation.databinding.ReservationFragmentBinding
+import com.sullivan.sigenear.ui_reservation.databinding.ReservationConfirmDialogFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import java.lang.StringBuilder
+import java.util.*
 
 @AndroidEntryPoint
 class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
 
-    private lateinit var binding: ReservationFragmentBinding
+    private lateinit var binding: ReservationConfirmDialogFragmentBinding
     private val viewModel: ReservationSharedViewModel by activityViewModels()
+    private val reservationTime = StringBuilder("")
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ReservationFragmentBinding.inflate(layoutInflater)
+        binding = ReservationConfirmDialogFragmentBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupView()
+        setupObserve()
     }
 
     override fun onResume() {
@@ -49,7 +55,25 @@ class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
 
     private fun setupView() {
         binding.apply {
+            tvTime.text = viewModel.fetchReservationTime()
+        }
+    }
 
+    private fun setupObserve() {
+        viewModel.apply {
+            viewLifecycleOwner.lifecycleScope.launch {
+                reservationDate.collect { calendar ->
+                    "${calendar.get(Calendar.MONTH) + 1}월 ${
+                        calendar.get(
+                            Calendar.DAY_OF_MONTH
+                        )
+                    }일 ${
+                        viewModel.getCurrentDayOfName(
+                            calendar
+                        )
+                    }".also { binding.tvDate.text = it }
+                }
+            }
         }
     }
 
