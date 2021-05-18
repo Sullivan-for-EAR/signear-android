@@ -19,6 +19,10 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     private val reservationStartTime = MutableStateFlow("")
     private val reservationEndTime = MutableStateFlow("")
     private val reservationTime = MutableStateFlow("")
+    private val reservationCenter = MutableStateFlow("")
+    private val reservationPlace = MutableStateFlow("")
+    private val reservationTranslationInfo = MutableStateFlow("")
+    private val reservationPurpose = MutableStateFlow("")
 
     fun updateDate(current: Calendar) {
         _reservationDate.value = current
@@ -30,6 +34,22 @@ constructor(private val repository: SignearRepository) : ViewModel() {
 
     fun updateEndTime(endTime: String) {
         reservationEndTime.value = endTime
+    }
+
+    fun updateCenterInfo(centerInfo: String) {
+        reservationCenter.value = centerInfo
+    }
+
+    fun updatePlaceInfo(placeInfo: String) {
+        reservationPlace.value = placeInfo
+    }
+
+    fun updateTranslationInfo(translationInfo: String) {
+        reservationTranslationInfo.value = translationInfo
+    }
+
+    fun updatePurpose(purposeInfo: String) {
+        reservationPurpose.value = purposeInfo
     }
 
     fun fetchReservationTime(): String {

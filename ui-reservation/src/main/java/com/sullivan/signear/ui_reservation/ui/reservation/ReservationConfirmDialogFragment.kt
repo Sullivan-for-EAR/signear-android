@@ -9,10 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sullivan.sigenear.ui_reservation.databinding.ReservationConfirmDialogFragmentBinding
+import com.sullivan.signear.common.ex.makeToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 import java.util.*
 
 @AndroidEntryPoint
@@ -20,7 +20,6 @@ class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: ReservationConfirmDialogFragmentBinding
     private val viewModel: ReservationSharedViewModel by activityViewModels()
-    private val reservationTime = StringBuilder("")
 
     override fun onCreateView(
         inflater: LayoutInflater,

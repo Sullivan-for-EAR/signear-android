@@ -5,6 +5,8 @@ import android.app.TimePickerDialog
 import android.content.res.Resources
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +38,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setupTextWatcher()
     }
 
     override fun setupView() {
@@ -103,6 +105,13 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
 
             btnReservation.setOnClickListener {
                 showDialog()
+            }
+
+            binding.spCenter.apply {
+                viewModel.updateCenterInfo(this.text.toString())
+                setOnItemSelectedListener { _, _, _, item ->
+                    viewModel.updateCenterInfo(item.toString())
+                }
             }
         }
     }
@@ -201,6 +210,48 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                     "오후 ${hour - 12}:$minute".also { view.text = it }
                 }
             }
+        }
+    }
+
+    private fun setupTextWatcher() {
+        binding.apply {
+            etPlace.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {
+                    val input = s.toString().trim()
+                    if (input.isNotEmpty()) {
+                        viewModel.updatePlaceInfo(input)
+                    }
+                }
+            })
+
+            etPurpose.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {
+                    val input = s.toString().trim()
+                    if (input.isNotEmpty()) {
+                        viewModel.updatePurpose(input)
+                    }
+                }
+            })
         }
     }
 
