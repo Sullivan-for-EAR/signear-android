@@ -15,14 +15,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
+            app:layout_constraintGuide_percent="0.03" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.95" />
+            app:layout_constraintGuide_percent="0.97" />
 
         <ImageButton
             android:id="@+id/btn_back"
@@ -54,12 +54,12 @@
             android:id="@+id/tv_status_not_read"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="읽지 않음"
             android:textColor="@color/reservation_status_enable_color"
             android:textSize="14sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/status_not_read"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
@@ -102,11 +102,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
             android:text="예약 확정"
             android:textColor="@color/reservation_status_disable_color"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/status_confirm"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
         <View
@@ -123,9 +123,10 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:background="@drawable/flag_yellow"
             app:layout_constraintBottom_toTopOf="@+id/status_confirm"
-            app:layout_constraintEnd_toEndOf="@+id/status_confirm" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
