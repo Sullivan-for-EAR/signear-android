@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.sullivan.signear.ui_reservation.ui.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
+        tools:layout="@layout/home_fragment">
         <action
             android:id="@+id/action_homeFragment_to_reservationFragment"
             app:destination="@id/reservationFragment" />
@@ -18,10 +18,11 @@
         android:id="@+id/reservationFragment"
         android:name="com.sullivan.signear.ui_reservation.ui.reservation.ReservationFragment"
         android:label="reservation_fragment"
-        tools:layout="@layout/reservation_fragment" >
+        tools:layout="@layout/reservation_fragment">
         <action
             android:id="@+id/action_reservationFragment_to_reservationInfoFragment"
-            app:destination="@id/reservationInfoFragment" />
+            app:destination="@id/reservationInfoFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/reservationInfoFragment"
