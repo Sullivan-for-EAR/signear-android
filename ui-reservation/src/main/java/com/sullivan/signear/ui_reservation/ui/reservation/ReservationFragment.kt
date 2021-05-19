@@ -10,7 +10,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
@@ -20,8 +19,8 @@ import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ReservationFragmentBinding
 import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.signear.common.ex.openDialog
+import com.sullivan.signear.ui_reservation.state.ReservationConfirmDialogState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -59,7 +58,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                 if (it.isSelected) {
                     tvSignTranslation.typeface = Typeface.DEFAULT_BOLD
                     tvOnlineTranslation.typeface = Typeface.DEFAULT
-                    viewModel.updateTranslationInfo("대면")
+                    viewModel.updateTranslationInfo(false)
                 }
             }
 
@@ -69,7 +68,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                 if (it.isSelected) {
                     tvOnlineTranslation.typeface = Typeface.DEFAULT_BOLD
                     tvSignTranslation.typeface = Typeface.DEFAULT
-                    viewModel.updateTranslationInfo("비대면")
+                    viewModel.updateTranslationInfo(true)
                 }
             }
 
@@ -124,14 +123,20 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
 
     private fun setupObserve() {
         viewModel.apply {
-            viewLifecycleOwner.lifecycleScope.launch {
-                isConfirmDialogDismiss.collect { status ->
-                    if (status) {
+            confirmDialogState.observe(viewLifecycleOwner, { status ->
+                when (status) {
+                    is ReservationConfirmDialogState.MoveToDetail -> {
                         moveToConfirmInfo()
-                        viewModel.updateDialogStatus(false)
+                        viewModel.updateDialogStatus(ReservationConfirmDialogState.Init)
+                    }
+                    is ReservationConfirmDialogState.Dismiss -> {
+                        moveToHome()
+                        viewModel.updateDialogStatus(ReservationConfirmDialogState.Init)
+                    }
+                    else -> {
                     }
                 }
-            }
+            })
         }
     }
 
@@ -275,10 +280,15 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
     }
 
     private fun showDialog() {
+        viewModel.assembleReservationInfo()
         openDialog(ReservationConfirmDialogFragment.newInstance(), "")
     }
 
     private fun moveToConfirmInfo() {
         findNavController().navigate(R.id.action_reservationFragment_to_reservationInfoFragment)
+    }
+
+    private fun moveToHome() {
+        findNavController().navigate(R.id.action_reservationFragment_pop)
     }
 }

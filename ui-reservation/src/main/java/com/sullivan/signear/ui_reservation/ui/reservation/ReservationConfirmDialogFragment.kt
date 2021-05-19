@@ -1,6 +1,5 @@
 package com.sullivan.signear.ui_reservation.ui.reservation
 
-import android.R
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -10,11 +9,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sullivan.sigenear.ui_reservation.databinding.ReservationConfirmDialogFragmentBinding
+import com.sullivan.signear.ui_reservation.state.ReservationConfirmDialogState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
-
 
 @AndroidEntryPoint
 class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
@@ -54,7 +53,12 @@ class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
             tvTime.text = viewModel.fetchReservationTime()
 
             btnView.setOnClickListener {
-                viewModel.updateDialogStatus(true)
+                viewModel.updateDialogStatus(ReservationConfirmDialogState.MoveToDetail)
+                dismiss()
+            }
+
+            btnClose.setOnClickListener {
+                viewModel.updateDialogStatus(ReservationConfirmDialogState.Dismiss)
                 dismiss()
             }
         }

@@ -1,10 +1,15 @@
 package com.sullivan.signear.ui_reservation.ui.reservation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sullivan.signear.domain.SignearRepository
+import com.sullivan.signear.ui_reservation.model.Reservation
+import com.sullivan.signear.ui_reservation.state.ReservationConfirmDialogState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -21,11 +26,14 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     private val reservationTime = MutableStateFlow("")
     private val reservationCenter = MutableStateFlow("")
     private val reservationPlace = MutableStateFlow("")
-    private val reservationTranslationInfo = MutableStateFlow("")
+    private val reservationTranslationInfo = MutableStateFlow(false)
     private val reservationPurpose = MutableStateFlow("")
 
-    private val _isConfirmDialogDismiss = MutableStateFlow(false)
-    val isConfirmDialogDismiss: StateFlow<Boolean> = _isConfirmDialogDismiss
+    private val _confirmDialogState = MutableLiveData<ReservationConfirmDialogState>()
+    val confirmDialogState: LiveData<ReservationConfirmDialogState> = _confirmDialogState
+
+    private val _reservationTotalInfo = MutableLiveData<Reservation>()
+    val reservationTotalInfo: LiveData<Reservation> = _reservationTotalInfo
 
     fun updateDate(current: Calendar) {
         _reservationDate.value = current
@@ -47,22 +55,43 @@ constructor(private val repository: SignearRepository) : ViewModel() {
         reservationPlace.value = placeInfo
     }
 
-    fun updateTranslationInfo(translationInfo: String) {
-        reservationTranslationInfo.value = translationInfo
+    fun updateTranslationInfo(isContactless: Boolean) {
+        reservationTranslationInfo.value = isContactless
     }
 
     fun updatePurpose(purposeInfo: String) {
         reservationPurpose.value = purposeInfo
     }
 
-    fun updateDialogStatus(status: Boolean) {
-        _isConfirmDialogDismiss.value = status
+    fun updateDialogStatus(status: ReservationConfirmDialogState) {
+        _confirmDialogState.value = status
     }
 
     fun fetchReservationTime(): String {
         reservationTime.value = "${reservationStartTime.value}부터 ${reservationEndTime.value}까지"
         return reservationTime.value
     }
+
+    fun assembleReservationInfo() {
+        val calendar = _reservationDate.value
+        val currentDate =
+            "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${
+                getCurrentDayOfName(calendar)
+            }"
+
+        val currentReservation = Reservation(
+            currentDate,
+            reservationStartTime.value,
+            reservationEndTime.value,
+            reservationCenter.value,
+            reservationPlace.value,
+            reservationPurpose.value
+        )
+
+        _reservationTotalInfo.value = currentReservation
+        Timber.d("${reservationTotalInfo.value}")
+    }
+
 
     fun getCurrentDayOfName(calendar: Calendar): String {
         val date = calendar.time

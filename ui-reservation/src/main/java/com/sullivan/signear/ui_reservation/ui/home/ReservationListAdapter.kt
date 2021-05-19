@@ -31,7 +31,7 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
                     tvUrgent.makeGone()
                 }
 
-                tvDate.text = item.date
+                "${item.date} ${item.startTime}".also { tvDate.text = it }
                 showReservationState(item.currentState, ivState)
             }
         }

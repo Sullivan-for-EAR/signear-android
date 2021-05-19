@@ -23,6 +23,10 @@
             android:id="@+id/action_reservationFragment_to_reservationInfoFragment"
             app:destination="@id/reservationInfoFragment"
             app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_reservationFragment_pop"
+            app:popUpTo="@id/reservationFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/reservationInfoFragment"

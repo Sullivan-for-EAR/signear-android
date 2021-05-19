@@ -34,22 +34,59 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             reservationListAdapter =
                 ReservationListAdapter(
                     listOf(
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원", ReservationState.Urgent),
                         Reservation(
-                            "4월 30일(금) 오전 9시",
-                            "서초좋은병원서초좋은병원서초좋은병원",
+                            "4월 30일(금)",
+                            "오전 10시",
+                            "오전 12시",
+                            "강남구",
+                            "서초좋은병원",
+                            "",
+                            ReservationState.Urgent
+                        ),
+                        Reservation(
+                            "4월 30일(금)",
+                            "오전 10시",
+                            "오전 12시",
+                            "강남구", "서초좋은병원", "",
                             ReservationState.NotConfirm
                         ),
                         Reservation(
-                            "4월 30일(금) 오전 9시",
-                            "서초좋은병원",
+                            "4월 30일(금)",
+                            "오전 10시",
+                            "오전 12시",
+                            "강남구", "서초좋은병원", "",
                             ReservationState.Reject("reason")
                         ),
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원", ReservationState.Confirm),
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원", ReservationState.Cancel),
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원"),
-                        Reservation("4월 30일(금) 오전 9시", "서초좋은병원")
+                        Reservation(
+                            "4월 30일(금)",
+                            "오전 10시",
+                            "오전 12시",
+                            "강남구",
+                            "서초좋은병원",
+                            "",
+                            ReservationState.Confirm
+                        ),
+                        Reservation(
+                            "4월 30일(금)",
+                            "오전 10시",
+                            "오전 12시",
+                            "강남구",
+                            "서초좋은병원",
+                            "",
+                            ReservationState.Cancel
+                        ),
+                        Reservation(
+                            "4월 30일(금)", "오전 10시",
+                            "오전 12시", "강남구", "서초좋은병원", ""
+                        ),
+                        Reservation(
+                            "4월 30일(금)", "오전 10시",
+                            "오전 12시", "강남구", "서초좋은병원", ""
+                        ),
+                        Reservation(
+                            "4월 30일(금)", "오전 10시",
+                            "오전 12시", "강남구", "서초좋은병원", ""
+                        )
                     )
                 )
 
