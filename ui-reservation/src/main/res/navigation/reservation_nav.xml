@@ -19,5 +19,13 @@
         android:name="com.sullivan.signear.ui_reservation.ui.reservation.ReservationFragment"
         android:label="reservation_fragment"
         tools:layout="@layout/reservation_fragment" >
+        <action
+            android:id="@+id/action_reservationFragment_to_reservationInfoFragment"
+            app:destination="@id/reservationInfoFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/reservationInfoFragment"
+        android:name="com.sullivan.signear.ui_reservation.ui.reservation.ReservationInfoFragment"
+        android:label="fragment_reservation_info"
+        tools:layout="@layout/fragment_reservation_info" />
 </navigation>

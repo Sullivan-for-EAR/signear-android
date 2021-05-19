@@ -135,7 +135,7 @@ fun Fragment.openDialog(fragment: BottomSheetDialogFragment, tag: String) {
     if (prev != null) {
         ft.remove(prev).commit()
     }
-    ft.addToBackStack(null)
+//    ft.addToBackStack(null)
 
     try {
         if (!fragment.isAdded) {

@@ -14,11 +14,15 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ReservationFragmentBinding
 import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.signear.common.ex.openDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
@@ -26,7 +30,6 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
 
     private val viewModel: ReservationSharedViewModel by activityViewModels()
     private lateinit var centerArray: Array<String>
-    private lateinit var centerAdapter: ArrayAdapter<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +42,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupTextWatcher()
+        setupObserve()
     }
 
     override fun setupView() {
@@ -55,6 +59,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                 if (it.isSelected) {
                     tvSignTranslation.typeface = Typeface.DEFAULT_BOLD
                     tvOnlineTranslation.typeface = Typeface.DEFAULT
+                    viewModel.updateTranslationInfo("대면")
                 }
             }
 
@@ -64,6 +69,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                 if (it.isSelected) {
                     tvOnlineTranslation.typeface = Typeface.DEFAULT_BOLD
                     tvSignTranslation.typeface = Typeface.DEFAULT
+                    viewModel.updateTranslationInfo("비대면")
                 }
             }
 
@@ -111,6 +117,19 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                 viewModel.updateCenterInfo(this.text.toString())
                 setOnItemSelectedListener { _, _, _, item ->
                     viewModel.updateCenterInfo(item.toString())
+                }
+            }
+        }
+    }
+
+    private fun setupObserve() {
+        viewModel.apply {
+            viewLifecycleOwner.lifecycleScope.launch {
+                isConfirmDialogDismiss.collect { status ->
+                    if (status) {
+                        moveToConfirmInfo()
+                        viewModel.updateDialogStatus(false)
+                    }
                 }
             }
         }
@@ -255,12 +274,11 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
         }
     }
 
-
-    private fun hideDialog() {
-
-    }
-
     private fun showDialog() {
         openDialog(ReservationConfirmDialogFragment.newInstance(), "")
+    }
+
+    private fun moveToConfirmInfo() {
+        findNavController().navigate(R.id.action_reservationFragment_to_reservationInfoFragment)
     }
 }

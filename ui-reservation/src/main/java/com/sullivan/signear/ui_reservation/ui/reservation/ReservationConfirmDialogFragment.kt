@@ -1,5 +1,6 @@
 package com.sullivan.signear.ui_reservation.ui.reservation
 
+import android.R
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -9,11 +10,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sullivan.sigenear.ui_reservation.databinding.ReservationConfirmDialogFragmentBinding
-import com.sullivan.signear.common.ex.makeToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
+
 
 @AndroidEntryPoint
 class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
@@ -47,14 +48,15 @@ class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        binding = null
-//    }
 
     private fun setupView() {
         binding.apply {
             tvTime.text = viewModel.fetchReservationTime()
+
+            btnView.setOnClickListener {
+                viewModel.updateDialogStatus(true)
+                dismiss()
+            }
         }
     }
 
@@ -76,6 +78,16 @@ class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
+    override fun dismiss() {
+        super.dismiss()
+
+        if (dialog != null)
+            dialog!!.dismiss()
+
+        dismissInstance()
+
+    }
+
     companion object {
         private var fragment: ReservationConfirmDialogFragment? = null
 
@@ -85,6 +97,7 @@ class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
                 fragment ?: ReservationConfirmDialogFragment().also { fragment = it }
             }
 
+        @JvmStatic
         fun dismissInstance() {
             fragment = null
         }

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/confirm_dialog_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bottom_view_bg">
+    android:layout_height="wrap_content">
 
     <ImageButton
         android:id="@+id/btn_close"

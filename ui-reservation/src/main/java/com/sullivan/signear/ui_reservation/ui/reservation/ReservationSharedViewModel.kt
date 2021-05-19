@@ -24,6 +24,9 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     private val reservationTranslationInfo = MutableStateFlow("")
     private val reservationPurpose = MutableStateFlow("")
 
+    private val _isConfirmDialogDismiss = MutableStateFlow(false)
+    val isConfirmDialogDismiss: StateFlow<Boolean> = _isConfirmDialogDismiss
+
     fun updateDate(current: Calendar) {
         _reservationDate.value = current
     }
@@ -50,6 +53,10 @@ constructor(private val repository: SignearRepository) : ViewModel() {
 
     fun updatePurpose(purposeInfo: String) {
         reservationPurpose.value = purposeInfo
+    }
+
+    fun updateDialogStatus(status: Boolean) {
+        _isConfirmDialogDismiss.value = status
     }
 
     fun fetchReservationTime(): String {
