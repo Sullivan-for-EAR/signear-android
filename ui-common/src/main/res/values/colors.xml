@@ -23,4 +23,5 @@
     <color name="translation_press_color">#0D0A84FF</color>
     <color name="reservation_status_enable_color">#0A84FF</color>
     <color name="reservation_status_disable_color">#B6B6B6</color>
+    <color name="btn_reservation_cancel_color">#FF453A</color>
 </resources>

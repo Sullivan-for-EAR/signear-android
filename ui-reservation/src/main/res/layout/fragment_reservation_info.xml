@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="읽지 않음"
-            android:textColor="@color/reservation_status_enable_color"
+            android:textColor="@color/reservation_status_disable_color"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/status_not_read"
@@ -69,7 +69,9 @@
             android:layout_height="3dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/line_blue"
+            android:background="@drawable/line_selector"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toStartOf="@+id/tv_title"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/tv_status_not_read" />
@@ -92,7 +94,9 @@
             android:layout_height="3dp"
             android:layout_marginHorizontal="6dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/line_gray"
+            android:background="@drawable/line_selector"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toStartOf="@+id/status_confirm"
             app:layout_constraintStart_toEndOf="@+id/status_not_read"
             app:layout_constraintTop_toBottomOf="@+id/tv_status_not_confirm" />
@@ -115,18 +119,251 @@
             android:layout_height="3dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/line_gray"
+            android:background="@drawable/line_selector"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toEndOf="@+id/tv_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_status_confirm" />
 
         <ImageView
+            android:id="@+id/iv_flag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:background="@drawable/flag_yellow"
+            android:background="@drawable/flag_selector"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toTopOf="@+id/status_confirm"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!--  예약 장소     -->
+        <TextView
+            android:id="@+id/tv_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/status_not_read"
+            tools:text="서초좋은병원" />
+
+        <TextView
+            android:id="@+id/tv_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_place"
+            tools:text="서초구수어통역센터" />
+
+        <ImageView
+            android:id="@+id/iv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/date_icon"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
+            android:text="날짜"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_center" />
+
+        <TextView
+            android:id="@+id/tv_reservation_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_date"
+            tools:text="00월 00일 월요일" />
+
+        <View
+            android:id="@+id/border1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/border_color"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reservation_date" />
+
+        <ImageView
+            android:id="@+id/iv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/time_icon"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/border1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="27dp"
+            android:text="시간"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_time"
+            app:layout_constraintTop_toBottomOf="@+id/border1" />
+
+        <TextView
+            android:id="@+id/tv_reservation_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_time"
+            tools:text="오전 00시 00분" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="1dp"
+            android:layout_marginTop="10dp"
+            android:text="~"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_reservation_start_time"
+            app:layout_constraintTop_toBottomOf="@+id/iv_time" />
+
+        <TextView
+            android:id="@+id/tv_reservation_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_time"
+            app:layout_constraintTop_toBottomOf="@+id/iv_time"
+            tools:text="오전 00시 00분" />
+
+        <View
+            android:id="@+id/border2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/border_color"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reservation_start_time" />
+
+        <ImageView
+            android:id="@+id/iv_translation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/translation_icon"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/border2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
+            android:text="통역 방식"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_translation"
+            app:layout_constraintTop_toBottomOf="@+id/border2" />
+
+        <TextView
+            android:id="@+id/tv_reservation_translation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_translation"
+            tools:text="수어통역" />
+
+        <TextView
+            android:id="@+id/tv_translation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="1dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/guide_msg_text"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_reservation_translation"
+            app:layout_constraintTop_toBottomOf="@+id/iv_translation"
+            tools:text="(대면)" />
+
+        <View
+            android:id="@+id/border3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/border_color"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reservation_translation" />
+
+        <ImageView
+            android:id="@+id/iv_purpose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/purpose_icon"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/border3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text="목적 및 요청사항"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_purpose"
+            app:layout_constraintTop_toBottomOf="@+id/border3" />
+
+        <TextView
+            android:id="@+id/tv_reservation_purpose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingEnd="24dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_purpose"
+            tools:text="가나라다라마바사아자카카하가나다라마가나라다라마바사아자카카하가나다라마" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/btn_reservation_cancel_color"
+            android:text="예약 취소"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:cornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reservation_purpose" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

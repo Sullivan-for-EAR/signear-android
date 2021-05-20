@@ -3,6 +3,7 @@ package com.sullivan.signear.ui_reservation.ui.reservation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.distinctUntilChanged
 import com.sullivan.signear.domain.SignearRepository
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationConfirmDialogState
@@ -32,8 +33,8 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     private val _confirmDialogState = MutableLiveData<ReservationConfirmDialogState>()
     val confirmDialogState: LiveData<ReservationConfirmDialogState> = _confirmDialogState
 
-    private val _reservationTotalInfo = MutableLiveData<Reservation>()
-    val reservationTotalInfo: LiveData<Reservation> = _reservationTotalInfo
+    private val _reservationTotalInfo = MutableLiveData<Reservation?>()
+    val reservationTotalInfo: LiveData<Reservation?> = _reservationTotalInfo
 
     fun updateDate(current: Calendar) {
         _reservationDate.value = current
@@ -85,7 +86,8 @@ constructor(private val repository: SignearRepository) : ViewModel() {
             reservationEndTime.value,
             reservationCenter.value,
             reservationPlace.value,
-            reservationPurpose.value
+            reservationPurpose.value,
+            reservationTranslationInfo.value
         )
 
         _reservationTotalInfo.value = currentReservation
@@ -97,5 +99,16 @@ constructor(private val repository: SignearRepository) : ViewModel() {
         val date = calendar.time
         val simpleDateFormat = SimpleDateFormat("EEEE", Locale.getDefault())
         return simpleDateFormat.format(date)
+    }
+
+    fun clearPrevData() {
+        _reservationTotalInfo.value = null
+        reservationStartTime.value = ""
+        reservationEndTime.value = ""
+        reservationTime.value = ""
+        reservationCenter.value = ""
+        reservationPlace.value = ""
+        reservationTranslationInfo.value = false
+        reservationPurpose.value = ""
     }
 }

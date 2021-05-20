@@ -10,6 +10,6 @@ data class Reservation(
     val center: String,
     val place: String,
     val purpose: String,
-    val currentState: ReservationState = ReservationState.NotRead,
-    val isContactless: Boolean = false
+    val isContactless: Boolean = false,
+    var currentState: ReservationState = ReservationState.NotRead,
 )

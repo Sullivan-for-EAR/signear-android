@@ -11,6 +11,7 @@ object Dep {
         const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Dagger.version}"
         const val navSafeArgPlugin =
             "androidx.navigation:navigation-safe-args-gradle-plugin:${AndroidX.Navigation.navSafArgPluginVersion}"
+        const val r8 = "com.android.tools:r8:2.2.64"
     }
 
     object AndroidX {
@@ -26,12 +27,12 @@ object Dep {
             const val testing = "androidx.arch.core:core-testing:2.1.0"
         }
 
-        const val appcompat = "androidx.appcompat:appcompat:1.3.0-rc01"
-        const val coreKtx = "androidx.core:core-ktx:1.6.0-alpha02"
+        const val appcompat = "androidx.appcompat:appcompat:1.3.0"
+        const val coreKtx = "androidx.core:core-ktx:1.5.0"
         const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
 
         object fragment {
-            private const val fragmentVersion = "1.3.3"
+            private const val fragmentVersion = "1.3.4"
             const val fragment = "androidx.fragment:fragment:$fragmentVersion"
             const val ktx = "androidx.fragment:fragment-ktx:$fragmentVersion"
         }
@@ -68,7 +69,7 @@ object Dep {
 
         object UI {
             const val browser = "androidx.browser:browser:1.3.0"
-            const val material = "com.google.android.material:material:1.4.0-alpha01"
+            const val material = "com.google.android.material:material:1.3.0"
             const val palette = "androidx.palette:palette:1.0.0"
             const val preference = "androidx.preference:preference:1.1.1"
             const val recyclerview = "androidx.recyclerview:recyclerview:1.2.0"
@@ -172,8 +173,6 @@ object Dep {
     }
 
     object CustomLib {
-        const val calendar = "com.applandeo:material-calendar-view:1.9.0-rc03"
         const val spinner = "com.jaredrummler:material-spinner:1.3.1"
-
     }
 }

@@ -41,6 +41,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                             "강남구",
                             "서초좋은병원",
                             "",
+                            false,
                             ReservationState.Urgent
                         ),
                         Reservation(
@@ -48,6 +49,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                             "오전 10시",
                             "오전 12시",
                             "강남구", "서초좋은병원", "",
+                            false,
                             ReservationState.NotConfirm
                         ),
                         Reservation(
@@ -55,7 +57,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                             "오전 10시",
                             "오전 12시",
                             "강남구", "서초좋은병원", "",
-                            ReservationState.Reject("reason")
+                            false,
+                            ReservationState.Reject
                         ),
                         Reservation(
                             "4월 30일(금)",
@@ -64,6 +67,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                             "강남구",
                             "서초좋은병원",
                             "",
+                            false,
                             ReservationState.Confirm
                         ),
                         Reservation(
@@ -73,6 +77,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                             "강남구",
                             "서초좋은병원",
                             "",
+                            false,
                             ReservationState.Cancel
                         ),
                         Reservation(
