@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.03" />
+            app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -23,6 +23,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.97" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.18" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
 
         <ImageButton
             android:id="@+id/btn_back"
@@ -49,7 +63,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <TextView
             android:id="@+id/tv_status_not_read"
             android:layout_width="wrap_content"
@@ -67,14 +80,13 @@
             android:id="@+id/status_not_read"
             android:layout_width="0dp"
             android:layout_height="3dp"
-            android:layout_marginTop="5dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/line_selector"
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintEnd_toStartOf="@+id/tv_title"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/tv_status_not_read" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline4" />
 
         <TextView
             android:id="@+id/tv_status_not_confirm"
@@ -93,13 +105,12 @@
             android:layout_width="0dp"
             android:layout_height="3dp"
             android:layout_marginHorizontal="6dp"
-            android:layout_marginTop="5dp"
             android:background="@drawable/line_selector"
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintEnd_toStartOf="@+id/status_confirm"
             app:layout_constraintStart_toEndOf="@+id/status_not_read"
-            app:layout_constraintTop_toBottomOf="@+id/tv_status_not_confirm" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline4" />
 
         <TextView
             android:id="@+id/tv_status_confirm"
@@ -118,35 +129,56 @@
             android:layout_width="0dp"
             android:layout_height="3dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
             android:background="@drawable/line_selector"
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toEndOf="@+id/tv_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_status_confirm" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline4" />
+
+        <TextView
+            android:id="@+id/tv_status_cancel_reject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="예약 취소"
+            android:textColor="@color/reservation_status_disable_color"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <View
+            android:id="@+id/status_cancel_reject"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@drawable/line_selector"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/guideline4" />
 
         <ImageView
             android:id="@+id/iv_flag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:background="@drawable/flag_selector"
             android:clickable="true"
             android:focusable="true"
-            app:layout_constraintBottom_toTopOf="@+id/status_confirm"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2" />
 
         <!--  예약 장소     -->
         <TextView
             android:id="@+id/tv_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/status_not_read"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
             tools:text="서초좋은병원" />
 
         <TextView
@@ -343,9 +375,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
             android:paddingEnd="24dp"
             android:textColor="@color/black"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_cancel"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/iv_purpose"
             tools:text="가나라다라마바사아자카카하가나다라마가나라다라마바사아자카카하가나다라마" />
@@ -354,7 +388,6 @@
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_height="57dp"
-            android:layout_marginTop="50dp"
             android:layout_marginBottom="50dp"
             android:backgroundTint="@color/btn_reservation_cancel_color"
             android:text="예약 취소"

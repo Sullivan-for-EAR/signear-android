@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentReservationInfoBinding
@@ -52,8 +53,9 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
                 reservationTotalInfo.let {
                     if (it != null) {
                         currentReservationInfo = it
+//                        currentReservationInfo.currentState = ReservationState.Cancel("reason")
                     }
-                    currentReservationInfo.currentState = ReservationState.Confirm
+
                     makeReservationView()
                     makeReservationStatusView()
                 }
@@ -79,11 +81,11 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
             tvReservationPurpose.text = currentReservationInfo.purpose
 
-            if (currentReservationInfo.currentState != ReservationState.Reject) {
-                btnCancel.makeVisible()
-            } else {
-                btnCancel.makeGone()
-            }
+//            if (currentReservationInfo.currentState != ReservationState.Reject) {
+//                btnCancel.makeVisible()
+//            } else {
+//                btnCancel.makeGone()
+//            }
 
         }
     }
@@ -100,6 +102,8 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
                     makeBlue(tvStatusNotRead)
                     makeGray(tvStatusNotConfirm)
                     makeGray(tvStatusConfirm)
+
+                    makeUsualStatusView()
                 }
 
                 is ReservationState.NotConfirm -> {
@@ -111,6 +115,8 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
                     makeGray(tvStatusNotRead)
                     makeBlue(tvStatusNotConfirm)
                     makeGray(tvStatusConfirm)
+
+                    makeUsualStatusView()
                 }
 
                 is ReservationState.Confirm -> {
@@ -122,16 +128,107 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
                     makeGray(tvStatusNotRead)
                     makeGray(tvStatusNotConfirm)
                     makeBlue(tvStatusConfirm)
+
+                    makeUsualStatusView()
+                }
+
+                is ReservationState.Cancel -> {
+                    makeCancelStatusView()
+                }
+
+                is ReservationState.Reject -> {
+                    makeRejectStatusView()
                 }
             }
         }
     }
 
     private fun makeGray(view: TextView) {
-        view.setTextColor(resources.getColor(R.color.reservation_status_disable_color, null))
+        view.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.reservation_status_disable_color
+            )
+        )
     }
 
     private fun makeBlue(view: TextView) {
-        view.setTextColor(resources.getColor(R.color.reservation_status_enable_color, null))
+        view.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.reservation_status_enable_color
+            )
+        )
+    }
+
+    private fun makeRed(view: TextView) {
+        view.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.btn_reservation_cancel_color
+            )
+        )
+    }
+
+    private fun makeCancelStatusView() {
+        binding.apply {
+            tvStatusNotRead.makeGone()
+            tvStatusNotConfirm.makeGone()
+            tvStatusConfirm.makeGone()
+            tvStatusCancelReject.apply {
+                makeVisible()
+                text = "에약 취소"
+                makeGray(this)
+            }
+
+            statusNotRead.makeGone()
+            statusNotConfirm.makeGone()
+            statusConfirm.makeGone()
+            statusCancelReject.apply {
+                makeVisible()
+                isSelected = false
+            }
+
+            btnCancel.makeGone()
+        }
+    }
+
+    private fun makeRejectStatusView() {
+        binding.apply {
+            tvStatusNotRead.makeGone()
+            tvStatusNotConfirm.makeGone()
+            tvStatusConfirm.makeGone()
+            tvStatusCancelReject.apply {
+                makeVisible()
+                text = "에약 거절"
+                makeRed(this)
+            }
+
+            statusNotRead.makeGone()
+            statusNotConfirm.makeGone()
+            statusConfirm.makeGone()
+            statusCancelReject.apply {
+                makeVisible()
+                isSelected = true
+            }
+
+            btnCancel.makeGone()
+        }
+    }
+
+    private fun makeUsualStatusView() {
+        binding.apply {
+            tvStatusNotRead.makeVisible()
+            tvStatusNotConfirm.makeVisible()
+            tvStatusConfirm.makeVisible()
+            tvStatusCancelReject.makeGone()
+
+            statusNotRead.makeVisible()
+            statusNotConfirm.makeVisible()
+            statusConfirm.makeVisible()
+            statusCancelReject.makeGone()
+
+            btnCancel.makeVisible()
+        }
     }
 }

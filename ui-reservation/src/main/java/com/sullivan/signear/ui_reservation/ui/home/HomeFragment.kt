@@ -58,7 +58,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                             "오전 12시",
                             "강남구", "서초좋은병원", "",
                             false,
-                            ReservationState.Reject
+                            ReservationState.Reject("reason")
                         ),
                         Reservation(
                             "4월 30일(금)",
@@ -78,7 +78,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                             "서초좋은병원",
                             "",
                             false,
-                            ReservationState.Cancel
+                            ReservationState.Cancel("reason")
                         ),
                         Reservation(
                             "4월 30일(금)", "오전 10시",

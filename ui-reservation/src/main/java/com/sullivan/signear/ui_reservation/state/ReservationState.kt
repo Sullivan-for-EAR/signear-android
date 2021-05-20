@@ -4,8 +4,8 @@ sealed class ReservationState {
     object NotRead : ReservationState()
     object NotConfirm : ReservationState()
     object Confirm : ReservationState()
-    object Cancel : ReservationState()
+    class Cancel(reason: String) : ReservationState()
     object Urgent : ReservationState()
-    object Reject : ReservationState()
+    class Reject(reason: String) : ReservationState()
     object Served : ReservationState()
 }
