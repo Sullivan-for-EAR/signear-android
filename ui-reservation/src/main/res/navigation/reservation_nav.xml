@@ -47,4 +47,13 @@
             app:popUpTo="@+id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/emergencyReservationFragment"
+        android:name="com.sullivan.signear.ui_reservation.ui.reservation.EmergencyReservationFragment"
+        android:label="fragment_emergency_reservation"
+        tools:layout="@layout/fragment_emergency_reservation" >
+        <action
+            android:id="@+id/action_emergencyReservationFragment_to_reservationFragment"
+            app:destination="@id/reservationFragment" />
+    </fragment>
 </navigation>

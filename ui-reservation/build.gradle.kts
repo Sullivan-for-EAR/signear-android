@@ -37,6 +37,8 @@ dependencies {
     implementation(Dep.AndroidX.UI.material)
 
     implementation(Dep.Dagger.Hilt.android)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     kapt(Dep.Dagger.Hilt.compiler)
 
     implementation(Dep.AndroidX.Navigation.fragmentKtx)
