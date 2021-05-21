@@ -71,5 +71,18 @@
             android:id="@+id/action_myPageFragment_pop"
             app:popUpTo="@id/myPageFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_myPageFragment_to_previousReservationFragment"
+            app:destination="@id/previousReservationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/previousReservationFragment"
+        android:name="com.sullivan.signear.ui_reservation.ui.mypage.PreviousReservationFragment"
+        android:label="fragment_previous_reservation"
+        tools:layout="@layout/fragment_previous_reservation" >
+        <action
+            android:id="@+id/action_previousReservationFragment_pop"
+            app:popUpTo="@id/previousReservationFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
