@@ -27,4 +27,5 @@
 
 <!--    my page -->
     <color name="user_phone_text_color">#787878</color>
+    <color name="prev_reservation_delete_btn_color">#FF3B30</color>
 </resources>

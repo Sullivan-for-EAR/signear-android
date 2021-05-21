@@ -1,6 +1,7 @@
 package com.sullivan.signear.ui_reservation.ui.mypage
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
@@ -16,7 +17,8 @@ import com.sullivan.signear.ui_reservation.ui.reservation.ReservationSharedViewM
 
 class PreviousReservationListAdapter(
     private val reservationList: MutableList<Reservation>,
-    private val sharedViewModel: ReservationSharedViewModel
+    private val sharedViewModel: ReservationSharedViewModel,
+    swipeHelperCallback: SwipeHelperCallback
 ) :
     RecyclerView.Adapter<PreviousReservationListAdapter.ReservationListViewHolder>() {
     private lateinit var bindingItem: ItemReservationBinding
@@ -47,6 +49,10 @@ class PreviousReservationListAdapter(
                             )
                         )
                 }
+
+                btnDelete.setOnClickListener {
+                    remove(item.id)
+                }
             }
         }
 
@@ -73,6 +79,10 @@ class PreviousReservationListAdapter(
                 else -> ivState.makeGone()
             }
         }
+
+        fun getBtnDelete(): View = binding.btnDelete
+
+        fun getSwipeView(): View = binding.rvReservation
     }
 
     override fun onCreateViewHolder(

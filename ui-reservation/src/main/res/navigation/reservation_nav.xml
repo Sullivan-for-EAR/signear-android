@@ -93,7 +93,6 @@
         </action>
         <action
             android:id="@+id/action_previousReservationFragment_pop"
-            app:destination="@id/myPageFragment"
             app:popUpTo="@id/previousReservationFragment"
             app:popUpToInclusive="true" />
     </fragment>

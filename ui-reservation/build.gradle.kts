@@ -35,10 +35,9 @@ dependencies {
     implementation(Dep.AndroidX.lifecycle.viewModelKtx)
     implementation(Dep.AndroidX.lifecycle.liveDataKtx)
     implementation(Dep.AndroidX.UI.material)
+    implementation(Dep.AndroidX.UI.recyclerview)
 
     implementation(Dep.Dagger.Hilt.android)
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     kapt(Dep.Dagger.Hilt.compiler)
 
     implementation(Dep.AndroidX.Navigation.fragmentKtx)

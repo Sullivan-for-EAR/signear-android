@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentPreviousReservationBinding
@@ -18,6 +19,9 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
 
     private val viewModel: ReservationSharedViewModel by activityViewModels()
     private lateinit var reservationListAdapter: PreviousReservationListAdapter
+    private val swipeHelperCallback = SwipeHelperCallback().apply {
+        setClamp(300f)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,13 +38,20 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
 
     override fun setupView() {
         reservationListAdapter =
-            PreviousReservationListAdapter(viewModel.fetchPrevList(), viewModel)
+            PreviousReservationListAdapter(
+                viewModel.fetchPrevList(),
+                viewModel,
+                swipeHelperCallback
+            )
         val id = arguments?.getInt(ARGS_KEY)
         if (id != null) {
             reservationListAdapter.remove(id)
         }
 
         binding.apply {
+            val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
+            itemTouchHelper.attachToRecyclerView(rvReservation)
+
             rvReservation.apply {
                 setHasFixedSize(true)
                 adapter = reservationListAdapter
