@@ -115,6 +115,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             btnReservation.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_reservationFragment)
             }
+
+            ivProfile.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_myPageFragment)
+            }
         }
     }
 }

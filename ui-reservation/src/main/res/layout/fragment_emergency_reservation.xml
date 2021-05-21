@@ -1,114 +1,126 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sullivan.signear.ui_reservation.ui.reservation.EmergencyReservationFragment">
+    android:layout_width="match_parent"
+    android:overScrollMode="never">
 
-    <ImageButton
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:background="#00000000"
-        android:foreground="?attr/selectableItemBackground"
-        android:src="@drawable/btn_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.sullivan.signear.ui_reservation.ui.reservation.EmergencyReservationFragment">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="긴급 통역"
-        android:textColor="@color/black"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3" />
 
-    <ImageView
-        android:id="@+id/iv_emergency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/emergency_reservation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:background="#00000000"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/btn_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_guide_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:text="교통사고, 응급환자, 경찰조사"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_emergency" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="긴급 통역"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_guide_msg2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="에"
-        android:textColor="@color/guide_msg_text"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/tv_guide_msg"
-        app:layout_constraintTop_toTopOf="@+id/tv_guide_msg" />
+        <ImageView
+            android:id="@+id/iv_emergency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/emergency_reservation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline1" />
 
-    <TextView
-        android:id="@+id/tv_guide_msg3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="해당하는 경우에만\n긴급통역을 신청하세요\n\n그 외의 경우에는\n수어통역을 예약하세요."
-        android:textAlignment="center"
-        android:textColor="@color/guide_msg_text"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_guide_msg" />
+        <TextView
+            android:id="@+id/tv_guide_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:text="교통사고, 응급환자, 경찰조사"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_emergency" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_normal"
-        android:layout_width="0dp"
-        android:layout_height="57dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/white"
-        android:text="수어통역 신청하기"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:cornerRadius="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_emergency"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="@color/black"
-        app:strokeWidth="2dp" />
+        <TextView
+            android:id="@+id/tv_guide_msg2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="에"
+            android:textColor="@color/guide_msg_text"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv_guide_msg"
+            app:layout_constraintTop_toTopOf="@+id/tv_guide_msg" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_emergency"
-        android:layout_width="0dp"
-        android:layout_height="57dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/btn_reservation_cancel_color"
-        android:text="긴급통역 신청하기"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:cornerRadius="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/tv_guide_msg3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="해당하는 경우에만\n긴급통역을 신청하세요\n\n그 외의 경우에는\n수어통역을 예약하세요."
+            android:textAlignment="center"
+            android:textColor="@color/guide_msg_text"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_guide_msg" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_normal"
+            android:layout_width="0dp"
+            android:layout_height="57dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="80dp"
+            android:backgroundTint="@color/white"
+            android:text="수어통역 신청하기"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:cornerRadius="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_guide_msg3"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_emergency"
+            android:layout_width="0dp"
+            android:layout_height="57dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/btn_reservation_cancel_color"
+            android:text="긴급통역 신청하기"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:cornerRadius="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_normal" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

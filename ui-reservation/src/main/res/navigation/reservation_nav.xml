@@ -21,6 +21,9 @@
                 android:defaultValue="0"
                 app:argType="integer" />
         </action>
+        <action
+            android:id="@+id/action_homeFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/reservationFragment"
@@ -55,5 +58,18 @@
         <action
             android:id="@+id/action_emergencyReservationFragment_to_reservationFragment"
             app:destination="@id/reservationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.sullivan.signear.ui_reservation.ui.mypage.MyPageFragment"
+        android:label="fragment_my_page"
+        tools:layout="@layout/fragment_my_page" >
+        <action
+            android:id="@+id/action_myPageFragment_to_emergencyReservationFragment"
+            app:destination="@id/emergencyReservationFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_pop"
+            app:popUpTo="@id/myPageFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

@@ -24,4 +24,7 @@
     <color name="reservation_status_enable_color">#0A84FF</color>
     <color name="reservation_status_disable_color">#B6B6B6</color>
     <color name="btn_reservation_cancel_color">#FF453A</color>
+
+<!--    my page -->
+    <color name="user_phone_text_color">#787878</color>
 </resources>
