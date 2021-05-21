@@ -57,13 +57,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_cancel"
+            android:id="@+id/iv_reservation_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:background="@drawable/cancel_icon"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            tools:background="@drawable/cancel_icon" />
 
         <TextView
             android:id="@+id/tv_place"

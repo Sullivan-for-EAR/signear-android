@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -11,7 +13,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentDialogReservationDeleteBinding
+import com.sullivan.signear.common.ex.makeGone
 import com.sullivan.signear.ui_reservation.model.Reservation
+import com.sullivan.signear.ui_reservation.state.ReservationState
 import com.sullivan.signear.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,6 +79,32 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
             btnClose.setOnClickListener {
                 findNavController().navigate(R.id.action_reservationDeleteFragmentDialog_to_previousReservationFragment)
             }
+
+            showReservationState(currentReservationInfo.currentState, ivReservationState)
+        }
+    }
+
+    private fun showReservationState(currentState: ReservationState, ivState: ImageView) {
+        when (currentState) {
+            is ReservationState.Served -> ivState.setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    ivState.context.resources,
+                    R.drawable.served_icon, null
+                )
+            )
+            is ReservationState.Cancel -> ivState.setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    ivState.context.resources,
+                    R.drawable.cancel_icon, null
+                )
+            )
+            is ReservationState.Reject -> ivState.setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    ivState.context.resources,
+                    R.drawable.reject_icon, null
+                )
+            )
+            else -> ivState.makeGone()
         }
     }
 
