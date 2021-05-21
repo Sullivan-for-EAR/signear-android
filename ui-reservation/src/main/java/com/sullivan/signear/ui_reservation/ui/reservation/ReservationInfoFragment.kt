@@ -10,10 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sullivan.sigenear.ui_reservation.R
-
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentReservationInfoBinding
 import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.signear.common.ex.makeGone
+import com.sullivan.signear.common.ex.makeToast
 import com.sullivan.signear.common.ex.makeVisible
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
     private val viewModel: ReservationSharedViewModel by activityViewModels()
-    lateinit var currentReservationInfo: Reservation
+    private lateinit var currentReservationInfo: Reservation
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,13 +40,15 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
     override fun setupView() {
         binding.apply {
-
+            val id = arguments?.getInt(ARGS_KEY)
+            currentReservationInfo = id.let { viewModel.findItemWithId(it!!)!! }
+            makeReservationView()
+            makeReservationStatusView()
         }
     }
 
     override fun onPause() {
         super.onPause()
-
         viewModel.clearPrevData()
     }
 
@@ -56,12 +58,9 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
                 reservationTotalInfo.let {
                     if (it != null) {
                         currentReservationInfo = it
-//                        currentReservationInfo.currentState = ReservationState.Reject("거절 사유")
-//                        currentReservationInfo.reject_cancel_reason = "거절 사유"
+                        makeReservationView()
+                        makeReservationStatusView()
                     }
-
-                    makeReservationView()
-                    makeReservationStatusView()
                 }
             })
         }
@@ -247,5 +246,9 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             .create()
 
         dialog.show()
+    }
+
+    companion object {
+        const val ARGS_KEY = "itemId"
     }
 }

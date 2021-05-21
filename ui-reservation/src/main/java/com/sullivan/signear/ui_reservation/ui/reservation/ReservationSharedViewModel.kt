@@ -3,7 +3,6 @@ package com.sullivan.signear.ui_reservation.ui.reservation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.distinctUntilChanged
 import com.sullivan.signear.domain.SignearRepository
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationConfirmDialogState
@@ -35,6 +34,8 @@ constructor(private val repository: SignearRepository) : ViewModel() {
 
     private val _reservationTotalInfo = MutableLiveData<Reservation?>()
     val reservationTotalInfo: LiveData<Reservation?> = _reservationTotalInfo
+
+    private var reservationList = emptyList<Reservation>()
 
     fun updateDate(current: Calendar) {
         _reservationDate.value = current
@@ -81,6 +82,7 @@ constructor(private val repository: SignearRepository) : ViewModel() {
             }"
 
         val currentReservation = Reservation(
+            0,
             currentDate,
             reservationStartTime.value,
             reservationEndTime.value,
@@ -111,4 +113,10 @@ constructor(private val repository: SignearRepository) : ViewModel() {
         reservationTranslationInfo.value = false
         reservationPurpose.value = ""
     }
+
+    fun updateReservationList(list: List<Reservation>) {
+        reservationList = list
+    }
+
+    fun findItemWithId(id: Int) = reservationList.find { it.id == id }
 }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemReservationBinding
@@ -33,6 +34,12 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
 
                 "${item.date} ${item.startTime}".also { tvDate.text = it }
                 showReservationState(item.currentState, ivState)
+
+                rvReservation.setOnClickListener {
+                    it.findNavController().navigate(
+                        HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
+                    )
+                }
             }
         }
 
