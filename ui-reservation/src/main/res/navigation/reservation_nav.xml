@@ -97,6 +97,15 @@
         android:id="@+id/reservationDeleteFragmentDialog"
         android:name="com.sullivan.signear.ui_reservation.ui.mypage.ReservationDeleteFragmentDialog"
         android:label="ReservationDeleteFragmentDialog">
+
+        <action
+            android:id="@+id/action_reservationDeleteFragmentDialog_to_previousReservationFragment"
+            app:destination="@id/previousReservationFragment" >
+            <argument
+                android:name="itemId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
         <action
             android:id="@+id/action_reservationDeleteFragmentDialog_pop"
             app:popUpTo="@id/reservationDeleteFragmentDialog"

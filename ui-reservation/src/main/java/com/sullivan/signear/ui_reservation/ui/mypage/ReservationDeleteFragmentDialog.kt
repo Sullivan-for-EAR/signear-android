@@ -42,13 +42,19 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
 
     private fun setupView() {
         binding.apply {
-            btnClose.setOnClickListener {
-                findNavController().navigate(R.id.action_reservationDeleteFragmentDialog_pop)
-            }
+            val id = arguments?.getInt(ARGS_KEY)
+            if (id != null) {
+                currentReservationInfo = id.let { viewModel.findItemWithIdInPrevList(it)!! }
+                makeReservationView()
 
-            val id = arguments?.getInt(ReservationInfoFragment.ARGS_KEY)
-            currentReservationInfo = id.let { viewModel.findItemWithIdInPrevList(it!!)!! }
-            makeReservationView()
+                btnDelete.setOnClickListener {
+                    findNavController().navigate(
+                        ReservationDeleteFragmentDialogDirections.actionReservationDeleteFragmentDialogToPreviousReservationFragment(
+                            id
+                        )
+                    )
+                }
+            }
         }
     }
 

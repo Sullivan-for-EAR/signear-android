@@ -82,8 +82,9 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
     }
 
     override fun setupView() {
+
         reservationListAdapter =
-            PreviousReservationListAdapter(reservationList)
+            PreviousReservationListAdapter(reservationList.toMutableList())
 
         viewModel.updatePrevReservationList(reservationList)
 
@@ -92,11 +93,21 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
                 setHasFixedSize(true)
                 adapter = reservationListAdapter
                 addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+
             }
 
             btnBack.setOnClickListener {
                 findNavController().navigate(R.id.action_previousReservationFragment_pop)
             }
         }
+
+        val id = arguments?.getInt(ARGS_KEY)
+        if(id != null) {
+            reservationListAdapter.remove(id)
+        }
+    }
+
+    companion object {
+        private const val ARGS_KEY = "itemId"
     }
 }

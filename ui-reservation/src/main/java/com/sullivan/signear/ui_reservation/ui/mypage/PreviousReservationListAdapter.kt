@@ -13,7 +13,7 @@ import com.sullivan.signear.common.ex.makeVisible
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
 
-class PreviousReservationListAdapter(private val reservationList: List<Reservation>) :
+class PreviousReservationListAdapter(private val reservationList: MutableList<Reservation>) :
     RecyclerView.Adapter<PreviousReservationListAdapter.ReservationListViewHolder>() {
     private lateinit var bindingItem: ItemReservationBinding
 
@@ -86,4 +86,13 @@ class PreviousReservationListAdapter(private val reservationList: List<Reservati
     }
 
     override fun getItemCount() = reservationList.size
+
+    override fun getItemId(position: Int) = reservationList[position].id.toLong()
+
+    fun remove(id: Int) {
+        val position = reservationList.indexOf(reservationList.find { it.id == id })
+        reservationList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, reservationList.size)
+    }
 }
