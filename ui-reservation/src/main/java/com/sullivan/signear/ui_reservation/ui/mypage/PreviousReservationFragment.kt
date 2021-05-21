@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -26,6 +27,11 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupBackKeyEvent()
+    }
+
     override fun setupView() {
         reservationListAdapter =
             PreviousReservationListAdapter(viewModel.fetchPrevList(), viewModel)
@@ -45,6 +51,16 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
                 findNavController().navigate(R.id.action_previousReservationFragment_pop)
             }
         }
+    }
+
+    private fun setupBackKeyEvent() {
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigate(R.id.action_previousReservationFragment_pop)
+                }
+            })
     }
 
     companion object {

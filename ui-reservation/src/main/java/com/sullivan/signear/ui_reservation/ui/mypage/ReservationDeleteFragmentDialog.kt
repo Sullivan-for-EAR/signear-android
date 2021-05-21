@@ -5,9 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -15,7 +12,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentDialogReservationDeleteBinding
 import com.sullivan.signear.ui_reservation.model.Reservation
-import com.sullivan.signear.ui_reservation.ui.reservation.ReservationInfoFragment
 import com.sullivan.signear.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -77,7 +73,7 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
             tvReservationPurpose.text = currentReservationInfo.purpose
 
             btnClose.setOnClickListener {
-                findNavController().navigate(R.id.action_reservationDeleteFragmentDialog_pop)
+                findNavController().navigate(R.id.action_reservationDeleteFragmentDialog_to_previousReservationFragment)
             }
         }
     }
@@ -88,18 +84,6 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
     }
 
     companion object {
-        private var fragment: ReservationDeleteFragmentDialog? = null
         private const val ARGS_KEY = "itemId"
-
-        @JvmStatic
-        fun newInstance() =
-            fragment ?: synchronized(this) {
-                fragment ?: ReservationDeleteFragmentDialog().also { fragment = it }
-            }
-
-        @JvmStatic
-        fun dismissInstance() {
-            fragment = null
-        }
     }
 }
