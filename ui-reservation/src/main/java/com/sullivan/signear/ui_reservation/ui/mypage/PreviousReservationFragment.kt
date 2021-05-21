@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +13,11 @@ import com.sullivan.sigenear.ui_reservation.databinding.FragmentPreviousReservat
 import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
+import com.sullivan.signear.ui_reservation.ui.reservation.ReservationSharedViewModel
 
 class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBinding>() {
+
+    private val viewModel: ReservationSharedViewModel by activityViewModels()
     private lateinit var reservationListAdapter: PreviousReservationListAdapter
     private val reservationList = listOf(
         Reservation(
@@ -80,6 +84,8 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
     override fun setupView() {
         reservationListAdapter =
             PreviousReservationListAdapter(reservationList)
+
+        viewModel.updatePrevReservationList(reservationList)
 
         binding.apply {
             rvReservation.apply {

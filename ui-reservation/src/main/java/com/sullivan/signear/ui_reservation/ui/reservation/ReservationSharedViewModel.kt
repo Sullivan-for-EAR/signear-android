@@ -36,6 +36,7 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     val reservationTotalInfo: LiveData<Reservation?> = _reservationTotalInfo
 
     private var reservationList = emptyList<Reservation>()
+    private var prevreservationList = emptyList<Reservation>()
 
     fun updateDate(current: Calendar) {
         _reservationDate.value = current
@@ -119,4 +120,10 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     }
 
     fun findItemWithId(id: Int) = reservationList.find { it.id == id }
+
+    fun updatePrevReservationList(list: List<Reservation>) {
+        prevreservationList = list
+    }
+
+    fun findItemWithIdInPrevList(id: Int) = prevreservationList.find { it.id == id }
 }
