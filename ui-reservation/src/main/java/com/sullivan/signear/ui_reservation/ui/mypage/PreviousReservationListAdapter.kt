@@ -12,8 +12,12 @@ import com.sullivan.signear.common.ex.makeGone
 import com.sullivan.signear.common.ex.makeVisible
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
+import com.sullivan.signear.ui_reservation.ui.reservation.ReservationSharedViewModel
 
-class PreviousReservationListAdapter(private val reservationList: MutableList<Reservation>) :
+class PreviousReservationListAdapter(
+    private val reservationList: MutableList<Reservation>,
+    private val sharedViewModel: ReservationSharedViewModel
+) :
     RecyclerView.Adapter<PreviousReservationListAdapter.ReservationListViewHolder>() {
     private lateinit var bindingItem: ItemReservationBinding
 
@@ -92,6 +96,7 @@ class PreviousReservationListAdapter(private val reservationList: MutableList<Re
     fun remove(id: Int) {
         val position = reservationList.indexOf(reservationList.find { it.id == id })
         reservationList.removeAt(position)
+        sharedViewModel.updatePrevReservationList(reservationList)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, reservationList.size)
     }

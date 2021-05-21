@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.sullivan.signear.domain.SignearRepository
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationConfirmDialogState
+import com.sullivan.signear.ui_reservation.state.ReservationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,7 +37,59 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     val reservationTotalInfo: LiveData<Reservation?> = _reservationTotalInfo
 
     private var reservationList = emptyList<Reservation>()
-    private var prevreservationList = emptyList<Reservation>()
+    private var prevreservationList = mutableListOf(
+        Reservation(
+            1,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구",
+            "서초좋은병원",
+            "",
+            false,
+            ReservationState.Cancel("reason")
+        ),
+        Reservation(
+            2,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구", "서초좋은병원", "",
+            false,
+            ReservationState.Served
+        ),
+        Reservation(
+            3,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구", "서초좋은병원", "",
+            false,
+            ReservationState.Reject("reason")
+        ),
+        Reservation(
+            4,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구",
+            "서초좋은병원",
+            "",
+            false,
+            ReservationState.Served
+        ),
+        Reservation(
+            5,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구",
+            "서초좋은병원",
+            "",
+            false,
+            ReservationState.Cancel("reason")
+        ),
+    )
 
     fun updateDate(current: Calendar) {
         _reservationDate.value = current
@@ -121,9 +174,11 @@ constructor(private val repository: SignearRepository) : ViewModel() {
 
     fun findItemWithId(id: Int) = reservationList.find { it.id == id }
 
-    fun updatePrevReservationList(list: List<Reservation>) {
+    fun updatePrevReservationList(list: MutableList<Reservation>) {
         prevreservationList = list
     }
 
     fun findItemWithIdInPrevList(id: Int) = prevreservationList.find { it.id == id }
+
+    fun fetchPrevList() = prevreservationList
 }
