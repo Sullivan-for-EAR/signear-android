@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sullivan.sigenear.ui_reservation.R
+
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentReservationInfoBinding
 import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.signear.common.ex.makeGone
@@ -53,7 +55,8 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
                 reservationTotalInfo.let {
                     if (it != null) {
                         currentReservationInfo = it
-//                        currentReservationInfo.currentState = ReservationState.Cancel("reason")
+//                        currentReservationInfo.currentState = ReservationState.Reject("거절 사유")
+//                        currentReservationInfo.reject_cancel_reason = "거절 사유"
                     }
 
                     makeReservationView()
@@ -213,6 +216,7 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             }
 
             btnCancel.makeGone()
+            showDialog()
         }
     }
 
@@ -230,5 +234,20 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
             btnCancel.makeVisible()
         }
+    }
+
+    private fun showDialog() {
+        val dialog = MaterialAlertDialogBuilder(
+            requireContext(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
+        )
+            .setTitle("거절 사유")
+            .setMessage(currentReservationInfo.reject_cancel_reason)
+            .setPositiveButton("확인") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .create()
+
+        dialog.show()
     }
 }

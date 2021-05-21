@@ -12,4 +12,5 @@ data class Reservation(
     val purpose: String,
     val isContactless: Boolean = false,
     var currentState: ReservationState = ReservationState.NotRead,
+    var reject_cancel_reason: String = ""
 )
