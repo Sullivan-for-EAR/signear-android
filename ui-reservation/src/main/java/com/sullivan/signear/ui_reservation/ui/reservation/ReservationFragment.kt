@@ -112,11 +112,15 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                 showDialog()
             }
 
-            binding.spCenter.apply {
+            spCenter.apply {
                 viewModel.updateCenterInfo(this.text.toString())
                 setOnItemSelectedListener { _, _, _, item ->
                     viewModel.updateCenterInfo(item.toString())
                 }
+            }
+
+            btnBack.setOnClickListener {
+                moveToHome()
             }
         }
     }

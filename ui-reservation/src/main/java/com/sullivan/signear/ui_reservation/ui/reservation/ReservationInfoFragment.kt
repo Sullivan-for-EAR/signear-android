@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sullivan.sigenear.ui_reservation.R
 
@@ -84,12 +85,9 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
             tvReservationPurpose.text = currentReservationInfo.purpose
 
-//            if (currentReservationInfo.currentState != ReservationState.Reject) {
-//                btnCancel.makeVisible()
-//            } else {
-//                btnCancel.makeGone()
-//            }
-
+            btnBack.setOnClickListener {
+                findNavController().navigate(R.id.action_reservationInfoFragment_to_homeFragment)
+            }
         }
     }
 

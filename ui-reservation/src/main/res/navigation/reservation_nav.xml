@@ -32,5 +32,11 @@
         android:id="@+id/reservationInfoFragment"
         android:name="com.sullivan.signear.ui_reservation.ui.reservation.ReservationInfoFragment"
         android:label="fragment_reservation_info"
-        tools:layout="@layout/fragment_reservation_info" />
+        tools:layout="@layout/fragment_reservation_info">
+        <action
+            android:id="@+id/action_reservationInfoFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@+id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
