@@ -20,7 +20,7 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
     private val viewModel: ReservationSharedViewModel by activityViewModels()
     private lateinit var reservationListAdapter: PreviousReservationListAdapter
     private val swipeHelperCallback = SwipeHelperCallback().apply {
-        setClamp(300f)
+        setClamp(220f)
     }
 
     override fun onCreateView(

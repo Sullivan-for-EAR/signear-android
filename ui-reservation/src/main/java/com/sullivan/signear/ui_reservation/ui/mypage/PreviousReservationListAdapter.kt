@@ -105,9 +105,11 @@ class PreviousReservationListAdapter(
 
     fun remove(id: Int) {
         val position = reservationList.indexOf(reservationList.find { it.id == id })
-        reservationList.removeAt(position)
-        sharedViewModel.updatePrevReservationList(reservationList)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, reservationList.size)
+        if (position != -1) {
+            reservationList.removeAt(position)
+            sharedViewModel.updatePrevReservationList(reservationList)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, reservationList.size)
+        }
     }
 }
