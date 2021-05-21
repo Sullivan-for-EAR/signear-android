@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentEmergencyReservationBinding
 import com.sullivan.signear.common.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
