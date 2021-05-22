@@ -8,8 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemMypageBinding
+import com.sullivan.signear.common.navigator.LoginNavigator
 
-class MyPageListAdapter(private val itemList: List<MyPageItem>) :
+class MyPageListAdapter(
+    private val itemList: List<MyPageItem>,
+    private val loginNavigator: LoginNavigator
+) :
     RecyclerView.Adapter<MyPageListAdapter.MyPageListViewHolder>() {
 
     private lateinit var binding: ItemMypageBinding
@@ -23,25 +27,30 @@ class MyPageListAdapter(private val itemList: List<MyPageItem>) :
                     when (item.title) {
                         "지난 예약" -> it.findNavController()
                             .navigate(R.id.action_myPageFragment_to_previousReservationFragment)
+                        "로그아웃" -> showDialog(it.context)
                     }
                 }
             }
         }
 
-//        private fun showDialog(context: Context) {
-//            val dialog = MaterialAlertDialogBuilder(
-//                context, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
-//            )
-//                .setTitle("거절 사유")
-//                .setMessage(currentReservationInfo.reject_cancel_reason)
-//                .setPositiveButton("확인") { dialog, _ ->
-//                    dialog.dismiss()
-//                }
-//                .setCancelable(false)
-//                .create()
-//
-//            dialog.show()
-//        }
+        private fun showDialog(context: Context) {
+            val dialog = MaterialAlertDialogBuilder(
+                context, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
+            )
+                .setTitle("로그아웃")
+                .setMessage("정말 로그아웃 하시나요?")
+                .setPositiveButton("확인") { dialog, _ ->
+                    loginNavigator.openLogin(context)
+                    dialog.dismiss()
+                }
+                .setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setCancelable(false)
+                .create()
+
+            dialog.show()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageListViewHolder {

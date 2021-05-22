@@ -10,13 +10,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentMyPageBinding
 import com.sullivan.signear.common.base.BaseFragment
+import com.sullivan.signear.common.navigator.LoginNavigator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
 
-    private val itemList = listOf(MyPageItem("지난 예약"), MyPageItem("의견 남기기"), MyPageItem("로그 아웃"))
-    private val myPageListAdapter = MyPageListAdapter(itemList)
+    @Inject
+    lateinit var loginNavigator: LoginNavigator
+
+    private val itemList = listOf(MyPageItem("지난 예약"), MyPageItem("의견 남기기"), MyPageItem("로그아웃"))
+    private lateinit var myPageListAdapter: MyPageListAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +41,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
                 findNavController().navigate(R.id.action_myPageFragment_pop)
             }
 
+            myPageListAdapter = MyPageListAdapter(itemList, loginNavigator)
             rvMypage.apply {
                 adapter = myPageListAdapter
                 setHasFixedSize(true)

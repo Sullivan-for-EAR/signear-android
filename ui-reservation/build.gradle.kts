@@ -23,6 +23,7 @@ android {
 dependencies {
 
     implementation(project(":ui-common"))
+    implementation(project(":ui-login"))
     implementation(project(":domain"))
 
     implementation(Dep.Kotlin.stdlibJvm)

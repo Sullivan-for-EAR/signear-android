@@ -128,18 +128,5 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
 
     companion object {
         private const val ARGS_KEY = "itemId"
-
-        private var fragment: ReservationDeleteFragmentDialog? = null
-
-        @JvmStatic
-        fun newInstance() =
-            fragment ?: synchronized(this) {
-                fragment ?: ReservationDeleteFragmentDialog().also { fragment = it }
-            }
-
-        @JvmStatic
-        fun dismissInstance() {
-            fragment = null
-        }
     }
 }
