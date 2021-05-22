@@ -40,10 +40,12 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
     override fun setupView() {
         binding.apply {
-            val id = arguments?.getInt(ARGS_KEY)
-            currentReservationInfo = id.let { viewModel.findItemWithId(it!!)!! }
-            makeReservationView()
-            makeReservationStatusView()
+            val id: Int? = arguments?.getInt(ARGS_KEY)
+            if (id != null) {
+                currentReservationInfo = viewModel.findItemWithId(id)!!
+                makeReservationView()
+                makeReservationStatusView()
+            }
         }
     }
 

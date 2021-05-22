@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ COPYRIGHT © SOVORO 2020 ALL RIGHTS RESERVED
   -->
 
 <set xmlns:android="http://schemas.android.com/apk/res/android">
     <translate
-        android:duration="@android:integer/config_mediumAnimTime"
-        android:fromXDelta="0"
-        android:toXDelta="100%p" />
+        android:duration="@android:integer/config_longAnimTime"
+        android:fromXDelta="0%"
+        android:fromYDelta="0%"
+        android:toXDelta="100%p"
+        android:toYDelta="0%" />
 </set>
