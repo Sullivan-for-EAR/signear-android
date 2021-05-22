@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentEmergencyReservationBinding
 import com.sullivan.signear.common.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +23,9 @@ class EmergencyReservationFragment : BaseFragment<FragmentEmergencyReservationBi
 
     override fun setupView() {
         binding.apply {
-
+            btnBack.setOnClickListener {
+                findNavController().navigate(R.id.action_emergencyReservationFragment_pop)
+            }
         }
     }
 }
