@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,7 @@ import com.sullivan.sigenear.ui_reservation.databinding.FragmentDialogReservatio
 import com.sullivan.signear.common.ex.makeGone
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
+import com.sullivan.signear.ui_reservation.ui.reservation.ReservationConfirmDialogFragment
 import com.sullivan.signear.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +40,7 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
+        setupBackKeyEvent()
     }
 
     private fun setupView() {
@@ -77,7 +80,7 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
             tvReservationPurpose.text = currentReservationInfo.purpose
 
             btnClose.setOnClickListener {
-                findNavController().navigate(R.id.action_reservationDeleteFragmentDialog_to_previousReservationFragment)
+                findNavController().navigate(R.id.action_reservationDeleteFragmentDialog_pop)
             }
 
             showReservationState(currentReservationInfo.currentState, ivReservationState)
@@ -113,7 +116,30 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
         (dialog as? BottomSheetDialog)?.behavior?.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
+    private fun setupBackKeyEvent() {
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigate(R.id.action_reservationDeleteFragmentDialog_pop)
+                }
+            })
+    }
+
     companion object {
         private const val ARGS_KEY = "itemId"
+
+        private var fragment: ReservationDeleteFragmentDialog? = null
+
+        @JvmStatic
+        fun newInstance() =
+            fragment ?: synchronized(this) {
+                fragment ?: ReservationDeleteFragmentDialog().also { fragment = it }
+            }
+
+        @JvmStatic
+        fun dismissInstance() {
+            fragment = null
+        }
     }
 }

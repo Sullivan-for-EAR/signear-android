@@ -59,7 +59,7 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
             }
 
             btnBack.setOnClickListener {
-                findNavController().navigate(R.id.action_previousReservationFragment_pop)
+                findNavController().navigate(R.id.action_previousReservationFragment_to_myPageFragment)
             }
         }
     }
@@ -69,7 +69,7 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    findNavController().navigate(R.id.action_previousReservationFragment_pop)
+                    findNavController().navigate(R.id.action_previousReservationFragment_to_myPageFragment)
                 }
             })
     }

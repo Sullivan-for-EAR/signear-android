@@ -84,8 +84,7 @@
 
         <action
             android:id="@+id/action_previousReservationFragment_to_reservationDeleteFragmentDialog"
-            app:destination="@id/reservationDeleteFragmentDialog"
-            app:popUpToInclusive="true">
+            app:destination="@id/reservationDeleteFragmentDialog">
             <argument
                 android:name="itemId"
                 android:defaultValue="0"
@@ -94,6 +93,11 @@
         <action
             android:id="@+id/action_previousReservationFragment_pop"
             app:popUpTo="@id/previousReservationFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_previousReservationFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment"
+            app:popUpTo="@+id/myPageFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <dialog
@@ -112,7 +116,6 @@
         </action>
         <action
             android:id="@+id/action_reservationDeleteFragmentDialog_pop"
-            app:destination="@id/previousReservationFragment"
             app:popUpTo="@id/reservationDeleteFragmentDialog"
             app:popUpToInclusive="true" />
     </dialog>
