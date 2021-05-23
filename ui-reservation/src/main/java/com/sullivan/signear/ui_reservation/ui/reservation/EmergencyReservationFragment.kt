@@ -26,6 +26,15 @@ class EmergencyReservationFragment : BaseFragment<FragmentEmergencyReservationBi
             btnBack.setOnClickListener {
                 findNavController().navigate(R.id.action_emergencyReservationFragment_pop)
             }
+
+            btnNormal.setOnClickListener {
+                findNavController().navigate(R.id.action_emergencyReservationFragment_to_reservationFragment)
+            }
+
+            btnEmergency.setOnClickListener {
+                //todo 긴급 예약 신청 작업 예정
+                findNavController().navigate(R.id.action_emergencyReservationFragment_to_homeFragment)
+            }
         }
     }
 }
