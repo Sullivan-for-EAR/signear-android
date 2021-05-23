@@ -61,6 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_place"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             tools:background="@drawable/cancel_icon" />
@@ -201,6 +202,7 @@
             app:layout_constraintTop_toBottomOf="@+id/border2" />
 
         <TextView
+            android:id="@+id/tv_translation_guide_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -254,6 +256,7 @@
             app:layout_constraintTop_toBottomOf="@+id/border3" />
 
         <TextView
+            android:id="@+id/tv_purpose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

@@ -33,7 +33,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             "서초좋은병원",
             "",
             false,
-            ReservationState.Urgent
+            ReservationState.NotConfirm,
+            "",
+            true
         ),
         Reservation(
             2,

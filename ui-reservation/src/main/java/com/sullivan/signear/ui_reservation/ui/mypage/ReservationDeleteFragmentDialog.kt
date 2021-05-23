@@ -15,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentDialogReservationDeleteBinding
 import com.sullivan.signear.common.ex.makeGone
+import com.sullivan.signear.common.ex.makeVisible
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
 import com.sullivan.signear.ui_reservation.ui.reservation.ReservationConfirmDialogFragment
@@ -63,21 +64,41 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
 
     private fun makeReservationView() {
         binding.apply {
-            tvPlace.text = currentReservationInfo.place
+            if (currentReservationInfo.isEmergency) {
+                tvPlace.text = "긴급통역"
+
+                ivTranslation.makeGone()
+                tvTranslationGuideMsg.makeGone()
+                border2.makeGone()
+                border3.makeGone()
+                ivPurpose.makeGone()
+                tvPurpose.makeGone()
+                tvReservationPurpose.makeGone()
+            } else {
+                tvPlace.text = currentReservationInfo.place
+                ivTranslation.makeVisible()
+                tvTranslationGuideMsg.makeVisible()
+                border2.makeVisible()
+                border3.makeVisible()
+                ivPurpose.makeVisible()
+                tvPurpose.makeVisible()
+                tvReservationPurpose.makeVisible()
+
+                if (!currentReservationInfo.isContactless) {
+                    tvReservationTranslation.text = "수어통역"
+                    tvTranslation.text = "(대면)"
+                } else {
+                    tvReservationTranslation.text = "화상통역"
+                    tvTranslation.text = "(비대면)"
+                }
+
+                tvReservationPurpose.text = currentReservationInfo.purpose
+            }
+
             tvCenter.text = currentReservationInfo.center + "수어통역센터"
             tvReservationDate.text = currentReservationInfo.date
             tvReservationStartTime.text = currentReservationInfo.startTime
             tvReservationEndTime.text = currentReservationInfo.endTime
-
-            if (!currentReservationInfo.isContactless) {
-                tvReservationTranslation.text = "수어통역"
-                tvTranslation.text = "(대면)"
-            } else {
-                tvReservationTranslation.text = "화상통역"
-                tvTranslation.text = "(비대면)"
-            }
-
-            tvReservationPurpose.text = currentReservationInfo.purpose
 
             btnClose.setOnClickListener {
                 findNavController().navigate(R.id.action_reservationDeleteFragmentDialog_pop)

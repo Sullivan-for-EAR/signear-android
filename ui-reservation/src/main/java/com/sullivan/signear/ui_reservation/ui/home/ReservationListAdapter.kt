@@ -23,7 +23,7 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Reservation) {
             binding.apply {
-                if (item.currentState == ReservationState.Urgent) {
+                if (item.isEmergency) {
                     tvUrgent.makeVisible()
                     tvPlace.makeGone()
                     btnCancel.makeVisible()
@@ -39,10 +39,13 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
                 }
 
                 "${item.date} ${item.startTime}".also { tvDate.text = it }
-                showReservationState(item.currentState, ivState)
+
+                if (!item.isEmergency) {
+                    showReservationState(item.currentState, ivState)
+                }
 
                 rvReservation.setOnClickListener {
-                    if (item.currentState != ReservationState.Urgent) {
+                    if (!item.isEmergency) {
                         it.findNavController().navigate(
                             HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
                         )
@@ -50,7 +53,7 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
                 }
 
                 btnNavigation.setOnClickListener {
-                    if (item.currentState != ReservationState.Urgent) {
+                    if (!item.isEmergency) {
                         it.findNavController().navigate(
                             HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
                         )

@@ -27,15 +27,10 @@ class PreviousReservationListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Reservation) {
             binding.apply {
-                if (item.currentState == ReservationState.Urgent) {
-                    tvUrgent.makeVisible()
-                    tvPlace.makeGone()
+                if (item.isEmergency) {
+                    tvPlace.text = "긴급통역"
                 } else {
-                    tvPlace.apply {
-                        makeVisible()
-                        text = item.place
-                    }
-                    tvUrgent.makeGone()
+                    tvPlace.text = item.place
                 }
 
                 "${item.date} ${item.startTime}".also { tvDate.text = it }
