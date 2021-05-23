@@ -1,11 +1,13 @@
 package com.sullivan.signear.ui_reservation.ui.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemReservationBinding
 import com.sullivan.signear.common.ex.makeGone
@@ -24,12 +26,16 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
                 if (item.currentState == ReservationState.Urgent) {
                     tvUrgent.makeVisible()
                     tvPlace.makeGone()
+                    btnCancel.makeVisible()
+                    btnNavigation.makeGone()
                 } else {
                     tvPlace.apply {
                         makeVisible()
                         text = item.place
                     }
                     tvUrgent.makeGone()
+                    btnCancel.makeGone()
+                    btnNavigation.makeVisible()
                 }
 
                 "${item.date} ${item.startTime}".also { tvDate.text = it }
@@ -39,6 +45,10 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
                     it.findNavController().navigate(
                         HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
                     )
+                }
+
+                btnCancel.setOnClickListener {
+                    showDialog(it.context)
                 }
             }
         }
@@ -77,6 +87,25 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
                 )
                 else -> ivState.makeGone()
             }
+        }
+
+        private fun showDialog(context: Context) {
+            val dialog = MaterialAlertDialogBuilder(
+                context, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
+            )
+                .setTitle("긴급통역 취소")
+                .setMessage("긴급통역 연결을 정말 취소하시나요?")
+                .setPositiveButton("연결 취소") { dialog, _ ->
+                    //todo 예약 취소 로직 추가 예정
+                    dialog.dismiss()
+                }
+                .setNegativeButton("닫기") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setCancelable(false)
+                .create()
+
+            dialog.show()
         }
     }
 
