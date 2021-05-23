@@ -89,6 +89,10 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             btnBack.setOnClickListener {
                 findNavController().navigate(R.id.action_reservationInfoFragment_pop)
             }
+
+            btnCancel.setOnClickListener {
+                showCancelDialog()
+            }
         }
     }
 
@@ -242,6 +246,26 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             .setTitle("거절 사유")
             .setMessage(currentReservationInfo.reject_cancel_reason)
             .setPositiveButton("확인") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .create()
+
+        dialog.show()
+    }
+
+    private fun showCancelDialog() {
+        val dialog = MaterialAlertDialogBuilder(
+            requireContext(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
+        )
+            .setTitle("예약 취소")
+            .setMessage("수어통역 예약을 정말 취소하시나요?")
+            .setPositiveButton("예약 취소") { dialog, _ ->
+                dialog.dismiss()
+                //todo 예약취소 작업 예정
+                findNavController().navigate(R.id.action_reservationInfoFragment_pop)
+            }
+            .setNegativeButton("닫기") { dialog, _ ->
                 dialog.dismiss()
             }
             .setCancelable(false)
