@@ -87,7 +87,7 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             tvReservationPurpose.text = currentReservationInfo.purpose
 
             btnBack.setOnClickListener {
-                findNavController().navigate(R.id.action_reservationInfoFragment_to_homeFragment)
+                findNavController().navigate(R.id.action_reservationInfoFragment_pop)
             }
         }
     }

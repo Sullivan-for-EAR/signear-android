@@ -18,6 +18,9 @@
     <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor" tools:targetApi="l">@color/primary_color</item>
         <item name="android:windowBackground">@drawable/splash_img</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="ReservationTheme" parent="Theme.Signearandroid">
