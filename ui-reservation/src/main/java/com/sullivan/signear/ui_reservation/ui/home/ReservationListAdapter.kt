@@ -42,9 +42,19 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
                 showReservationState(item.currentState, ivState)
 
                 rvReservation.setOnClickListener {
-                    it.findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
-                    )
+                    if (item.currentState != ReservationState.Urgent) {
+                        it.findNavController().navigate(
+                            HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
+                        )
+                    }
+                }
+
+                btnNavigation.setOnClickListener {
+                    if (item.currentState != ReservationState.Urgent) {
+                        it.findNavController().navigate(
+                            HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
+                        )
+                    }
                 }
 
                 btnCancel.setOnClickListener {
