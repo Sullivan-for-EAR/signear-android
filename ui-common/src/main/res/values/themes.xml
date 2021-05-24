@@ -13,6 +13,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/primary_color</item>
         <!-- Customize your theme here. -->
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
+        <!-- Apply Custom font on DeviceDefault View. -->
+        <item name="android:buttonStyle">@style/AppleSDGothicNeoButtonStyle</item>
+        <item name="android:editTextStyle">@style/RobotoEditTextStyle</item>
+        <item name="android:radioButtonStyle">@style/AppleSDGothicNeoRadioButtonStyle</item>
+        <item name="android:checkboxStyle">@style/AppleSDGothicNeoCheckboxStyle</item>
+        <item name="android:textViewStyle">@style/AppleSDGothicNeoTextViewStyle</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -91,11 +97,28 @@
 
     <style name="MaterialAlertDialogBodyTextStyle" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textAppearance">?attr/textAppearanceBody2</item>
-        <!--        <item name="android:fontFamily">@font/noto_regular</item>-->
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textAlignment">center</item>
-        <!--        <item name="android:paddingVertical">15dp</item>-->
-        <!--        <item name="android:paddingHorizontal">-10dp</item>-->
+    </style>
+
+    <style name="AppleSDGothicNeoTextViewStyle" parent="@android:style/Widget.DeviceDefault.TextView">
+        <item name="android:fontFamily">@font/apple_sd_gothic_neo</item>
+    </style>
+
+    <style name="AppleSDGothicNeoButtonStyle" parent="@android:style/Widget.DeviceDefault.Button.Borderless">
+        <item name="android:fontFamily">@font/apple_sd_gothic_neo</item>
+    </style>
+
+    <style name="RobotoEditTextStyle" parent="@android:style/Widget.DeviceDefault.EditText">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="AppleSDGothicNeoRadioButtonStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton">
+        <item name="android:fontFamily">@font/apple_sd_gothic_neo</item>
+    </style>
+
+    <style name="AppleSDGothicNeoCheckboxStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:fontFamily">@font/apple_sd_gothic_neo</item>
     </style>
 </resources>
