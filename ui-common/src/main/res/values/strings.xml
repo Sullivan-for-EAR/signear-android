@@ -38,4 +38,10 @@
     <string name="find_account_send_link_guide_msg">이메일로 링크를 보냈어요</string>
     <string name="find_account_input_new_password">링크를 통해 새 비밀번호를 입력하세요</string>
     <string name="btn_login_title">로그인하기</string>
+    <string name="tv_login_title">로그인</string>
+    <string name="tv_login_finish_guide_msg">수어 통역 예약 플랫폼\n이어에 가입하신 것을\n환영합니다!</string>
+    <string name="btn_login_start_title">이어 시작하기</string>
+    <string name="tv_login_start_guide_msg1">이어에 로그인하면</string>
+    <string name="tv_login_start_guide_msg2">더 간편한 수어통역을 경험할 수 있어요</string>
+    <string name="btn_login_start_with_email_title">이메일로 시작하기</string>
 </resources>

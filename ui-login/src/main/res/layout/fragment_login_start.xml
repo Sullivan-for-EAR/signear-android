@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="32dp"
     android:background="@drawable/bottom_view_bg"
+    android:paddingBottom="32dp"
     tools:context=".ui.login.LoginStartFragment">
 
     <ImageView
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="이어에 로그인하면"
+        android:text="@string/tv_login_start_guide_msg1"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -35,7 +35,7 @@
         android:id="@+id/tv_guide_msg2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="더 간편한 수어통역을 경험할 수 있어요"
+        android:text="@string/tv_login_start_guide_msg2"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -50,7 +50,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/black"
-        android:text="이메일로 시작하기"
+        android:text="@string/btn_login_start_with_email_title"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:cornerRadius="5dp"
