@@ -27,4 +27,15 @@
         <item>중구</item>
         <item>중랑구</item>
     </string-array>
+
+
+<!--    Login -->
+    <string name="login_title1">쉽고 빠르게</string>
+    <string name="login_title2">수어통역을 예약하세요!</string>
+    <string name="find_account_guide_msg">이어에 등록한 이메일이 있나요?</string>
+    <string name="find_account_email_input">이메일을 입력하세요</string>
+    <string name="btn_next_title">다음</string>
+    <string name="find_account_send_link_guide_msg">이메일로 링크를 보냈어요</string>
+    <string name="find_account_input_new_password">링크를 통해 새 비밀번호를 입력하세요</string>
+    <string name="btn_login_title">로그인하기</string>
 </resources>
