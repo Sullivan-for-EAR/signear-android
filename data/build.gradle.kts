@@ -14,7 +14,7 @@ listOf(
 
 dependencies {
 
-    implementation(project(":core"))
+    implementation(project(":common:core"))
 
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.Kotlin.coroutines.core)

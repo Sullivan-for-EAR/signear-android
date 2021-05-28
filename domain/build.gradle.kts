@@ -14,7 +14,7 @@ listOf(
 
 dependencies {
 
-    implementation(project(":core"))
+    implementation(project(":common:core"))
     implementation(project(":data"))
 
     implementation(Dep.Kotlin.stdlibJvm)

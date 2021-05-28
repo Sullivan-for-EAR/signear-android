@@ -22,7 +22,7 @@ android {
 
 dependencies {
 
-    implementation(project(":ui-common"))
+    implementation(project(":common:ui-common"))
     implementation(project(":ui-login"))
     implementation(project(":domain"))
 

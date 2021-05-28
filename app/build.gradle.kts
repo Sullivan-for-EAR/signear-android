@@ -69,10 +69,10 @@ android {
 
 dependencies {
 
-    implementation(project(":core"))
+    implementation(project(":common:core"))
     implementation(project(":data"))
     implementation(project(":domain"))
-    implementation(project(":ui-common"))
+    implementation(project(":common:ui-common"))
     implementation(project(":ui-login"))
     implementation(project(":ui-reservation"))
 
