@@ -1,6 +1,6 @@
 package com.sullivan.signear.ui_reservation.di
 
-import com.sullivan.signear.common.navigator.ReservationNavigator
+import com.sullivan.common.ui_common.navigator.ReservationNavigator
 import com.sullivan.signear.ui_reservation.navigator.ReservationNavigatorImpl
 import dagger.Binds
 import dagger.Module

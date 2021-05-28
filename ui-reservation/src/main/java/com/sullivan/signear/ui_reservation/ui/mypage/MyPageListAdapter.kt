@@ -9,10 +9,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jaredrummler.materialspinner.BuildConfig.VERSION_NAME
+import com.sullivan.common.ui_common.navigator.LoginNavigator
 import com.sullivan.sigenear.ui_reservation.BuildConfig
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemMypageBinding
-import com.sullivan.signear.common.navigator.LoginNavigator
 
 class MyPageListAdapter(
     private val itemList: List<MyPageItem>,

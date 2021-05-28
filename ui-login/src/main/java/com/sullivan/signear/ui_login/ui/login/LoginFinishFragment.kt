@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import com.sullivan.signear.common.base.BaseFragment
-import com.sullivan.signear.common.navigator.ReservationNavigator
+import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.common.ui_common.navigator.ReservationNavigator
 import com.sullivan.signear.ui_login.databinding.FragmentLoginFinishBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay

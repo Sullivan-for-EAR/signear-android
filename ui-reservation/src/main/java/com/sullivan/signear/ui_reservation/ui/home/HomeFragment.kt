@@ -9,9 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sullivan.common.ui_common.base.BaseFragment
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.HomeFragmentBinding
-import com.sullivan.signear.common.base.BaseFragment
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
 import com.sullivan.signear.ui_reservation.ui.reservation.ReservationSharedViewModel

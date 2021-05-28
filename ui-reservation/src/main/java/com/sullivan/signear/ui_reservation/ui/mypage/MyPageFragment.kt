@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.common.ui_common.navigator.LoginNavigator
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentMyPageBinding
-import com.sullivan.signear.common.base.BaseFragment
-import com.sullivan.signear.common.navigator.LoginNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

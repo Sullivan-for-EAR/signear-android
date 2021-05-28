@@ -8,10 +8,10 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.sullivan.common.ui_common.ex.makeGone
+import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemReservationBinding
-import com.sullivan.signear.common.ex.makeGone
-import com.sullivan.signear.common.ex.makeVisible
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
 

@@ -1,6 +1,6 @@
 package com.sullivan.signear.ui_login.di
 
-import com.sullivan.signear.common.navigator.LoginNavigator
+import com.sullivan.common.ui_common.navigator.LoginNavigator
 import com.sullivan.signear.ui_login.navigator.LoginNavigatorImpl
 import dagger.Binds
 import dagger.Module

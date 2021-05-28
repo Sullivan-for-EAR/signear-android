@@ -12,10 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.sullivan.common.ui_common.ex.makeGone
+import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentDialogReservationDeleteBinding
-import com.sullivan.signear.common.ex.makeGone
-import com.sullivan.signear.common.ex.makeVisible
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
 import com.sullivan.signear.ui_reservation.ui.reservation.ReservationConfirmDialogFragment

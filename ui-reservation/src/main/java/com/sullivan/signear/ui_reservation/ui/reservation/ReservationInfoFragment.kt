@@ -9,12 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.common.ui_common.ex.makeGone
+import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentReservationInfoBinding
-import com.sullivan.signear.common.base.BaseFragment
-import com.sullivan.signear.common.ex.makeGone
-import com.sullivan.signear.common.ex.makeToast
-import com.sullivan.signear.common.ex.makeVisible
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
 import dagger.hilt.android.AndroidEntryPoint

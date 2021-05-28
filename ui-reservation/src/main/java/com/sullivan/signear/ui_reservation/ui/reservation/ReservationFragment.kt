@@ -14,10 +14,10 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.common.ui_common.ex.openDialog
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ReservationFragmentBinding
-import com.sullivan.signear.common.base.BaseFragment
-import com.sullivan.signear.common.ex.openDialog
 import com.sullivan.signear.ui_reservation.state.ReservationConfirmDialogState
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*

@@ -11,8 +11,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.sullivan.signear.common.base.BaseFragment
-import com.sullivan.signear.common.ex.*
+import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.common.ui_common.ex.*
 import com.sullivan.signear.ui_login.R
 import com.sullivan.signear.ui_login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint

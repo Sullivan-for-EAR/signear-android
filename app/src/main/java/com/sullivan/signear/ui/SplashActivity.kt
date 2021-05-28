@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.sullivan.signear.common.navigator.LoginNavigator
-import com.sullivan.signear.common.navigator.ReservationNavigator
-import com.sullivan.signear.core.DataState
+import com.sullivan.common.core.DataState
+import com.sullivan.common.ui_common.navigator.LoginNavigator
+import com.sullivan.common.ui_common.navigator.ReservationNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay

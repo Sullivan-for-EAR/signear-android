@@ -3,7 +3,7 @@ package com.sullivan.signear.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.sullivan.signear.core.DataState
+import com.sullivan.common.core.DataState
 import com.sullivan.signear.domain.SignearRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

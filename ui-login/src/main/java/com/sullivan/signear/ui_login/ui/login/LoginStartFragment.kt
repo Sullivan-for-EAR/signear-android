@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.sullivan.signear.common.base.BaseFragment
+import com.sullivan.common.ui_common.base.BaseFragment
 import com.sullivan.signear.ui_login.R
 import com.sullivan.signear.ui_login.databinding.FragmentLoginStartBinding
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,6 +1,6 @@
 package com.sullivan.signear.data.remote
 
-import com.sullivan.signear.core.DataState
+import com.sullivan.common.core.DataState
 import com.sullivan.signear.data.model.RankingInfo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
