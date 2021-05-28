@@ -78,7 +78,7 @@
 
     <string name="fragment_reservation_info_title">예약 확인</string>
     <string name="fragment_reservation_info_status_not_read">읽지 않음</string>
-    <string name="fragment_reservation_info_status_not_confirm">센터 확인 </string>
+    <string name="fragment_reservation_info_status_not_confirm">센터 확인 중</string>
     <string name="fragment_reservation_info_status_confirm">예약 확인</string>
     <string name="fragment_reservation_info_status_cancel">예약 취소</string>
     <string name="fragment_reservation_info_btn_cancel_title">예약 취소</string>
@@ -111,7 +111,7 @@
     <string name="fragment_reservation_dialog_reservation_cancel_positive_btn_title">연결 취소</string>
     <string name="fragment_reservation_dialog_reservation_cancel_negative_btn_title">닫기</string>
 
-    <string name="fragment_my_page_email_title">Signear에게 의견 보내기</string>
+    <string name="fragment_my_page_email_title">Signear 개발자에게 의견 보내기</string>
     <string name="fragment_my_page_dialog_logout_title">로그아웃</string>
     <string name="fragment_my_page_dialog_logout_body">정말 로그아웃 하시나요?</string>
     <string name="fragment_my_page_dialog_logout_positive_btn_title">확인</string>
