@@ -20,9 +20,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
     @Inject
     lateinit var loginNavigator: LoginNavigator
 
-    private val itemArray = resources.getStringArray(R.array.my_page_items).toList()
-    private val itemList =
-        listOf(MyPageItem(itemArray[0]), MyPageItem(itemArray[1]), MyPageItem(itemArray[2]))
+    private lateinit var itemArray: Array<String>
+    private lateinit var itemList: List<MyPageItem>
     private lateinit var myPageListAdapter: MyPageListAdapter
 
     override fun onCreateView(
@@ -34,6 +33,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
     }
 
     override fun setupView() {
+        itemArray = resources.getStringArray(R.array.my_page_items)
+        itemList =
+            listOf(MyPageItem(itemArray[0]), MyPageItem(itemArray[1]), MyPageItem(itemArray[2]))
+
         binding.apply {
             btnEmergency.setOnClickListener {
                 findNavController().navigate(R.id.action_myPageFragment_to_emergencyReservationFragment)
