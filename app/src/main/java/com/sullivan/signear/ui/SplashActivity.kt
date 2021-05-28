@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.sullivan.sigenear.common.databinding.ActivitySplashBinding
-import com.sullivan.signear.common.ex.viewBinding
 import com.sullivan.signear.common.navigator.LoginNavigator
 import com.sullivan.signear.common.navigator.ReservationNavigator
 import com.sullivan.signear.core.DataState
@@ -19,7 +17,6 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 class SplashActivity : AppCompatActivity() {
 
-    private val binding by viewBinding(ActivitySplashBinding::inflate)
     private val viewModel: SplashViewModel by viewModels()
 
     @Inject
