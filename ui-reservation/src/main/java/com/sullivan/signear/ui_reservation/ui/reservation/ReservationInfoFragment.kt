@@ -71,17 +71,19 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
     private fun makeReservationView() {
         binding.apply {
             tvPlace.text = currentReservationInfo.place
-            tvCenter.text = currentReservationInfo.center + "수어통역센터"
+            tvCenter.text = currentReservationInfo.center + R.string.tv_center_title
             tvReservationDate.text = currentReservationInfo.date
             tvReservationStartTime.text = currentReservationInfo.startTime
             tvReservationEndTime.text = currentReservationInfo.endTime
 
             if (!currentReservationInfo.isContactless) {
-                tvReservationTranslation.text = "수어통역"
-                tvTranslation.text = "(대면)"
+                tvReservationTranslation.text =
+                    R.string.fragment_reservation_tv_sign_translation_title.toString()
+                tvTranslation.text = "(${R.string.fragment_reservation_tv_contact_title})"
             } else {
-                tvReservationTranslation.text = "화상통역"
-                tvTranslation.text = "(비대면)"
+                tvReservationTranslation.text =
+                    R.string.fragment_reservation_tv_online_translation_title.toString()
+                tvTranslation.text = "(${R.string.fragment_reservation_tv_online_title})"
             }
 
             tvReservationPurpose.text = currentReservationInfo.purpose
@@ -258,14 +260,14 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
         val dialog = MaterialAlertDialogBuilder(
             requireContext(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
         )
-            .setTitle("예약 취소")
-            .setMessage("수어통역 예약을 정말 취소하시나요?")
-            .setPositiveButton("예약 취소") { dialog, _ ->
+            .setTitle(R.string.fragment_reservation_info_dialog_reservation_cancel_title)
+            .setMessage(R.string.fragment_reservation_info_dialog_reservation_cancel_body)
+            .setPositiveButton(R.string.fragment_reservation_info_dialog_reservation_cancel_positive_btn_title) { dialog, _ ->
                 dialog.dismiss()
                 //todo 예약취소 작업 예정
                 findNavController().navigate(R.id.action_reservationInfoFragment_pop)
             }
-            .setNegativeButton("닫기") { dialog, _ ->
+            .setNegativeButton(R.string.fragment_reservation_info_dialog_reservation_cancel_negative_btn_title) { dialog, _ ->
                 dialog.dismiss()
             }
             .setCancelable(false)

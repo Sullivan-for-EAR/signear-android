@@ -20,7 +20,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
     @Inject
     lateinit var loginNavigator: LoginNavigator
 
-    private val itemList = listOf(MyPageItem("지난 예약"), MyPageItem("의견 남기기"), MyPageItem("로그아웃"))
+    private val itemArray = resources.getStringArray(R.array.my_page_items).toList()
+    private val itemList =
+        listOf(MyPageItem(itemArray[0]), MyPageItem(itemArray[1]), MyPageItem(itemArray[2]))
     private lateinit var myPageListAdapter: MyPageListAdapter
 
     override fun onCreateView(

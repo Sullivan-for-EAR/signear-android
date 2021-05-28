@@ -29,10 +29,10 @@ class MyPageListAdapter(
                 tvTitle.text = item.title
                 rlMypage.setOnClickListener {
                     when (item.title) {
-                        "지난 예약" -> it.findNavController()
+                        itemList[0].title -> it.findNavController()
                             .navigate(R.id.action_myPageFragment_to_previousReservationFragment)
-                        "로그아웃" -> showDialog(it.context)
-                        "의견 남기기" -> sendEmail(it.context)
+                        itemList[1].title -> showDialog(it.context)
+                        itemList[2].title -> sendEmail(it.context)
                     }
                 }
             }
@@ -43,10 +43,11 @@ class MyPageListAdapter(
             intent.type = "text/plain"
             intent.putExtra(
                 Intent.EXTRA_EMAIL,
-                arrayOf("sullivan_developer@signear.com"))
+                arrayOf("sullivan_developer@signear.com")
+            )
             intent.putExtra(
                 Intent.EXTRA_SUBJECT,
-                "Signear에게 의견 보내기"
+                R.string.fragment_my_page_email_title
             )
             intent.putExtra(
                 Intent.EXTRA_TEXT,
@@ -59,13 +60,13 @@ class MyPageListAdapter(
             val dialog = MaterialAlertDialogBuilder(
                 context, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
             )
-                .setTitle("로그아웃")
-                .setMessage("정말 로그아웃 하시나요?")
-                .setPositiveButton("확인") { dialog, _ ->
+                .setTitle(R.string.fragment_my_page_dialog_logout_title)
+                .setMessage(R.string.fragment_my_page_dialog_logout_body)
+                .setPositiveButton(R.string.fragment_my_page_dialog_logout_positive_btn_title) { dialog, _ ->
                     loginNavigator.openLogin(context)
                     dialog.dismiss()
                 }
-                .setNegativeButton("취소") { dialog, _ ->
+                .setNegativeButton(R.string.fragment_my_page_dialog_logout_negative_btn_title) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .setCancelable(false)

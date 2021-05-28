@@ -106,13 +106,13 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
             val dialog = MaterialAlertDialogBuilder(
                 context, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
             )
-                .setTitle("긴급통역 취소")
-                .setMessage("긴급통역 연결을 정말 취소하시나요?")
-                .setPositiveButton("연결 취소") { dialog, _ ->
+                .setTitle(R.string.fragment_reservation_dialog_reservation_cancel_title)
+                .setMessage(R.string.fragment_reservation_dialog_reservation_cancel_body)
+                .setPositiveButton(R.string.fragment_reservation_dialog_reservation_cancel_positive_btn_title) { dialog, _ ->
                     //todo 예약 취소 로직 추가 예정
                     dialog.dismiss()
                 }
-                .setNegativeButton("닫기") { dialog, _ ->
+                .setNegativeButton(R.string.fragment_reservation_dialog_reservation_cancel_negative_btn_title) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .setCancelable(false)
