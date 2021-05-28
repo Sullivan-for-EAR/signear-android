@@ -109,7 +109,7 @@
             android:id="@+id/action_myPageFragment_to_previousReservationFragment"
             app:destination="@id/previousReservationFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
+
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -133,8 +133,7 @@
         <action
             android:id="@+id/action_previousReservationFragment_to_myPageFragment"
             app:destination="@id/myPageFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
+
             app:popUpTo="@+id/myPageFragment"
             app:popUpToInclusive="true" />
     </fragment>
