@@ -40,7 +40,7 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.sullivan.sigenear.common.initializer.TimberInitializer"
+                android:name="com.sullivan.common.ui_common.initializer.TimberInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>
