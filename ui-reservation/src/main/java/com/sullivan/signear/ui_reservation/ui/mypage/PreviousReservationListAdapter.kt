@@ -27,7 +27,7 @@ class PreviousReservationListAdapter(
         fun bind(item: Reservation) {
             binding.apply {
                 if (item.isEmergency) {
-                    tvPlace.text = R.string.fragment_emergency_reservation_title.toString()
+                    tvPlace.text = tvPlace.context.getString(R.string.fragment_emergency_reservation_title)
                 } else {
                     tvPlace.text = item.place
                 }

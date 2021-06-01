@@ -65,7 +65,7 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
     private fun makeReservationView() {
         binding.apply {
             if (currentReservationInfo.isEmergency) {
-                tvPlace.text = R.string.fragment_emergency_reservation_title.toString()
+                tvPlace.text = tvPlace.context.getString(R.string.fragment_emergency_reservation_title)
 
                 ivTranslation.makeGone()
                 tvTranslationGuideMsg.makeGone()
@@ -97,7 +97,8 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
                 tvReservationPurpose.text = currentReservationInfo.purpose
             }
 
-            tvCenter.text = currentReservationInfo.center + R.string.tv_center_title
+            tvCenter.text =
+                "${currentReservationInfo.center} ${context?.getString(R.string.tv_center_title)}"
             tvReservationDate.text = currentReservationInfo.date
             tvReservationStartTime.text = currentReservationInfo.startTime
             tvReservationEndTime.text = currentReservationInfo.endTime

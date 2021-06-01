@@ -70,7 +70,8 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
     private fun makeReservationView() {
         binding.apply {
             tvPlace.text = currentReservationInfo.place
-            tvCenter.text = currentReservationInfo.center + R.string.tv_center_title
+            tvCenter.text =
+                "${currentReservationInfo.center} ${context?.getString(R.string.tv_center_title)}"
             tvReservationDate.text = currentReservationInfo.date
             tvReservationStartTime.text = currentReservationInfo.startTime
             tvReservationEndTime.text = currentReservationInfo.endTime
