@@ -46,7 +46,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
                 findNavController().navigate(R.id.action_myPageFragment_pop)
             }
 
-            myPageListAdapter = MyPageListAdapter(itemList, loginNavigator)
+            myPageListAdapter = MyPageListAdapter(itemList, loginNavigator, requireActivity())
             rvMypage.apply {
                 adapter = myPageListAdapter
                 setHasFixedSize(true)

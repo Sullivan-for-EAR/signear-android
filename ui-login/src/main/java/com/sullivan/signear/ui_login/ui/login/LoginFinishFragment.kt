@@ -35,7 +35,7 @@ class LoginFinishFragment : BaseFragment<FragmentLoginFinishBinding>() {
     private fun moveToMainScreen() {
         lifecycleScope.launchWhenCreated {
             delay(1_000)
-            reservationNavigator.openReservationHome(requireContext())
+            reservationNavigator.openReservationHome(requireActivity())
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.sullivan.signear.ui_reservation.ui.mypage
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -13,10 +14,13 @@ import com.sullivan.common.ui_common.navigator.LoginNavigator
 import com.sullivan.sigenear.ui_reservation.BuildConfig
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemMypageBinding
+import com.sullivan.signear.ui_reservation.ui.ReservationActivity
+import com.sullivan.signear.ui_reservation.ui.ReservationActivity_GeneratedInjector
 
 class MyPageListAdapter(
     private val itemList: List<MyPageItem>,
-    private val loginNavigator: LoginNavigator
+    private val loginNavigator: LoginNavigator,
+    private val activity: Activity
 ) :
     RecyclerView.Adapter<MyPageListAdapter.MyPageListViewHolder>() {
 
@@ -31,8 +35,8 @@ class MyPageListAdapter(
                     when (item.title) {
                         itemList[0].title -> it.findNavController()
                             .navigate(R.id.action_myPageFragment_to_previousReservationFragment)
-                        itemList[1].title -> showDialog(it.context)
-                        itemList[2].title -> sendEmail(it.context)
+                        itemList[1].title -> sendEmail(it.context)
+                        itemList[2].title -> showDialog(it.context)
                     }
                 }
             }
@@ -63,7 +67,7 @@ class MyPageListAdapter(
                 .setTitle(R.string.fragment_my_page_dialog_logout_title)
                 .setMessage(R.string.fragment_my_page_dialog_logout_body)
                 .setPositiveButton(R.string.fragment_my_page_dialog_logout_positive_btn_title) { dialog, _ ->
-                    loginNavigator.openLogin(context)
+                    loginNavigator.openLogin(activity)
                     dialog.dismiss()
                 }
                 .setNegativeButton(R.string.fragment_my_page_dialog_logout_negative_btn_title) { dialog, _ ->

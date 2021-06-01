@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             "오전 10시",
             "오전 12시",
             "강남구",
-            "서초좋은병원",
+            "서초좋은병원서초좋은병원서초좋은병원",
             "",
             false,
             ReservationState.NotConfirm,
@@ -42,7 +42,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             "4월 30일(금)",
             "오전 10시",
             "오전 12시",
-            "강남구", "서초좋은병원", "",
+            "강남구", "서초좋은병원서초좋은병원서초좋은병원", "",
             false,
             ReservationState.NotConfirm
         ),
