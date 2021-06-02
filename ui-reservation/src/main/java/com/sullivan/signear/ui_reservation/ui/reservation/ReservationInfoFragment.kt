@@ -78,12 +78,12 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
             if (!currentReservationInfo.isContactless) {
                 tvReservationTranslation.text =
-                    R.string.fragment_reservation_tv_sign_translation_title.toString()
-                tvTranslation.text = "(${R.string.fragment_reservation_tv_contact_title})"
+                    context?.getString(R.string.fragment_reservation_tv_sign_translation_title)
+                tvTranslation.text = "(${context?.getString(R.string.fragment_reservation_tv_contact_title)})"
             } else {
                 tvReservationTranslation.text =
                     R.string.fragment_reservation_tv_online_translation_title.toString()
-                tvTranslation.text = "(${R.string.fragment_reservation_tv_online_title})"
+                tvTranslation.text = "(${context?.getString(R.string.fragment_reservation_tv_online_title)})"
             }
 
             tvReservationPurpose.text = currentReservationInfo.purpose
