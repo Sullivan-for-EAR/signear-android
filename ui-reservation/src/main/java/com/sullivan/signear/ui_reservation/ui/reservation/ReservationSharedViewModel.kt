@@ -44,7 +44,7 @@ constructor(private val repository: SignearRepository) : ViewModel() {
             "오전 10시",
             "오전 12시",
             "강남구",
-            "서초좋은병원",
+            "서초좋은병원서초좋은병원서초좋은병원서초좋은병원",
             "",
             false,
             ReservationState.Cancel("reason")
