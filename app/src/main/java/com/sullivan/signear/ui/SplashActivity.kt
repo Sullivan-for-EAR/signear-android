@@ -21,16 +21,13 @@ class SplashActivity : AppCompatActivity() {
 
     @Inject
     lateinit var loginNavigator: LoginNavigator
+
     @Inject
     lateinit var reservationNavigator: ReservationNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(binding.root)
-//        moveToLoginScreen()
-        checkApi()
-
-        moveToMainScreen()
+        checkAccessToken()
     }
 
     private fun moveToLoginScreen() {
@@ -56,5 +53,13 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun checkAccessToken() {
+        if (viewModel.checkAccessToken()) {
+            moveToMainScreen()
+        } else {
+            moveToLoginScreen()
+        }
     }
 }

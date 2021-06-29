@@ -7,7 +7,7 @@ import retrofit2.http.GET
 interface ApiService {
 
     companion object {
-        const val BASE_URL = "https://static.wippy.io/c/nrise_data/"
+        const val BASE_URL = "http://3.35.204.9:80/"
     }
 
     @GET("nrise_data.json")
