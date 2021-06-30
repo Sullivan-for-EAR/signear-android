@@ -50,7 +50,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
                 findNavController().navigate(R.id.action_myPageFragment_pop)
             }
 
-            myPageListAdapter = MyPageListAdapter(itemList, loginNavigator, requireActivity(), this@MyPageFragment::clearAccessToken)
+            myPageListAdapter = MyPageListAdapter(
+                itemList,
+                loginNavigator,
+                requireActivity(),
+                this@MyPageFragment::clearAccessToken
+            )
             rvMypage.apply {
                 adapter = myPageListAdapter
                 setHasFixedSize(true)
@@ -59,7 +64,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
         }
     }
 
-    fun clearAccessToken() {
-        sharedPreferenceManager.setAccessToken("")
+    private fun clearAccessToken() {
+        with(sharedPreferenceManager) {
+            setAccessToken("")
+            setUserName("")
+            setUserPHONE("")
+        }
     }
 }

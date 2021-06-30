@@ -8,7 +8,6 @@ import com.sullivan.common.ui_common.utils.SharedPreferenceManager
 import com.sullivan.signear.data.model.ResponseCheckEmail
 import com.sullivan.signear.data.model.ResponseLogin
 import com.sullivan.signear.domain.SignearRepository
-import com.sullivan.signear.ui_login.ui.login.LoginState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -51,7 +50,11 @@ constructor(
         viewModelScope.launch {
             repository.login(email, password).collect { response ->
                 response.let {
-                    sharedPreferenceManager.setAccessToken(response.accessToken)
+                    with(sharedPreferenceManager) {
+                        setAccessToken(response.accessToken)
+                        setUserName(response.userProfile.email)
+                        setUserPHONE(response.userProfile.phone)
+                    }
                     _resultLogin.value = response
                 }
             }
@@ -62,7 +65,11 @@ constructor(
         viewModelScope.launch {
             repository.createUser(email, password, phone).collect { response ->
                 response.let {
-                    sharedPreferenceManager.setAccessToken(response.accessToken)
+                    with(sharedPreferenceManager) {
+                        setAccessToken(response.accessToken)
+                        setUserName(response.userProfile.email)
+                        setUserPHONE(response.userProfile.phone)
+                    }
                     _resultJoin.value = response
                 }
             }
