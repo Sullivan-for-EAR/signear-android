@@ -22,6 +22,7 @@ dependencies {
 
     implementation(project(":common:ui-common"))
     implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.Kotlin.coroutines.core)

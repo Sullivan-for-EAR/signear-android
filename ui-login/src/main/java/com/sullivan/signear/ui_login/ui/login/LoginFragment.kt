@@ -16,6 +16,7 @@ import com.sullivan.common.ui_common.ex.*
 import com.sullivan.signear.ui_login.R
 import com.sullivan.signear.ui_login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
@@ -46,28 +47,30 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     override fun setupView() {
-        binding.apply {
+        with(binding) {
             loginLayout.apply {
                 btnNext.setOnClickListener {
-                    when (viewModel.checkCurrentState()) {
-                        is LoginState.Init -> {
-                            val email = etEmailInput.text.toString().trim()
-                            if (email.isNotEmpty()) {
-                                viewModel.updateLoginState(LoginState.EmailValid)
-                            } else {
-                                viewModel.updateLoginState(LoginState.JoinMember)
-                            }
-                        }
-                        is LoginState.EmailValid -> {
-                            val password = etPasswordInput.text.toString().trim()
-                            if (password.isNotEmpty()) {
-                                etPasswordInput.apply {
-                                    clearFocus()
-                                    hideKeyboard()
-                                }
-                            }
-                        }
-                    }
+//                    when (viewModel.checkCurrentState()) {
+//                        is LoginState.Init -> {
+//                            val email = etEmailInput.text.toString().trim()
+//                            if (email.isNotEmpty()) {
+//                                viewModel.updateLoginState(LoginState.EmailValid)
+//                            } else {
+//                                viewModel.updateLoginState(LoginState.JoinMember)
+//                            }
+//                        }
+//                        is LoginState.EmailValid -> {
+//                            val password = etPasswordInput.text.toString().trim()
+//                            if (password.isNotEmpty()) {
+//                                etPasswordInput.apply {
+//                                    clearFocus()
+//                                    hideKeyboard()
+//                                }
+//                            }
+//                        }
+//                    }
+                    val email = etEmailInput.text.toString().trim()
+                    viewModel.checkEmail(email)
                 }
 
                 btnBack.setOnClickListener {
@@ -109,7 +112,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun setupObserve() {
-        viewModel.apply {
+        with(viewModel) {
             loginState.observe(viewLifecycleOwner, { loginState ->
                 run {
                     when (loginState) {
@@ -126,6 +129,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             showMemberJoinView()
                         }
                     }
+                }
+            })
+
+            resultCheckEmail.observe(viewLifecycleOwner, { response ->
+                Timber.d("response: ${response.result}")
+                if (response.result) {
+                    viewModel.updateLoginState(LoginState.EmailValid)
+                } else {
+                    viewModel.updateLoginState(LoginState.JoinMember)
                 }
             })
         }

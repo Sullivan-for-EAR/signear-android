@@ -2,6 +2,7 @@ package com.sullivan.signear.data.remote
 
 import com.sullivan.common.core.DataState
 import com.sullivan.signear.data.model.RankingInfo
+import com.sullivan.signear.data.model.ResponseCheckEmail
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -10,9 +11,12 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 class NetworkDataSource @Inject constructor(private val apiService: ApiService) {
-    suspend fun requestLogin() {
 
-    }
+    suspend fun checkEmail(email: String): Flow<DataState<ResponseCheckEmail>> =
+        callbackFlow {
+            offer(DataState.Success(apiService.checkEmail(email)))
+            awaitClose { close() }
+        }
 
     suspend fun fetchRankInfo(): Flow<DataState<RankingInfo>> =
         callbackFlow {

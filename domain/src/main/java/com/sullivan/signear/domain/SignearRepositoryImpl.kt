@@ -2,6 +2,7 @@ package com.sullivan.signear.domain
 
 import com.sullivan.common.core.DataState
 import com.sullivan.signear.data.model.RankingInfo
+import com.sullivan.signear.data.model.ResponseCheckEmail
 import com.sullivan.signear.data.remote.NetworkDataSource
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,11 +20,24 @@ class SignearRepositoryImpl
 ) : SignearRepository {
     override suspend fun fetchRankInfo(): Flow<DataState<RankingInfo>> =
         callbackFlow {
-
             networkDataSource.fetchRankInfo().collect {
-                when(it) {
+                when (it) {
                     is DataState.Success -> {
                         offer(it)
+                    }
+                    is DataState.Error -> {
+                        Timber.e("DataState.Error")
+                    }
+                }
+            }
+        }
+
+    override suspend fun checkEmail(email: String): Flow<ResponseCheckEmail> =
+        callbackFlow {
+            networkDataSource.checkEmail(email).collect {
+                when (it) {
+                    is DataState.Success -> {
+                        offer(it.data)
                     }
                     is DataState.Error -> {
                         Timber.e("DataState.Error")
