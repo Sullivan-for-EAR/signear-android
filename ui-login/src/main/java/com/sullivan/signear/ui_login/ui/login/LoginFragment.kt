@@ -78,8 +78,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             viewModel.login(email, password)
                         }
                     }
-                    val email = etEmailInput.text.toString().trim()
-                    viewModel.checkEmail(email)
                 }
 
                 btnBack.setOnClickListener {
@@ -87,20 +85,34 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         is LoginState.Init -> {
                             findNavController().navigate(R.id.action_loginFragment_to_loginStartFragment)
                         }
-                        is LoginState.JoinMember -> {
-                            showLoginView()
-                        }
-                        is LoginState.FindAccount -> {
-                            showLoginView()
-                        }
-                        is LoginState.EmailValid -> {
+
+//                        is LoginState.JoinMember -> {
+//                            showLoginView()
+//                        }
+//                        is LoginState.FindAccount -> {
+//                            showLoginView()
+//                        }
+//                        is LoginState.EmailValid -> {
+//                            showLoginView()
+//                        }
+                        else -> {
                             showLoginView()
                         }
                     }
                 }
 
                 btnJoin.setOnClickListener {
-                    viewModel.updateLoginState(LoginState.Success)
+                    val email = etEmailInput.text.toString().trim()
+                    val password = etPasswordInput.text.toString().trim()
+                    val phone = etPhoneInput.text.toString().trim()
+                    if (email.isNotEmpty() && password.isNotEmpty() && phone.isNotEmpty()) {
+                        etPhoneInput.apply {
+                            clearFocus()
+                            hideKeyboard()
+                        }
+                        viewModel.createUser(email, password, password)
+                    }
+
                 }
 
                 btnFindAccount.setOnClickListener {
@@ -133,11 +145,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             showFindAccountView()
                         }
                         is LoginState.Success -> {
-//                            findNavController().navigate(R.id.action_loginFragment_to_loginFinishFragment)
                             moveToMainScreen()
                         }
                         is LoginState.JoinMember -> {
                             showMemberJoinView()
+                        }
+                        is LoginState.JoinSuccess -> {
+                            findNavController().navigate(R.id.action_loginFragment_to_loginFinishFragment)
                         }
                     }
                 }
@@ -156,6 +170,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     viewModel.updateLoginState(LoginState.Success)
                 } else {
                     makeToast("로그인 실패: 비밀번호를 다시 입력해주세요!")
+                }
+            })
+
+            resultJoin.observe(viewLifecycleOwner, { response ->
+                if (response.accessToken.isNotEmpty()) {
+                    viewModel.updateLoginState(LoginState.JoinSuccess)
+                } else {
+                    makeToast("회원 가입 실패!")
                 }
             })
         }

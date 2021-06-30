@@ -15,4 +15,6 @@ interface SignearRepository {
     suspend fun login(email: String, password: String): Flow<ResponseLogin>
 
     suspend fun checkAccessToken(): Flow<ResponseCheckAccessToken>
+
+    suspend fun createUser(email: String, password: String, phone: String): Flow<ResponseLogin>
 }

@@ -27,4 +27,9 @@ interface ApiService {
 
     @GET("customer/home")
     suspend fun checkAccessToken(): ResponseCheckAccessToken
+
+    @POST("user/customer/create")
+    suspend fun createUser(
+        @Body input: HashMap<String, Any>
+    ): ResponseLogin
 }

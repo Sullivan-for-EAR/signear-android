@@ -41,6 +41,22 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             awaitClose { close() }
         }
 
+    suspend fun createUser(email: String, password: String, phone: String): Flow<DataState<ResponseLogin>> =
+        callbackFlow {
+            offer(
+                DataState.Success(
+                    apiService.createUser(
+                        hashMapOf(
+                            "email" to email,
+                            "password" to password,
+                            "phone" to phone
+                        )
+                    )
+                )
+            )
+            awaitClose { close() }
+        }
+
     suspend fun fetchRankInfo(): Flow<DataState<RankingInfo>> =
         callbackFlow {
 

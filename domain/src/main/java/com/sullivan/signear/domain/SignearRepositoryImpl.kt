@@ -75,4 +75,22 @@ class SignearRepositoryImpl
                 }
             }
         }
+
+    override suspend fun createUser(
+        email: String,
+        password: String,
+        phone: String
+    ): Flow<ResponseLogin> =
+        callbackFlow {
+            networkDataSource.createUser(email, password, phone).collect {
+                when (it) {
+                    is DataState.Success -> {
+                        offer(it.data)
+                    }
+                    is DataState.Error -> {
+                        Timber.e("DataState.Error")
+                    }
+                }
+            }
+        }
 }

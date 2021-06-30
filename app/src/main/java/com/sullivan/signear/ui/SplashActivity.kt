@@ -64,11 +64,13 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeViewModel() = with(viewModel) {
-        resultCheckAccessToken.observe(this@SplashActivity, { response ->
-            if (response.result) {
-                moveToMainScreen()
-            }
-        })
+    private fun observeViewModel() {
+        with(viewModel) {
+            resultCheckAccessToken.observe(this@SplashActivity, { response ->
+                if (response.result) {
+                    moveToMainScreen()
+                }
+            })
+        }
     }
 }

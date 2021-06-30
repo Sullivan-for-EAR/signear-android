@@ -30,6 +30,9 @@ constructor(
     private val _resultLogin = MutableLiveData<ResponseLogin>()
     val resultLogin: LiveData<ResponseLogin> = _resultLogin
 
+    private val _resultJoin = MutableLiveData<ResponseLogin>()
+    val resultJoin: LiveData<ResponseLogin> = _resultJoin
+
     fun updateLoginState(currentState: LoginState) {
         _loginState.value = currentState
     }
@@ -55,7 +58,14 @@ constructor(
         }
     }
 
-    fun clearAccessToken() {
-        sharedPreferenceManager.setAccessToken("")
+    fun createUser(email: String, password: String, phone: String) {
+        viewModelScope.launch {
+            repository.createUser(email, password, phone).collect { response ->
+                response.let {
+                    sharedPreferenceManager.setAccessToken(response.accessToken)
+                    _resultJoin.value = response
+                }
+            }
+        }
     }
 }

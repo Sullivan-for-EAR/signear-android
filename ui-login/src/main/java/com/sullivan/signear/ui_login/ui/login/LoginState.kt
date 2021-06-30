@@ -7,4 +7,5 @@ sealed class LoginState {
     object JoinMember : LoginState()
     object FindAccount: LoginState()
     object Success : LoginState()
+    object JoinSuccess : LoginState()
 }
