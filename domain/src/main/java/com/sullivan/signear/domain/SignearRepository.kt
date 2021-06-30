@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface SignearRepository {
     suspend fun fetchRankInfo(): Flow<DataState<RankingInfo>>
+
+
 }

@@ -1,6 +1,8 @@
 package com.sullivan.signear.data.di
 
+import com.sullivan.common.ui_common.utils.SharedPreferenceManager
 import com.sullivan.signear.data.remote.ApiService
+import com.sullivan.signear.data.remote.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,14 +21,14 @@ object RetrofitModule {
 
     @ViewModelScoped
     @Provides
-    fun provideOkhttpClient(): OkHttpClient {
+    fun provideOkhttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
         val logger = HttpLoggingInterceptor()
         val httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
         with(httpClient) {
             logger.setLevel(HttpLoggingInterceptor.Level.HEADERS)
             logger.setLevel(HttpLoggingInterceptor.Level.BODY)
             addInterceptor(logger)
-//            addInterceptor(AuthInterceptor())
+            addInterceptor(authInterceptor)
         }
         httpClient.addInterceptor { chain: Interceptor.Chain ->
             val request: Request = chain.request().newBuilder()
@@ -45,6 +47,12 @@ object RetrofitModule {
             .client(okHttpClient)
             .baseUrl(ApiService.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+    }
+
+    @ViewModelScoped
+    @Provides
+    fun provideAuthInterceptor(sharedPreferenceManager: SharedPreferenceManager): AuthInterceptor {
+        return AuthInterceptor(sharedPreferenceManager)
     }
 
     @ViewModelScoped

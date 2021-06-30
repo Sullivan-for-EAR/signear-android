@@ -15,6 +15,7 @@ listOf(
 dependencies {
 
     implementation(project(":common:core"))
+    implementation(project(":common:ui-common"))
 
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.Kotlin.coroutines.core)

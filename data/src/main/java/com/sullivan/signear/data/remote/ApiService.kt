@@ -13,4 +13,6 @@ interface ApiService {
     @GET("nrise_data.json")
     suspend fun fetchRankInfo(): RankingInfo
 
+    @
+
 }
