@@ -28,6 +28,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkAccessToken()
+        observeViewModel()
     }
 
     private fun moveToLoginScreen() {
@@ -57,9 +58,17 @@ class SplashActivity : AppCompatActivity() {
 
     private fun checkAccessToken() {
         if (viewModel.checkAccessToken()) {
-            moveToMainScreen()
+            viewModel.checkIsAccessTokenValid()
         } else {
             moveToLoginScreen()
         }
+    }
+
+    private fun observeViewModel() = with(viewModel) {
+        resultCheckAccessToken.observe(this@SplashActivity, { response ->
+            if (response.result) {
+                moveToMainScreen()
+            }
+        })
     }
 }

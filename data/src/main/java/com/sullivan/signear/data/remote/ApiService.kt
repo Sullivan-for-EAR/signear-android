@@ -1,9 +1,10 @@
 package com.sullivan.signear.data.remote
 
 import com.sullivan.signear.data.model.RankingInfo
+import com.sullivan.signear.data.model.ResponseCheckAccessToken
 import com.sullivan.signear.data.model.ResponseCheckEmail
-import retrofit2.http.GET
-import retrofit2.http.Query
+import com.sullivan.signear.data.model.ResponseLogin
+import retrofit2.http.*
 
 
 interface ApiService {
@@ -17,4 +18,12 @@ interface ApiService {
 
     @GET("customer/check")
     suspend fun checkEmail(@Query("email") email: String): ResponseCheckEmail
+
+    @POST("customer/login")
+    suspend fun login(
+        @Body input: HashMap<String, Any>
+    ): ResponseLogin
+
+    @GET("customer/home")
+    suspend fun checkAccessToken(): ResponseCheckAccessToken
 }

@@ -11,7 +11,7 @@ class AuthInterceptor @Inject constructor(private val sharedPreferenceManager: S
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
         sharedPreferenceManager.getAccessToken().let {
-            requestBuilder.addHeader("Authorization", " Bearer $it")
+            requestBuilder.addHeader("token", "$it")
         }
         return chain.proceed(requestBuilder.build())
     }

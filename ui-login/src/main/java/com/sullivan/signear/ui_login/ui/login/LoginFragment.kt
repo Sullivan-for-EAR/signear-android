@@ -50,7 +50,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         with(binding) {
             loginLayout.apply {
                 btnNext.setOnClickListener {
-//                    when (viewModel.checkCurrentState()) {
+                    when (viewModel.checkCurrentState()) {
 //                        is LoginState.Init -> {
 //                            val email = etEmailInput.text.toString().trim()
 //                            if (email.isNotEmpty()) {
@@ -59,16 +59,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 //                                viewModel.updateLoginState(LoginState.JoinMember)
 //                            }
 //                        }
-//                        is LoginState.EmailValid -> {
-//                            val password = etPasswordInput.text.toString().trim()
-//                            if (password.isNotEmpty()) {
-//                                etPasswordInput.apply {
-//                                    clearFocus()
-//                                    hideKeyboard()
-//                                }
-//                            }
-//                        }
-//                    }
+                        is LoginState.EmailValid -> {
+                            val email = etEmailInput.text.toString().trim()
+                            val password = etPasswordInput.text.toString().trim()
+                            if (password.isNotEmpty()) {
+                                etPasswordInput.apply {
+                                    clearFocus()
+                                    hideKeyboard()
+                                }
+                            }
+                            viewModel.login(email, password)
+                        }
+                    }
                     val email = etEmailInput.text.toString().trim()
                     viewModel.checkEmail(email)
                 }
@@ -97,6 +99,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 btnFindAccount.setOnClickListener {
                     viewModel.updateLoginState(LoginState.FindAccount)
                 }
+
             }
 
             findAccountLayout.apply {
@@ -133,11 +136,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             })
 
             resultCheckEmail.observe(viewLifecycleOwner, { response ->
-                Timber.d("response: ${response.result}")
                 if (response.result) {
                     viewModel.updateLoginState(LoginState.EmailValid)
                 } else {
                     viewModel.updateLoginState(LoginState.JoinMember)
+                }
+            })
+
+            resultLogin.observe(viewLifecycleOwner, { response ->
+                if (response.accessToken.isNotEmpty()) {
+                    makeToast("login success")
+                } else {
+
                 }
             })
         }

@@ -2,7 +2,9 @@ package com.sullivan.signear.domain
 
 import com.sullivan.common.core.DataState
 import com.sullivan.signear.data.model.RankingInfo
+import com.sullivan.signear.data.model.ResponseCheckAccessToken
 import com.sullivan.signear.data.model.ResponseCheckEmail
+import com.sullivan.signear.data.model.ResponseLogin
 import com.sullivan.signear.data.remote.NetworkDataSource
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,6 +37,34 @@ class SignearRepositoryImpl
     override suspend fun checkEmail(email: String): Flow<ResponseCheckEmail> =
         callbackFlow {
             networkDataSource.checkEmail(email).collect {
+                when (it) {
+                    is DataState.Success -> {
+                        offer(it.data)
+                    }
+                    is DataState.Error -> {
+                        Timber.e("DataState.Error")
+                    }
+                }
+            }
+        }
+
+    override suspend fun login(email: String, password: String): Flow<ResponseLogin> =
+        callbackFlow {
+            networkDataSource.login(email, password).collect {
+                when (it) {
+                    is DataState.Success -> {
+                        offer(it.data)
+                    }
+                    is DataState.Error -> {
+                        Timber.e("DataState.Error")
+                    }
+                }
+            }
+        }
+
+    override suspend fun checkAccessToken(): Flow<ResponseCheckAccessToken> =
+        callbackFlow {
+            networkDataSource.checkAccessToken().collect {
                 when (it) {
                     is DataState.Success -> {
                         offer(it.data)

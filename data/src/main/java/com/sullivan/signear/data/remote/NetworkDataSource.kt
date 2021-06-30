@@ -2,7 +2,9 @@ package com.sullivan.signear.data.remote
 
 import com.sullivan.common.core.DataState
 import com.sullivan.signear.data.model.RankingInfo
+import com.sullivan.signear.data.model.ResponseCheckAccessToken
 import com.sullivan.signear.data.model.ResponseCheckEmail
+import com.sullivan.signear.data.model.ResponseLogin
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +17,27 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
     suspend fun checkEmail(email: String): Flow<DataState<ResponseCheckEmail>> =
         callbackFlow {
             offer(DataState.Success(apiService.checkEmail(email)))
+            awaitClose { close() }
+        }
+
+    suspend fun login(email: String, password: String): Flow<DataState<ResponseLogin>> =
+        callbackFlow {
+            offer(
+                DataState.Success(
+                    apiService.login(
+                        hashMapOf(
+                            "email" to email,
+                            "password" to password
+                        )
+                    )
+                )
+            )
+            awaitClose { close() }
+        }
+
+    suspend fun checkAccessToken(): Flow<DataState<ResponseCheckAccessToken>> =
+        callbackFlow {
+            offer(DataState.Success(apiService.checkAccessToken()))
             awaitClose { close() }
         }
 
