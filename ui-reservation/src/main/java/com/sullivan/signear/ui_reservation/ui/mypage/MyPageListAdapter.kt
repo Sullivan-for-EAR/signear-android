@@ -9,18 +9,16 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.jaredrummler.materialspinner.BuildConfig.VERSION_NAME
 import com.sullivan.common.ui_common.navigator.LoginNavigator
 import com.sullivan.sigenear.ui_reservation.BuildConfig
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemMypageBinding
-import com.sullivan.signear.ui_reservation.ui.ReservationActivity
-import com.sullivan.signear.ui_reservation.ui.ReservationActivity_GeneratedInjector
 
 class MyPageListAdapter(
     private val itemList: List<MyPageItem>,
     private val loginNavigator: LoginNavigator,
-    private val activity: Activity
+    private val activity: Activity,
+    private val clearAccessToken: () -> Unit
 ) :
     RecyclerView.Adapter<MyPageListAdapter.MyPageListViewHolder>() {
 
@@ -33,8 +31,10 @@ class MyPageListAdapter(
                 tvTitle.text = item.title
                 rlMypage.setOnClickListener {
                     when (item.title) {
-                        itemList[0].title -> it.findNavController()
-                            .navigate(R.id.action_myPageFragment_to_previousReservationFragment)
+                        itemList[0].title -> {
+                            it.findNavController()
+                                .navigate(R.id.action_myPageFragment_to_previousReservationFragment)
+                        }
                         itemList[1].title -> sendEmail(it.context)
                         itemList[2].title -> showDialog(it.context)
                     }
@@ -67,6 +67,7 @@ class MyPageListAdapter(
                 .setTitle(R.string.fragment_my_page_dialog_logout_title)
                 .setMessage(R.string.fragment_my_page_dialog_logout_body)
                 .setPositiveButton(R.string.fragment_my_page_dialog_logout_positive_btn_title) { dialog, _ ->
+                    clearAccessToken()
                     loginNavigator.openLogin(activity)
                     dialog.dismiss()
                 }

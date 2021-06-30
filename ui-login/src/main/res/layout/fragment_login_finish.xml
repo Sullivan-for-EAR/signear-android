@@ -25,7 +25,6 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
         android:text="@string/tv_login_finish_guide_msg"
-        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"

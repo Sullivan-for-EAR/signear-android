@@ -10,14 +10,18 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sullivan.common.ui_common.base.BaseFragment
 import com.sullivan.common.ui_common.ex.*
+import com.sullivan.common.ui_common.navigator.ReservationNavigator
 import com.sullivan.signear.ui_login.R
 import com.sullivan.signear.ui_login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import timber.log.Timber
 import java.util.regex.Pattern
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
@@ -31,6 +35,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         "^\\s*(010|011|012|013|014|015|016|017|018|019)(-|\\)|\\s)*(\\d{3,4})(-|\\s)*(\\d{4})\\s*$",
         Pattern.CASE_INSENSITIVE
     )
+
+    @Inject
+    lateinit var reservationNavigator: ReservationNavigator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,14 +58,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             loginLayout.apply {
                 btnNext.setOnClickListener {
                     when (viewModel.checkCurrentState()) {
-//                        is LoginState.Init -> {
-//                            val email = etEmailInput.text.toString().trim()
-//                            if (email.isNotEmpty()) {
-//                                viewModel.updateLoginState(LoginState.EmailValid)
-//                            } else {
+                        is LoginState.Init -> {
+                            val email = etEmailInput.text.toString().trim()
+                            if (email.isNotEmpty()) {
+                                viewModel.checkEmail(email)
+                            } else {
 //                                viewModel.updateLoginState(LoginState.JoinMember)
-//                            }
-//                        }
+                            }
+                        }
                         is LoginState.EmailValid -> {
                             val email = etEmailInput.text.toString().trim()
                             val password = etPasswordInput.text.toString().trim()
@@ -126,7 +133,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             showFindAccountView()
                         }
                         is LoginState.Success -> {
-                            findNavController().navigate(R.id.action_loginFragment_to_loginFinishFragment)
+//                            findNavController().navigate(R.id.action_loginFragment_to_loginFinishFragment)
+                            moveToMainScreen()
                         }
                         is LoginState.JoinMember -> {
                             showMemberJoinView()
@@ -145,9 +153,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
             resultLogin.observe(viewLifecycleOwner, { response ->
                 if (response.accessToken.isNotEmpty()) {
-                    makeToast("login success")
+                    viewModel.updateLoginState(LoginState.Success)
                 } else {
-
+                    makeToast("로그인 실패: 비밀번호를 다시 입력해주세요!")
                 }
             })
         }
@@ -252,6 +260,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
             }
         })
+    }
+
+    private fun moveToMainScreen() {
+        lifecycleScope.launchWhenCreated {
+            delay(1_000)
+            reservationNavigator.openReservationHome(requireActivity())
+        }
     }
 
     private fun checkEmailValidation(input: String) = validEmailRegex.matcher(input).matches()

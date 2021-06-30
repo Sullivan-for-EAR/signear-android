@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.common.ui_common.base.BaseFragment
 import com.sullivan.common.ui_common.navigator.LoginNavigator
+import com.sullivan.common.ui_common.utils.SharedPreferenceManager
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentMyPageBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +20,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
 
     @Inject
     lateinit var loginNavigator: LoginNavigator
+
+    @Inject
+    lateinit var sharedPreferenceManager: SharedPreferenceManager
 
     private lateinit var itemArray: Array<String>
     private lateinit var itemList: List<MyPageItem>
@@ -46,12 +50,16 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
                 findNavController().navigate(R.id.action_myPageFragment_pop)
             }
 
-            myPageListAdapter = MyPageListAdapter(itemList, loginNavigator, requireActivity())
+            myPageListAdapter = MyPageListAdapter(itemList, loginNavigator, requireActivity(), this@MyPageFragment::clearAccessToken)
             rvMypage.apply {
                 adapter = myPageListAdapter
                 setHasFixedSize(true)
                 addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             }
         }
+    }
+
+    fun clearAccessToken() {
+        sharedPreferenceManager.setAccessToken("")
     }
 }

@@ -54,4 +54,8 @@ constructor(
             }
         }
     }
+
+    fun clearAccessToken() {
+        sharedPreferenceManager.setAccessToken("")
+    }
 }
