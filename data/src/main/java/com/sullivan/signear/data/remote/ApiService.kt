@@ -36,4 +36,9 @@ interface ApiService {
 
     @GET("/reservation/customer/list")
     suspend fun getReservationList(@Query("customer_id") id: Int): List<ReservationData>
+
+    @POST("reservation/customer/create")
+    suspend fun applyReservation(
+        @Body reservationInfo: HashMap<String, Any>
+    ): ResponseApplyReservation
 }
