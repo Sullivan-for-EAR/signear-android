@@ -118,4 +118,18 @@ class SignearRepositoryImpl
                 }
             }
         }
+
+    override suspend fun applyReservation(newReservation: NewReservation): Flow<NewReservation> =
+        callbackFlow {
+            networkDataSource.applyReservation(newReservation).collect {
+                when (it) {
+                    is DataState.Success -> {
+                        offer(it.data)
+                    }
+                    is DataState.Error -> {
+                        Timber.e("DataState.Error")
+                    }
+                }
+            }
+        }
 }

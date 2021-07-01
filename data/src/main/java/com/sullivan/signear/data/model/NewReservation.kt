@@ -2,9 +2,7 @@ package com.sullivan.signear.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseApplyReservation(
-    @SerializedName("rsID")
-    val id: Int,
+data class NewReservation(
     @SerializedName("date")
     val date: String,
     @SerializedName("start_time")
@@ -29,6 +27,8 @@ data class ResponseApplyReservation(
     val regDate: String,
     @SerializedName("modDate")
     val modDate: String,
+    @SerializedName("rsID")
+    val id: Int,
 )
 
 data class UserInfo(

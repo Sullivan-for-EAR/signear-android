@@ -78,20 +78,27 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             awaitClose { close() }
         }
 
-//    suspend fun applyReservation(id: Int): Flow<DataState<ResponseApplyReservation>> =
-//        callbackFlow {
-//            offer(
-//                DataState.Success(
-//                    apiService.applyReservation(
-//                        hashMapOf(
-//                            "email" to email,
-//                            "password" to password
-//                        )
-//                    )
-//                )
-//            )
-//            awaitClose { close() }
-//        }
+    suspend fun applyReservation(newReservation: NewReservation): Flow<DataState<NewReservation>> =
+        callbackFlow {
+            offer(
+                DataState.Success(
+                    apiService.applyReservation(
+                        hashMapOf(
+                            "date" to newReservation.date,
+                            "start_time" to newReservation.startTime,
+                            "end_time" to newReservation.endTime,
+                            "area" to newReservation.center,
+                            "address" to newReservation.place,
+                            "method" to newReservation.method,
+                            "type" to newReservation.type,
+                            "request" to newReservation.request,
+                            "customerUser" to newReservation.userInfo
+                        )
+                    )
+                )
+            )
+            awaitClose { close() }
+        }
 
     suspend fun fetchRankInfo(): Flow<DataState<RankingInfo>> =
         callbackFlow {
