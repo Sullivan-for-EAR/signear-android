@@ -36,13 +36,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMyPageBinding.inflate(layoutInflater)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         observeViewModel()
+        return binding.root
     }
 
     override fun setupView() {

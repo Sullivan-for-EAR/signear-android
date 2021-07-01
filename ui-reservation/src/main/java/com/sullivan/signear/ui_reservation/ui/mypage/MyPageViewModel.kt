@@ -1,6 +1,9 @@
 package com.sullivan.signear.ui_reservation.ui.mypage
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sullivan.common.ui_common.utils.SharedPreferenceManager
 import com.sullivan.signear.data.model.UserProfile
 import com.sullivan.signear.domain.SignearRepository
@@ -16,11 +19,18 @@ constructor(
     private val sharedPreferenceManager: SharedPreferenceManager
 ) : ViewModel() {
 
-    val userInfo: LiveData<UserProfile> = liveData {
+    private val _userInfo = MutableLiveData<UserProfile>()
+    val userInfo: LiveData<UserProfile> = _userInfo
+
+    init {
+        fetchUserInfo()
+    }
+
+    private fun fetchUserInfo() {
         val id = sharedPreferenceManager.getUserId()
         viewModelScope.launch {
             repository.getUserInfo(id).collect {
-                emit(it)
+                _userInfo.value = it
             }
         }
     }

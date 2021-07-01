@@ -31,6 +31,6 @@ interface ApiService {
         @Body input: HashMap<String, Any>
     ): ResponseLogin
 
-    @GET("user/customer/{customer_id}")
-    suspend fun getUserInfo(@Path("customer_id") id: Int): UserProfile
+    @GET("user/customer/")
+    suspend fun getUserInfo(@Query("customer_id") id: Int): UserProfile
 }
