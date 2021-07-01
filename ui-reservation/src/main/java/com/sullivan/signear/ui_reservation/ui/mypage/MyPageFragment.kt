@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +25,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
     @Inject
     lateinit var sharedPreferenceManager: SharedPreferenceManager
 
+    private val viewModel: MyPageViewModel by viewModels()
+
     private lateinit var itemArray: Array<String>
     private lateinit var itemList: List<MyPageItem>
     private lateinit var myPageListAdapter: MyPageListAdapter
@@ -34,6 +37,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
     ): View {
         binding = FragmentMyPageBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        observeViewModel()
     }
 
     override fun setupView() {
@@ -67,8 +76,18 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
     private fun clearAccessToken() {
         with(sharedPreferenceManager) {
             setAccessToken("")
-//            setUserName("")
-//            setUserPHONE("")
+            setUserId(0)
+        }
+    }
+
+    private fun observeViewModel() {
+        with(viewModel) {
+            userInfo.observe(viewLifecycleOwner, { userInfo ->
+                with(binding) {
+                    tvUserName.text = userInfo.email
+                    tvUserPhone.text = userInfo.phone
+                }
+            })
         }
     }
 }

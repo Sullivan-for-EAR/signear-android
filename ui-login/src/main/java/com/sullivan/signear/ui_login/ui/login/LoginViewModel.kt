@@ -52,6 +52,7 @@ constructor(
                 response.let {
                     with(sharedPreferenceManager) {
                         setAccessToken(response.accessToken)
+                        setUserId(response.userProfile.id)
 //                        setUserName(response.userProfile.email)
 //                        setUserPHONE(response.userProfile.phone)
                     }
@@ -67,7 +68,7 @@ constructor(
                 response.let {
                     with(sharedPreferenceManager) {
                         setAccessToken(response.accessToken)
-//                        setUserName(response.userProfile.email)
+                        setUserId(response.userProfile.id)
 //                        setUserPHONE(response.userProfile.phone)
                     }
                     _resultJoin.value = response

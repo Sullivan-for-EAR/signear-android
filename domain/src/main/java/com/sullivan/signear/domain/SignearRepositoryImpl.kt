@@ -1,10 +1,7 @@
 package com.sullivan.signear.domain
 
 import com.sullivan.common.core.DataState
-import com.sullivan.signear.data.model.RankingInfo
-import com.sullivan.signear.data.model.ResponseCheckAccessToken
-import com.sullivan.signear.data.model.ResponseCheckEmail
-import com.sullivan.signear.data.model.ResponseLogin
+import com.sullivan.signear.data.model.*
 import com.sullivan.signear.data.remote.NetworkDataSource
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -83,6 +80,20 @@ class SignearRepositoryImpl
     ): Flow<ResponseLogin> =
         callbackFlow {
             networkDataSource.createUser(email, password, phone).collect {
+                when (it) {
+                    is DataState.Success -> {
+                        offer(it.data)
+                    }
+                    is DataState.Error -> {
+                        Timber.e("DataState.Error")
+                    }
+                }
+            }
+        }
+
+    override suspend fun getUserInfo(id: Int): Flow<UserProfile> =
+        callbackFlow {
+            networkDataSource.getUserInfo(id).collect {
                 when (it) {
                     is DataState.Success -> {
                         offer(it.data)

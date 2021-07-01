@@ -1,16 +1,13 @@
 package com.sullivan.signear.data.remote
 
-import com.sullivan.signear.data.model.RankingInfo
-import com.sullivan.signear.data.model.ResponseCheckAccessToken
-import com.sullivan.signear.data.model.ResponseCheckEmail
-import com.sullivan.signear.data.model.ResponseLogin
+import com.sullivan.signear.data.model.*
 import retrofit2.http.*
 
 
 interface ApiService {
 
     companion object {
-//        const val BASE_URL = "http://3.35.204.9:80/"
+        //        const val BASE_URL = "http://3.35.204.9:80/"
 //        const val BASE_URL = "http://10.0.2.2:8088/"
         const val BASE_URL = "http://192.168.1.9:8088/"
     }
@@ -33,4 +30,7 @@ interface ApiService {
     suspend fun createUser(
         @Body input: HashMap<String, Any>
     ): ResponseLogin
+
+    @GET("user/customer/{customer_id}")
+    suspend fun getUserInfo(@Path("customer_id") id: Int): UserProfile
 }
