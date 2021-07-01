@@ -12,16 +12,18 @@ import com.sullivan.common.ui_common.ex.makeGone
 import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemReservationBinding
+import com.sullivan.signear.ui_reservation.model.MyReservation
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
 
-class ReservationListAdapter(private val reservationList: List<Reservation>) :
+class ReservationListAdapter(private val reservationList: List<MyReservation>) :
     RecyclerView.Adapter<ReservationListAdapter.ReservationListViewHolder>() {
     private lateinit var bindingItem: ItemReservationBinding
 
     inner class ReservationListViewHolder(private val binding: ItemReservationBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Reservation) {
+        fun bind(item: MyReservation) {
+            convertStatus(item)
             binding.apply {
                 if (item.isEmergency) {
                     tvUrgent.makeVisible()
@@ -119,6 +121,17 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
                 .create()
 
             dialog.show()
+        }
+
+        private fun convertStatus(item: MyReservation) {
+            when (item.status) {
+                1 -> item.currentState = ReservationState.NotRead
+                2 -> item.currentState = ReservationState.NotConfirm
+                3 -> item.currentState = ReservationState.Confirm
+                4 -> item.currentState = ReservationState.Cancel()
+                5 -> item.currentState = ReservationState.Reject()
+                7 -> item.isEmergency = true
+            }
         }
     }
 

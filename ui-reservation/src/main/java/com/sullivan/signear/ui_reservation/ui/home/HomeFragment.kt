@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.common.ui_common.ex.makeGone
+import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.HomeFragmentBinding
 import com.sullivan.signear.ui_reservation.model.Reservation
@@ -99,20 +101,18 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         savedInstanceState: Bundle?
     ): View {
         binding = HomeFragmentBinding.inflate(layoutInflater)
+
+        observeViewModel()
+
         return binding.root
     }
 
     override fun setupView() {
         binding.apply {
-            reservationListAdapter =
-                ReservationListAdapter(reservationList)
-            sharedViewModel.updateReservationList(reservationList)
+//            reservationListAdapter =
+//                ReservationListAdapter(reservationList)
+//            sharedViewModel.updateReservationList(reservationList)
 
-            rvReservation.apply {
-                setHasFixedSize(true)
-                adapter = reservationListAdapter
-                addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            }
 
             btnReservation.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_reservationFragment)
@@ -121,6 +121,37 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             ivProfile.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_myPageFragment)
             }
+        }
+    }
+
+    private fun observeViewModel() {
+        with(viewModel) {
+            myReservationList.observe(viewLifecycleOwner, { list ->
+                if (list.isNotEmpty()) {
+                    reservationListAdapter =
+                        ReservationListAdapter(list)
+                    with(binding) {
+
+                        emptyReservationLayout.rootView.makeGone()
+                        rvReservation.apply {
+                            makeGone()
+                            setHasFixedSize(true)
+                            adapter = reservationListAdapter
+                            addItemDecoration(
+                                DividerItemDecoration(
+                                    context,
+                                    LinearLayoutManager.VERTICAL
+                                )
+                            )
+                        }
+                    }
+                } else {
+                    with(binding) {
+                        rvReservation.makeGone()
+                        emptyReservationLayout.rootView.makeVisible()
+                    }
+                }
+            })
         }
     }
 }

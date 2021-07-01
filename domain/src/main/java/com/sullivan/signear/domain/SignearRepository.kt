@@ -16,4 +16,6 @@ interface SignearRepository {
     suspend fun createUser(email: String, password: String, phone: String): Flow<ResponseLogin>
 
     suspend fun getUserInfo(id: Int): Flow<UserProfile>
+
+    suspend fun getReservationList(id: Int): Flow<List<ReservationData>>
 }

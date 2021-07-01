@@ -104,4 +104,18 @@ class SignearRepositoryImpl
                 }
             }
         }
+
+    override suspend fun getReservationList(id: Int): Flow<List<ReservationData>> =
+        callbackFlow {
+            networkDataSource.getReservationList(id).collect {
+                when (it) {
+                    is DataState.Success -> {
+                        offer(it.data)
+                    }
+                    is DataState.Error -> {
+                        Timber.e("DataState.Error")
+                    }
+                }
+            }
+        }
 }
