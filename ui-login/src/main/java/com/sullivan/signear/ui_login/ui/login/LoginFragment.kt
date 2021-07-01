@@ -6,7 +6,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
@@ -62,8 +64,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             val email = etEmailInput.text.toString().trim()
                             if (email.isNotEmpty()) {
                                 viewModel.checkEmail(email)
-                            } else {
-//                                viewModel.updateLoginState(LoginState.JoinMember)
                             }
                         }
                         is LoginState.EmailValid -> {
@@ -123,7 +123,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
             findAccountLayout.apply {
                 btnNext.setOnClickListener {
-                    showNewPasswordInputRequestView()
+                    val email = etEmailInput.text.toString().trim()
+                    if (email.isNotEmpty()) {
+                        viewModel.checkEmail(email)
+                    }
                 }
 
                 btnLogin.setOnClickListener {
@@ -158,10 +161,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             })
 
             resultCheckEmail.observe(viewLifecycleOwner, { response ->
+                Timber.d("response: ${response.result}")
                 if (response.result) {
-                    viewModel.updateLoginState(LoginState.EmailValid)
+                    if (viewModel.checkCurrentState() == LoginState.Init) {
+                        viewModel.updateLoginState(LoginState.EmailValid)
+                    } else {
+                        showNewPasswordInputRequestView()
+                    }
                 } else {
-                    viewModel.updateLoginState(LoginState.JoinMember)
+                    if (viewModel.checkCurrentState() == LoginState.Init) {
+                        viewModel.updateLoginState(LoginState.JoinMember)
+                    } else {
+                        makeToast("입력하신 이메일의 계정이 존재하지 않습니다!")
+                    }
                 }
             })
 
@@ -189,7 +201,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         var phone: String
 
         binding.loginLayout.etEmailInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
@@ -216,6 +234,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
             }
         })
+
+//        binding.loginLayout.etEmailInput.setOnEditorActionListener { _, actionId, _ ->
+//            when (actionId) {
+//                EditorInfo.IME_ACTION_SEND -> {
+//                    makeToast("test")
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
+
 
         binding.findAccountLayout.etEmailInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

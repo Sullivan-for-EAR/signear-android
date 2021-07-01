@@ -67,8 +67,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
     private fun clearAccessToken() {
         with(sharedPreferenceManager) {
             setAccessToken("")
-            setUserName("")
-            setUserPHONE("")
+//            setUserName("")
+//            setUserPHONE("")
         }
     }
 }
