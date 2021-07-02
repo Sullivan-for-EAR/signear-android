@@ -82,7 +82,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
         callbackFlow {
             offer(
                 DataState.Success(
-                    apiService.applyReservation(
+                    apiService.createReservation(
                         hashMapOf(
                             "date" to newReservation.date,
                             "start_time" to newReservation.startTime,

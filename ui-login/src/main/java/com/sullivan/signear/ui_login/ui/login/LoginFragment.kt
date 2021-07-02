@@ -85,16 +85,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         is LoginState.Init -> {
                             findNavController().navigate(R.id.action_loginFragment_to_loginStartFragment)
                         }
-
-//                        is LoginState.JoinMember -> {
-//                            showLoginView()
-//                        }
-//                        is LoginState.FindAccount -> {
-//                            showLoginView()
-//                        }
-//                        is LoginState.EmailValid -> {
-//                            showLoginView()
-//                        }
                         else -> {
                             showLoginView()
                         }
@@ -115,9 +105,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
                 }
 
-                btnFindAccount.setOnClickListener {
-                    viewModel.updateLoginState(LoginState.FindAccount)
-                }
+//                btnFindAccount.setOnClickListener {
+//                    viewModel.updateLoginState(LoginState.FindAccount)
+//                }
 
             }
 
@@ -340,7 +330,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             ivPhone.makeVisible()
             etPhoneInput.makeVisible()
             btnNext.makeGone()
-            btnFindAccount.makeGone()
+//            btnFindAccount.makeGone()
             tvRule.makeVisible()
             btnJoin.makeVisible()
         }
@@ -399,7 +389,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 hideKeyboard()
             }
             btnNext.makeVisible()
-            btnFindAccount.makeVisible()
+//            btnFindAccount.makeVisible()
 
             etPasswordInput.apply {
                 text = null

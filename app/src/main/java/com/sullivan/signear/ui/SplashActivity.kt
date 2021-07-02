@@ -10,6 +10,7 @@ import com.sullivan.common.ui_common.navigator.ReservationNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -43,17 +44,6 @@ class SplashActivity : AppCompatActivity() {
             delay(1_000)
             reservationNavigator.openReservationHome(this@SplashActivity)
         }
-    }
-
-    private fun checkApi() {
-        viewModel.rankList.observe(this, { result ->
-
-            when (result) {
-                is DataState.Success -> {
-                    Timber.d("${result.data}")
-                }
-            }
-        })
     }
 
     private fun checkAccessToken() {
