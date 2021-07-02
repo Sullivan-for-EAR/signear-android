@@ -35,3 +35,26 @@ data class UserInfo(
     @SerializedName("customerID")
     val id: Int
 )
+
+data class NewReservationRequest(
+    @SerializedName("date")
+    val date: String,
+    @SerializedName("start_time")
+    val startTime: String,
+    @SerializedName("end_time")
+    val endTime: String,
+    @SerializedName("area")
+    val center: String,
+    @SerializedName("address")
+    val place: String,
+    @SerializedName("method")
+    val method: Int,
+    @SerializedName("request")
+    val request: String,
+    @SerializedName("customerUser")
+    val userInfo: UserInfo,
+    @SerializedName("status")
+    val status: Int = 1,
+    @SerializedName("type")
+    val type: Int = 1,
+)

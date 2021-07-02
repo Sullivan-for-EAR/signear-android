@@ -3,6 +3,9 @@ package com.sullivan.signear.ui_reservation.ui.reservation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sullivan.common.ui_common.utils.SharedPreferenceManager
+import com.sullivan.signear.data.model.NewReservationRequest
+import com.sullivan.signear.data.model.UserInfo
 import com.sullivan.signear.domain.SignearRepository
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationConfirmDialogState
@@ -17,7 +20,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReservationSharedViewModel @Inject
-constructor(private val repository: SignearRepository) : ViewModel() {
+constructor(
+    private val repository: SignearRepository,
+    private val sharedPreferenceManager: SharedPreferenceManager
+) : ViewModel() {
 
     private val _reservationDate = MutableStateFlow<Calendar>(Calendar.getInstance())
     val reservationDate: StateFlow<Calendar> = _reservationDate
@@ -27,14 +33,19 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     private val reservationTime = MutableStateFlow("")
     private val reservationCenter = MutableStateFlow("")
     private val reservationPlace = MutableStateFlow("")
-    private val reservationTranslationInfo = MutableStateFlow(false)
+    private val reservationTranslationInfo = MutableStateFlow(1)
     private val reservationPurpose = MutableStateFlow("")
 
     private val _confirmDialogState = MutableLiveData<ReservationConfirmDialogState>()
     val confirmDialogState: LiveData<ReservationConfirmDialogState> = _confirmDialogState
 
-    private val _reservationTotalInfo = MutableLiveData<Reservation?>()
-    val reservationTotalInfo: LiveData<Reservation?> = _reservationTotalInfo
+    private val _reservationTotalInfo = MutableLiveData<NewReservationRequest?>()
+    val reservationTotalInfo: LiveData<NewReservationRequest?> = _reservationTotalInfo
+
+    var startHour = "00"
+    var startMinute = "00"
+    var endHour = "00"
+    var endMinute = "00"
 
     private var reservationList = emptyList<Reservation>()
     private var prevreservationList = mutableListOf(
@@ -114,7 +125,7 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     }
 
     fun updateTranslationInfo(isContactless: Boolean) {
-        reservationTranslationInfo.value = isContactless
+        reservationTranslationInfo.value = if (isContactless) 2 else 1
     }
 
     fun updatePurpose(purposeInfo: String) {
@@ -137,15 +148,15 @@ constructor(private val repository: SignearRepository) : ViewModel() {
                 getCurrentDayOfName(calendar)
             }"
 
-        val currentReservation = Reservation(
-            0,
+        val currentReservation = NewReservationRequest(
             currentDate,
-            reservationStartTime.value,
-            reservationEndTime.value,
+            startHour + startMinute,
+            endHour + endMinute,
             reservationCenter.value,
             reservationPlace.value,
+            reservationTranslationInfo.value,
             reservationPurpose.value,
-            reservationTranslationInfo.value
+            UserInfo(sharedPreferenceManager.getUserId())
         )
 
         _reservationTotalInfo.value = currentReservation
@@ -166,8 +177,13 @@ constructor(private val repository: SignearRepository) : ViewModel() {
         reservationTime.value = ""
         reservationCenter.value = ""
         reservationPlace.value = ""
-        reservationTranslationInfo.value = false
+        reservationTranslationInfo.value = 1
         reservationPurpose.value = ""
+
+        startHour = "00"
+        startMinute = "00"
+        endHour = "00"
+        endMinute = "00"
     }
 
     fun updateReservationList(list: List<Reservation>) {
@@ -183,4 +199,33 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     fun findItemWithIdInPrevList(id: Int) = prevreservationList.find { it.id == id }
 
     fun fetchPrevList() = prevreservationList
+
+    fun updateStartT(hour: Int, minute: Int) {
+
+        startHour = if (hour < 9) {
+            "0$hour"
+        } else {
+            "$hour"
+        }
+
+        startMinute = if (minute < 9) {
+            "0$minute"
+        } else {
+            "$minute"
+        }
+    }
+
+    fun updateEndT(hour: Int, minute: Int) {
+        endHour = if (hour < 9) {
+            "0$hour"
+        } else {
+            "$hour"
+        }
+
+        endMinute = if (minute < 9) {
+            "0$minute"
+        } else {
+            "$minute"
+        }
+    }
 }

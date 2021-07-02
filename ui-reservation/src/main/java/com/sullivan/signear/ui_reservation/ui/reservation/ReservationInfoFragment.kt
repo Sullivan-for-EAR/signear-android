@@ -57,11 +57,11 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
         viewModel.apply {
             reservationTotalInfo.observe(viewLifecycleOwner, { reservationTotalInfo ->
                 reservationTotalInfo.let {
-                    if (it != null) {
-                        currentReservationInfo = it
-                        makeReservationView()
-                        makeReservationStatusView()
-                    }
+//                    if (it != null) {
+//                        currentReservationInfo = it
+//                        makeReservationView()
+//                        makeReservationStatusView()
+//                    }
                 }
             })
         }

@@ -180,6 +180,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
             { _, hourOfDay, minute ->
                 getTimeInfo(binding.btnStartTime, hourOfDay, minute)
                 viewModel.updateStartTime(binding.btnStartTime.text.toString())
+                viewModel.updateStartT(hourOfDay, minute)
             },
             0,
             0,
@@ -195,6 +196,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
             { _, hourOfDay, minute ->
                 getTimeInfo(binding.btnEndTime, hourOfDay, minute)
                 viewModel.updateEndTime(binding.btnEndTime.text.toString())
+                viewModel.updateEndT(hourOfDay, minute)
             },
             0,
             0,
