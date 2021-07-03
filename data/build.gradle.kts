@@ -30,6 +30,8 @@ dependencies {
     implementation(Dep.OkHttp.core)
     implementation(Dep.OkHttp.loggingInterceptor)
 
+    implementation(Dep.timber)
+
     coreLibraryDesugaring (Dep.Tool.desugarJdk)
 }
 

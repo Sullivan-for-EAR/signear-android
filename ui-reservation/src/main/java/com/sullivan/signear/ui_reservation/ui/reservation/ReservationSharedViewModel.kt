@@ -18,6 +18,7 @@ import com.sullivan.signear.ui_reservation.state.ReservationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -54,6 +55,12 @@ constructor(
     private val _reservationDetailInfo = MutableLiveData<ReservationDetailInfo>()
     val reservationDetailInfo: LiveData<ReservationDetailInfo> = _reservationDetailInfo
 
+    private val _reservationCanCelResponse = MutableLiveData<ReservationDetailInfo>()
+    val reservationCanCelResponse: LiveData<ReservationDetailInfo> = _reservationCanCelResponse
+
+    private val _errorMsg = MutableLiveData<String>()
+    val errorMsg: LiveData<String> = _errorMsg
+
     var date = ""
     var startHour = "09"
     var startMinute = "00"
@@ -81,15 +88,18 @@ constructor(
 
     fun cancelReservation() {
         viewModelScope.launch {
-            repository.cancelReservation(reservationId.value).collect { response ->
-                Timber.d("createNewReservation: $response")
-//                _reservationDetailInfo.value = response
-            }
+            repository.cancelReservation(reservationId.value)
+                .catch { exception ->
+                    _errorMsg.value = "예약 취소가 실패했습니다."
+                    Timber.e(exception)
+                }
+                .collect { response ->
+                    _reservationCanCelResponse.value = response
+                }
         }
     }
 
 
-    private var reservationList = emptyList<Reservation>()
     private var prevreservationList = mutableListOf(
         Reservation(
             1,
@@ -145,6 +155,10 @@ constructor(
             ReservationState.Cancel("reason")
         ),
     )
+
+    fun updateReservationID(id: Int) {
+        reservationId.value = id
+    }
 
     fun updateDate(current: Calendar) {
         _reservationDate.value = current
@@ -230,12 +244,6 @@ constructor(
         endHour = "00"
         endMinute = "00"
     }
-
-    fun updateReservationList(list: List<Reservation>) {
-        reservationList = list
-    }
-
-    fun findItemWithId(id: Int) = reservationList.find { it.id == id }
 
     fun updatePrevReservationList(list: MutableList<Reservation>) {
         prevreservationList = list

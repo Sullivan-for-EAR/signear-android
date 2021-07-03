@@ -8,6 +8,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.sullivan.common.ui_common.ex.convertDate
+import com.sullivan.common.ui_common.ex.getTimeInfo
 import com.sullivan.common.ui_common.ex.makeGone
 import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenear.ui_reservation.R
@@ -16,7 +18,7 @@ import com.sullivan.signear.ui_reservation.model.MyReservation
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
 
-class ReservationListAdapter(private val reservationList: List<MyReservation>) :
+class ReservationListAdapter(private val reservationList: MutableList<MyReservation>) :
     RecyclerView.Adapter<ReservationListAdapter.ReservationListViewHolder>() {
     private lateinit var bindingItem: ItemReservationBinding
 
@@ -40,7 +42,9 @@ class ReservationListAdapter(private val reservationList: List<MyReservation>) :
                     btnNavigation.makeVisible()
                 }
 
-                "${item.date} ${item.startTime}".also { tvDate.text = it }
+                "${item.date.convertDate()} ${item.startTime.getTimeInfo()}".also {
+                    tvDate.text = it
+                }
 
                 if (!item.isEmergency) {
                     showReservationState(item.currentState, ivState)
@@ -147,4 +151,10 @@ class ReservationListAdapter(private val reservationList: List<MyReservation>) :
     }
 
     override fun getItemCount() = reservationList.size
+
+    fun addAll(newList: List<MyReservation>) {
+        reservationList.clear()
+        reservationList.addAll(newList)
+        notifyDataSetChanged()
+    }
 }

@@ -10,7 +10,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.common.ui_common.ex.convertDate
 import com.sullivan.common.ui_common.ex.makeGone
+import com.sullivan.common.ui_common.ex.makeToast
 import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentReservationInfoBinding
@@ -18,6 +20,7 @@ import com.sullivan.signear.data.model.ReservationDetailInfo
 import com.sullivan.signear.ui_reservation.model.MyReservation
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
+import com.sullivan.signear.ui_reservation.ui.mypage.PreviousReservationFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.text.ParseException
@@ -45,7 +48,11 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
     }
 
     override fun setupView() {
-//        viewModel.fetchReservationDetail()
+        val id = arguments?.getInt(ARGS_KEY)
+        if (id != null) {
+            viewModel.updateReservationID(id)
+            viewModel.fetchReservationDetail()
+        }
     }
 
     override fun onPause() {
@@ -54,11 +61,23 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
     }
 
     private fun setupObserve() {
-        viewModel.reservationDetailInfo.observe(viewLifecycleOwner, { detailInfo ->
-            currentReservationInfo = detailInfo
-            makeReservationView()
-            makeReservationStatusView()
-        })
+        with(viewModel) {
+            reservationDetailInfo.observe(viewLifecycleOwner, { detailInfo ->
+                currentReservationInfo = detailInfo
+                makeReservationView()
+                makeReservationStatusView()
+            })
+
+            reservationCanCelResponse.observe(viewLifecycleOwner, { response ->
+                if (response != null) {
+                    findNavController().navigate(R.id.action_reservationInfoFragment_pop)
+                }
+            })
+
+            errorMsg.observe(viewLifecycleOwner, { msg ->
+                makeToast(msg)
+            })
+        }
     }
 
     private fun makeReservationView() {
@@ -66,7 +85,7 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             tvPlace.text = currentReservationInfo.place
             tvCenter.text =
                 "${currentReservationInfo.center} ${context?.getString(R.string.tv_center_title)}"
-            tvReservationDate.text = convertDate(currentReservationInfo.date)
+            tvReservationDate.text = currentReservationInfo.date.convertDate()
             getTimeInfo(
                 tvReservationStartTime,
                 currentReservationInfo.startTime.substring(0, 2).toInt(),
@@ -267,9 +286,8 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             .setTitle(R.string.fragment_reservation_info_dialog_reservation_cancel_title)
             .setMessage(R.string.fragment_reservation_info_dialog_reservation_cancel_body)
             .setPositiveButton(R.string.fragment_reservation_info_dialog_reservation_cancel_positive_btn_title) { dialog, _ ->
-                dialog.dismiss()
                 viewModel.cancelReservation()
-                findNavController().navigate(R.id.action_reservationInfoFragment_pop)
+                dialog.dismiss()
             }
             .setNegativeButton(R.string.fragment_reservation_info_dialog_reservation_cancel_negative_btn_title) { dialog, _ ->
                 dialog.dismiss()
@@ -291,21 +309,21 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
         }
     }
 
-    private fun convertDate(date: String): String {
-        val format = SimpleDateFormat("yyyyMMdd", Locale.KOREA)
-        val calendar = Calendar.getInstance()
-        try {
-            calendar.time = format.parse(date)!!
-
-        } catch (e: ParseException) {
-            Timber.e(e)
-        }
-        return "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${
-            viewModel.getCurrentDayOfName(
-                calendar
-            )
-        }"
-    }
+//    private fun convertDate(date: String): String {
+//        val format = SimpleDateFormat("yyyyMMdd", Locale.KOREA)
+//        val calendar = Calendar.getInstance()
+//        try {
+//            calendar.time = format.parse(date)!!
+//
+//        } catch (e: ParseException) {
+//            Timber.e(e)
+//        }
+//        return "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${
+//            viewModel.getCurrentDayOfName(
+//                calendar
+//            )
+//        }"
+//    }
 
     private fun getTimeInfo(view: TextView, hour: Int, minute: Int) {
         Timber.d("hour: $hour")

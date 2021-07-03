@@ -19,14 +19,18 @@ constructor(
     private val sharedPreferenceManager: SharedPreferenceManager
 ) : ViewModel() {
 
-    //    private val _myReservationList = MutableLiveData<List<Reservation>>()
-    val myReservationList: LiveData<List<MyReservation>> = liveData {
+    private val _myReservationList = MutableLiveData<List<MyReservation>>()
+    val myReservationList: LiveData<List<MyReservation>> =  _myReservationList
+
+    fun getReservationList() {
         val id = sharedPreferenceManager.getUserId()
-        repository.getReservationList(id).collect { response ->
-            if (response.isNotEmpty()) {
-                emit(convertData(response))
-            } else {
-                emit(emptyList<MyReservation>())
+        viewModelScope.launch {
+            repository.getReservationList(id).collect { response ->
+                if (response.isNotEmpty()) {
+                    _myReservationList.value = convertData(response)
+                } else {
+                    _myReservationList.value = emptyList()
+                }
             }
         }
     }

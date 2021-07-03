@@ -7,6 +7,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,7 +21,9 @@ class SignearRepositoryImpl
 
     override suspend fun checkEmail(email: String): Flow<ResponseCheckEmail> =
         callbackFlow {
-            networkDataSource.checkEmail(email).collect {
+            networkDataSource.checkEmail(email)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
                 when (it) {
                     is DataState.Success -> {
                         offer(it.data)
@@ -34,7 +37,9 @@ class SignearRepositoryImpl
 
     override suspend fun login(email: String, password: String): Flow<ResponseLogin> =
         callbackFlow {
-            networkDataSource.login(email, password).collect {
+            networkDataSource.login(email, password)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
                 when (it) {
                     is DataState.Success -> {
                         offer(it.data)
@@ -48,10 +53,12 @@ class SignearRepositoryImpl
 
     override suspend fun checkAccessToken(): Flow<ResponseCheckAccessToken> =
         callbackFlow {
-            networkDataSource.checkAccessToken().collect {
+            networkDataSource.checkAccessToken()
+                .catch { exception -> Timber.e(exception) }
+                .collect {
                 when (it) {
                     is DataState.Success -> {
-                        offer(it.data)
+                        trySend(it.data)
                     }
                     is DataState.Error -> {
                         Timber.e("DataState.Error")
@@ -66,7 +73,9 @@ class SignearRepositoryImpl
         phone: String
     ): Flow<ResponseLogin> =
         callbackFlow {
-            networkDataSource.createUser(email, password, phone).collect {
+            networkDataSource.createUser(email, password, phone)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
                 when (it) {
                     is DataState.Success -> {
                         offer(it.data)
@@ -80,7 +89,9 @@ class SignearRepositoryImpl
 
     override suspend fun getUserInfo(id: Int): Flow<UserProfile> =
         callbackFlow {
-            networkDataSource.getUserInfo(id).collect {
+            networkDataSource.getUserInfo(id)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
                 when (it) {
                     is DataState.Success -> {
                         offer(it.data)
@@ -94,7 +105,9 @@ class SignearRepositoryImpl
 
     override suspend fun getReservationList(id: Int): Flow<List<ReservationData>> =
         callbackFlow {
-            networkDataSource.getReservationList(id).collect {
+            networkDataSource.getReservationList(id)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
                 when (it) {
                     is DataState.Success -> {
                         offer(it.data)
@@ -108,7 +121,9 @@ class SignearRepositoryImpl
 
     override suspend fun createNewReservation(newReservation: NewReservationRequest): Flow<NewReservation> =
         callbackFlow {
-            networkDataSource.applyReservation(newReservation).collect {
+            networkDataSource.applyReservation(newReservation)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
                 when (it) {
                     is DataState.Success -> {
                         offer(it.data)
@@ -122,10 +137,12 @@ class SignearRepositoryImpl
 
     override suspend fun getReservationDetailInfo(id: Int): Flow<ReservationDetailInfo> =
         callbackFlow {
-            networkDataSource.getReservationDetailInfo(id).collect {
+            networkDataSource.getReservationDetailInfo(id)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
                 when (it) {
                     is DataState.Success -> {
-                        offer(it.data)
+                        trySend(it.data)
                     }
                     is DataState.Error -> {
                         Timber.e("DataState.Error")
@@ -136,12 +153,13 @@ class SignearRepositoryImpl
 
     override suspend fun cancelReservation(id: Int): Flow<ReservationDetailInfo> =
         callbackFlow {
-            networkDataSource.cancelReservation(id).collect {
+            networkDataSource.cancelReservation(id)
+                .collect {
                 when (it) {
                     is DataState.Success -> {
-                        offer(it.data)
+                        trySend(it.data)
                     }
-                    is DataState.Error -> {
+                    else -> {
                         Timber.e("DataState.Error")
                     }
                 }

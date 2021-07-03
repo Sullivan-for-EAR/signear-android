@@ -24,77 +24,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
     private val sharedViewModel: ReservationSharedViewModel by activityViewModels()
-    private lateinit var reservationListAdapter: ReservationListAdapter
-    private val reservationList = listOf(
-        Reservation(
-            1,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구",
-            "서초좋은병원서초좋은병원서초좋은병원",
-            "",
-            false,
-            ReservationState.NotConfirm,
-            "",
-            true
-        ),
-        Reservation(
-            2,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구", "서초좋은병원서초좋은병원서초좋은병원", "",
-            false,
-            ReservationState.NotConfirm
-        ),
-        Reservation(
-            3,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구", "서초좋은병원", "",
-            false,
-            ReservationState.Reject("reason")
-        ),
-        Reservation(
-            4,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구",
-            "서초좋은병원",
-            "",
-            false,
-            ReservationState.Confirm
-        ),
-        Reservation(
-            5,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구",
-            "서초좋은병원",
-            "",
-            false,
-            ReservationState.Cancel("reason")
-        ),
-        Reservation(
-            6,
-            "4월 30일(금)", "오전 10시",
-            "오전 12시", "강남구", "서초좋은병원", ""
-        ),
-        Reservation(
-            7,
-            "4월 30일(금)", "오전 10시",
-            "오전 12시", "강남구", "서초좋은병원", ""
-        ),
-        Reservation(
-            8,
-            "4월 30일(금)", "오전 10시",
-            "오전 12시", "강남구", "서초좋은병원", ""
-        )
-    )
+    private val reservationListAdapter = ReservationListAdapter(mutableListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -107,19 +37,31 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getReservationList()
+    }
+
     override fun setupView() {
         binding.apply {
-//            reservationListAdapter =
-//                ReservationListAdapter(reservationList)
-//            sharedViewModel.updateReservationList(reservationList)
-
-
             btnReservation.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_reservationFragment)
             }
 
             ivProfile.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_myPageFragment)
+            }
+
+            rvReservation.apply {
+                setHasFixedSize(true)
+                adapter = reservationListAdapter
+                addItemDecoration(
+                    DividerItemDecoration(
+                        context,
+                        LinearLayoutManager.VERTICAL
+                    )
+                )
             }
         }
     }
@@ -128,22 +70,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         with(viewModel) {
             myReservationList.observe(viewLifecycleOwner, { list ->
                 if (list.isNotEmpty()) {
-                    reservationListAdapter =
-                        ReservationListAdapter(list)
+                    reservationListAdapter.addAll(list.reversed())
                     with(binding) {
-
                         emptyReservationLayout.rootView.makeGone()
-                        rvReservation.apply {
-                            makeGone()
-                            setHasFixedSize(true)
-                            adapter = reservationListAdapter
-                            addItemDecoration(
-                                DividerItemDecoration(
-                                    context,
-                                    LinearLayoutManager.VERTICAL
-                                )
-                            )
-                        }
+                        rvReservation.makeVisible()
                     }
                 } else {
                     with(binding) {

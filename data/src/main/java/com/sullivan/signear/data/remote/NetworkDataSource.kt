@@ -112,7 +112,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
 
     suspend fun cancelReservation(id: Int): Flow<DataState<ReservationDetailInfo>> =
         callbackFlow {
-            offer(
+            trySend(
                 DataState.Success(
                     apiService.cancelReservation(id)
                 )
