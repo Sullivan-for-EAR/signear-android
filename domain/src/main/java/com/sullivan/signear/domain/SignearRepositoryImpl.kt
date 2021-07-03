@@ -133,4 +133,18 @@ class SignearRepositoryImpl
                 }
             }
         }
+
+    override suspend fun cancelReservation(id: Int): Flow<ReservationDetailInfo> =
+        callbackFlow {
+            networkDataSource.cancelReservation(id).collect {
+                when (it) {
+                    is DataState.Success -> {
+                        offer(it.data)
+                    }
+                    is DataState.Error -> {
+                        Timber.e("DataState.Error")
+                    }
+                }
+            }
+        }
 }

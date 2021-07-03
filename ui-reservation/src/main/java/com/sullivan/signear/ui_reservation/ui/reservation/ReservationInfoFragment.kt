@@ -67,10 +67,16 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             tvCenter.text =
                 "${currentReservationInfo.center} ${context?.getString(R.string.tv_center_title)}"
             tvReservationDate.text = convertDate(currentReservationInfo.date)
-            getTimeInfo(tvReservationStartTime, currentReservationInfo.startTime.substring(0,2).toInt(), currentReservationInfo.startTime.substring(2).toInt())
-            getTimeInfo(tvReservationEndTime, currentReservationInfo.endTime.substring(0,2).toInt(), currentReservationInfo.endTime.substring(2).toInt())
-//            tvReservationStartTime.text = currentReservationInfo.startTime
-//            tvReservationEndTime.text = currentReservationInfo.endTime
+            getTimeInfo(
+                tvReservationStartTime,
+                currentReservationInfo.startTime.substring(0, 2).toInt(),
+                currentReservationInfo.startTime.substring(2).toInt()
+            )
+            getTimeInfo(
+                tvReservationEndTime,
+                currentReservationInfo.endTime.substring(0, 2).toInt(),
+                currentReservationInfo.endTime.substring(2).toInt()
+            )
 
             if (currentReservationInfo.method == 1) {
                 tvReservationTranslation.text =
@@ -262,7 +268,7 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             .setMessage(R.string.fragment_reservation_info_dialog_reservation_cancel_body)
             .setPositiveButton(R.string.fragment_reservation_info_dialog_reservation_cancel_positive_btn_title) { dialog, _ ->
                 dialog.dismiss()
-                //todo 예약취소 작업 예정
+                viewModel.cancelReservation()
                 findNavController().navigate(R.id.action_reservationInfoFragment_pop)
             }
             .setNegativeButton(R.string.fragment_reservation_info_dialog_reservation_cancel_negative_btn_title) { dialog, _ ->
@@ -294,7 +300,11 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
         } catch (e: ParseException) {
             Timber.e(e)
         }
-        return "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${viewModel.getCurrentDayOfName(calendar)}"
+        return "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${
+            viewModel.getCurrentDayOfName(
+                calendar
+            )
+        }"
     }
 
     private fun getTimeInfo(view: TextView, hour: Int, minute: Int) {

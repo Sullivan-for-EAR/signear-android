@@ -43,4 +43,7 @@ interface ApiService {
 
     @GET("reservation/customer/")
     suspend fun getReservationDetailInfo(@Query("reservation_id") id: Int): ReservationDetailInfo
+
+    @POST("reservation/customer/cancle/{reservation_id}")
+    suspend fun cancelReservation(@Path("reservation_id") id: Int): ReservationDetailInfo
 }

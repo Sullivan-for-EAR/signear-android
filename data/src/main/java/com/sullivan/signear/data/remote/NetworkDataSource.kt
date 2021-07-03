@@ -109,4 +109,14 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             )
             awaitClose { close() }
         }
+
+    suspend fun cancelReservation(id: Int): Flow<DataState<ReservationDetailInfo>> =
+        callbackFlow {
+            offer(
+                DataState.Success(
+                    apiService.cancelReservation(id)
+                )
+            )
+            awaitClose { close() }
+        }
 }

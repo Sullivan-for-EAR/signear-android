@@ -79,6 +79,15 @@ constructor(
         }
     }
 
+    fun cancelReservation() {
+        viewModelScope.launch {
+            repository.cancelReservation(reservationId.value).collect { response ->
+                Timber.d("createNewReservation: $response")
+//                _reservationDetailInfo.value = response
+            }
+        }
+    }
+
 
     private var reservationList = emptyList<Reservation>()
     private var prevreservationList = mutableListOf(
