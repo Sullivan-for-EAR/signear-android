@@ -22,14 +22,13 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
     private val sharedViewModel: ReservationSharedViewModel by activityViewModels()
-    private lateinit var reservationListAdapter : ReservationListAdapter
+    private lateinit var reservationListAdapter: ReservationListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = HomeFragmentBinding.inflate(layoutInflater)
-
 
         viewModel.getReservationList()
 
@@ -83,5 +82,12 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 }
             })
         }
+
+        sharedViewModel.refreshList.observe(viewLifecycleOwner, { status ->
+            if (status) {
+                viewModel.getReservationList()
+                sharedViewModel.clearRefreshList()
+            }
+        })
     }
 }

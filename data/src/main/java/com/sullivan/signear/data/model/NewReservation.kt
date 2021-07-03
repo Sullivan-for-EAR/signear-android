@@ -71,7 +71,7 @@ data class NewEmergencyReservationRequest(
     @SerializedName("area")
     val center: String = "",
     @SerializedName("address")
-    val place: String = "",
+    val place: String = "긴급통역",
     @SerializedName("method")
     val method: Int = 0,
     @SerializedName("request")

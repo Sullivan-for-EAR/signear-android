@@ -150,4 +150,14 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             )
             awaitClose { close() }
         }
+
+    suspend fun getPrevReservationList(id: Int): Flow<DataState<List<ReservationData>>> =
+        callbackFlow {
+            trySend(
+                DataState.Success(
+                    apiService.getPrevReservationList(id)
+                )
+            )
+            awaitClose { close() }
+        }
 }

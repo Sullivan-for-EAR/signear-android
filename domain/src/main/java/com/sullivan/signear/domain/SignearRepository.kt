@@ -27,4 +27,6 @@ interface SignearRepository {
     suspend fun createEmergencyReservation(newEmergencyReservationRequest: NewEmergencyReservationRequest): Flow<NewReservation>
 
     suspend fun cancelEmergencyReservation(id: Int): Flow<ReservationDetailInfo>
+
+    suspend fun getPrevReservationList(id: Int): Flow<List<ReservationData>>
 }

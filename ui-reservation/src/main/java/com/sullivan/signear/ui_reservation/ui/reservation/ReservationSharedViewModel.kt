@@ -47,13 +47,11 @@ constructor(
     private val reservationTranslationInfo = MutableStateFlow(1)
     private val reservationPurpose = MutableStateFlow("")
     private val reservationId = MutableStateFlow(0)
-    private val emergencyReservationId = MutableStateFlow(0)
 
     private val _confirmDialogState = MutableLiveData<ReservationConfirmDialogState>()
     val confirmDialogState: LiveData<ReservationConfirmDialogState> = _confirmDialogState
 
     private val reservationTotalInfo = MutableLiveData<NewReservationRequest?>()
-    private val emergencyReservationInfo = MutableLiveData<NewReservationRequest?>()
 
     private val _reservationDetailInfo = MutableLiveData<ReservationDetailInfo>()
     val reservationDetailInfo: LiveData<ReservationDetailInfo> = _reservationDetailInfo
@@ -63,6 +61,9 @@ constructor(
 
     private val _errorMsg = MutableLiveData<String>()
     val errorMsg: LiveData<String> = _errorMsg
+
+    private val _refreshList = MutableLiveData(false)
+    val refreshList: LiveData<Boolean> = _refreshList
 
     var date = ""
     var startHour = "09"
@@ -132,6 +133,7 @@ constructor(
                 }
                 .collect { response ->
 //                    _reservationCanCelResponse.value = response
+                    refreshList()
                 }
         }
     }
@@ -321,5 +323,13 @@ constructor(
     private fun convertStartTime(input: Calendar): String {
         val sdf = SimpleDateFormat("HHmm", Locale.getDefault())
         return sdf.format(Date(input.timeInMillis))
+    }
+
+    fun refreshList() {
+        _refreshList.value = true
+    }
+
+    fun clearRefreshList() {
+        _refreshList.value = false
     }
 }

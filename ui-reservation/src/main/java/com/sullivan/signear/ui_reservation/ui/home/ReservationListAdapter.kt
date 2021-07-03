@@ -53,10 +53,15 @@ class ReservationListAdapter(
                     showReservationState(item.currentState, ivState)
                 }
 
-                rvReservation.setOnClickListener {
-                    if (!item.isEmergency) {
+                if (item.isEmergency || item.currentState == ReservationState.EmergencyCancel) {
+                    rvReservation.isClickable = false
+                } else {
+                    rvReservation.isClickable = true
+                    rvReservation.setOnClickListener {
                         it.findNavController().navigate(
-                            HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
+                            HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(
+                                item.id
+                            )
                         )
                     }
                 }
@@ -64,7 +69,9 @@ class ReservationListAdapter(
                 btnNavigation.setOnClickListener {
                     if (!item.isEmergency) {
                         it.findNavController().navigate(
-                            HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
+                            HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(
+                                item.id
+                            )
                         )
                     }
                 }
@@ -107,6 +114,12 @@ class ReservationListAdapter(
                         R.drawable.reject_icon, null
                     )
                 )
+                is ReservationState.EmergencyCancel -> ivState.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        ivState.context.resources,
+                        R.drawable.cancel_icon, null
+                    )
+                )
                 else -> ivState.makeGone()
             }
         }
@@ -123,7 +136,7 @@ class ReservationListAdapter(
                 .setMessage(R.string.fragment_reservation_dialog_reservation_cancel_body)
                 .setPositiveButton(R.string.fragment_reservation_dialog_reservation_cancel_positive_btn_title) { dialog, _ ->
                     viewModel.cancelEmergencyReservation()
-                    removeAt(position)
+//                    removeAt(position)
                     dialog.dismiss()
                 }
                 .setNegativeButton(R.string.fragment_reservation_dialog_reservation_cancel_negative_btn_title) { dialog, _ ->
@@ -143,11 +156,15 @@ class ReservationListAdapter(
                 4 -> item.currentState = ReservationState.Cancel()
                 5 -> item.currentState = ReservationState.Reject()
                 8 -> item.isEmergency = true
+                9 -> item.currentState = ReservationState.EmergencyCancel
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReservationListViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ReservationListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         bindingItem = ItemReservationBinding.inflate(layoutInflater)
         return ReservationListViewHolder(bindingItem)

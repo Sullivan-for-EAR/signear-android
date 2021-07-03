@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sullivan.common.ui_common.ex.makeGone
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemReservationBinding
+import com.sullivan.signear.ui_reservation.model.MyReservation
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
-import com.sullivan.signear.ui_reservation.ui.reservation.ReservationSharedViewModel
 
 class PreviousReservationListAdapter(
-    private val reservationList: MutableList<Reservation>,
-    private val sharedViewModel: ReservationSharedViewModel,
+    private val reservationList: MutableList<MyReservation>,
+    private val viewModel: PreviousReservationListViewModel,
     swipeHelperCallback: SwipeHelperCallback
 ) :
     RecyclerView.Adapter<PreviousReservationListAdapter.ReservationListViewHolder>() {
@@ -24,7 +24,7 @@ class PreviousReservationListAdapter(
 
     inner class ReservationListViewHolder(private val binding: ItemReservationBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Reservation) {
+        fun bind(item: MyReservation) {
             binding.apply {
                 if (item.isEmergency) {
                     tvPlace.text = tvPlace.context.getString(R.string.fragment_emergency_reservation_title)
@@ -101,9 +101,15 @@ class PreviousReservationListAdapter(
         val position = reservationList.indexOf(reservationList.find { it.id == id })
         if (position != -1) {
             reservationList.removeAt(position)
-            sharedViewModel.updatePrevReservationList(reservationList)
+//            viewModel.updatePrevReservationList(reservationList)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, reservationList.size)
         }
+    }
+
+    fun addAll(newList: List<MyReservation>) {
+        reservationList.clear()
+        reservationList.addAll(newList)
+        notifyDataSetChanged()
     }
 }
