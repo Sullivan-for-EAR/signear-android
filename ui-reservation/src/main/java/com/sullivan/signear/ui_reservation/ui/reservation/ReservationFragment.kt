@@ -182,7 +182,7 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
                 viewModel.updateStartTime(binding.btnStartTime.text.toString())
                 viewModel.updateStartT(hourOfDay, minute)
             },
-            0,
+            9,
             0,
             false
         )

@@ -19,6 +19,11 @@ import com.sullivan.signear.ui_reservation.model.MyReservation
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.logging.SimpleFormatter
 
 @AndroidEntryPoint
 class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
@@ -61,9 +66,11 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             tvPlace.text = currentReservationInfo.place
             tvCenter.text =
                 "${currentReservationInfo.center} ${context?.getString(R.string.tv_center_title)}"
-            tvReservationDate.text = currentReservationInfo.date
-            tvReservationStartTime.text = currentReservationInfo.startTime
-            tvReservationEndTime.text = currentReservationInfo.endTime
+            tvReservationDate.text = convertDate(currentReservationInfo.date)
+            getTimeInfo(tvReservationStartTime, currentReservationInfo.startTime.substring(0,2).toInt(), currentReservationInfo.startTime.substring(2).toInt())
+            getTimeInfo(tvReservationEndTime, currentReservationInfo.endTime.substring(0,2).toInt(), currentReservationInfo.endTime.substring(2).toInt())
+//            tvReservationStartTime.text = currentReservationInfo.startTime
+//            tvReservationEndTime.text = currentReservationInfo.endTime
 
             if (currentReservationInfo.method == 1) {
                 tvReservationTranslation.text =
@@ -72,7 +79,7 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
                     "(${context?.getString(R.string.fragment_reservation_tv_contact_title)})"
             } else {
                 tvReservationTranslation.text =
-                    R.string.fragment_reservation_tv_online_translation_title.toString()
+                    context?.getString(R.string.fragment_reservation_tv_online_translation_title)
                 tvTranslation.text =
                     "(${context?.getString(R.string.fragment_reservation_tv_online_title)})"
             }
@@ -275,6 +282,51 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             4 -> ReservationState.Cancel()
             5 -> ReservationState.Reject()
             else -> ReservationState.None
+        }
+    }
+
+    private fun convertDate(date: String): String {
+        val format = SimpleDateFormat("yyyyMMdd", Locale.KOREA)
+        val calendar = Calendar.getInstance()
+        try {
+            calendar.time = format.parse(date)!!
+
+        } catch (e: ParseException) {
+            Timber.e(e)
+        }
+        return "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${viewModel.getCurrentDayOfName(calendar)}"
+    }
+
+    private fun getTimeInfo(view: TextView, hour: Int, minute: Int) {
+        Timber.d("hour: $hour")
+        if (hour <= 12) {
+            if (hour <= 9) {
+                if (minute <= 9) {
+                    "오전 0$hour:0$minute".also { view.text = it }
+                } else {
+                    "오전 0$hour:$minute".also { view.text = it }
+                }
+            } else {
+                if (minute <= 9) {
+                    "오전 $hour:0$minute".also { view.text = it }
+                } else {
+                    "오전 $hour:$minute".also { view.text = it }
+                }
+            }
+        } else {
+            if (hour <= 9) {
+                if (minute <= 9) {
+                    "오후 0${hour - 12}:0$minute".also { view.text = it }
+                } else {
+                    "오후 0${hour - 12}:$minute".also { view.text = it }
+                }
+            } else {
+                if (minute <= 9) {
+                    "오후 ${hour - 12}:0$minute".also { view.text = it }
+                } else {
+                    "오후 ${hour - 12}:$minute".also { view.text = it }
+                }
+            }
         }
     }
 

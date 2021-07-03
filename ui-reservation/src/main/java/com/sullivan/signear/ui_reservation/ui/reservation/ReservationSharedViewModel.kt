@@ -238,13 +238,13 @@ constructor(
 
     fun updateStartT(hour: Int, minute: Int) {
 
-        startHour = if (hour < 9) {
+        startHour = if (hour <= 9) {
             "0$hour"
         } else {
             "$hour"
         }
 
-        startMinute = if (minute < 9) {
+        startMinute = if (minute <= 9) {
             "0$minute"
         } else {
             "$minute"
@@ -252,13 +252,13 @@ constructor(
     }
 
     fun updateEndT(hour: Int, minute: Int) {
-        endHour = if (hour < 9) {
+        endHour = if (hour <= 9) {
             "0$hour"
         } else {
             "$hour"
         }
 
-        endMinute = if (minute < 9) {
+        endMinute = if (minute <= 9) {
             "0$minute"
         } else {
             "$minute"
