@@ -48,6 +48,7 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
     }
 
     override fun setupView() {
+        Timber.d("setupView")
         val id = arguments?.getInt(ARGS_KEY)
         if (id != null) {
             viewModel.updateReservationID(id)
@@ -55,14 +56,17 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
+        Timber.d("onStop")
         viewModel.clearPrevData()
     }
 
     private fun setupObserve() {
+        Timber.d("setupObserve")
         with(viewModel) {
             reservationDetailInfo.observe(viewLifecycleOwner, { detailInfo ->
+                Timber.d("setupObserve: $detailInfo")
                 currentReservationInfo = detailInfo
                 makeReservationView()
                 makeReservationStatusView()

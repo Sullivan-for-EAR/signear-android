@@ -32,7 +32,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     ): View {
         binding = HomeFragmentBinding.inflate(layoutInflater)
 
-        observeViewModel()
+
+        viewModel.getReservationList()
 
         return binding.root
     }
@@ -40,7 +41,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     override fun onResume() {
         super.onResume()
 
-        viewModel.getReservationList()
+        observeViewModel()
     }
 
     override fun setupView() {

@@ -49,8 +49,7 @@ constructor(
     private val _confirmDialogState = MutableLiveData<ReservationConfirmDialogState>()
     val confirmDialogState: LiveData<ReservationConfirmDialogState> = _confirmDialogState
 
-    private val _reservationTotalInfo = MutableLiveData<NewReservationRequest?>()
-    val reservationTotalInfo: LiveData<NewReservationRequest?> = _reservationTotalInfo
+    private val reservationTotalInfo = MutableLiveData<NewReservationRequest?>()
 
     private val _reservationDetailInfo = MutableLiveData<ReservationDetailInfo>()
     val reservationDetailInfo: LiveData<ReservationDetailInfo> = _reservationDetailInfo
@@ -80,7 +79,6 @@ constructor(
     fun fetchReservationDetail() {
         viewModelScope.launch {
             repository.getReservationDetailInfo(reservationId.value).collect { response ->
-                Timber.d("createNewReservation: $response")
                 _reservationDetailInfo.value = response
             }
         }
@@ -217,7 +215,7 @@ constructor(
             UserInfo(sharedPreferenceManager.getUserId())
         )
 
-        _reservationTotalInfo.value = currentReservation
+        reservationTotalInfo.value = currentReservation
 
         createNewReservation()
     }
@@ -230,7 +228,7 @@ constructor(
     }
 
     fun clearPrevData() {
-        _reservationTotalInfo.value = null
+        reservationTotalInfo.value = null
         reservationStartTime.value = ""
         reservationEndTime.value = ""
         reservationTime.value = ""
@@ -238,6 +236,7 @@ constructor(
         reservationPlace.value = ""
         reservationTranslationInfo.value = 1
         reservationPurpose.value = ""
+        _reservationCanCelResponse.value = null
 
         startHour = "00"
         startMinute = "00"
