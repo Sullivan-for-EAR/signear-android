@@ -55,9 +55,9 @@ constructor(
     val reservationDetailInfo: LiveData<ReservationDetailInfo> = _reservationDetailInfo
 
     var date = ""
-    var startHour = "00"
+    var startHour = "09"
     var startMinute = "00"
-    var endHour = "00"
+    var endHour = "10"
     var endMinute = "00"
 
 

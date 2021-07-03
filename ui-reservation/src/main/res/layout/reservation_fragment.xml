@@ -94,7 +94,7 @@
                 android:id="@+id/border1"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:background="@color/border_color"
                 app:layout_constraintEnd_toStartOf="@id/guideline2"
                 app:layout_constraintStart_toEndOf="@id/guideline1"
@@ -151,7 +151,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center_vertical"
                     android:paddingStart="8dp"
-                    android:text="오전 00:00"
+                    android:text="오전 09:00"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
@@ -182,7 +182,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center_vertical"
                     android:paddingStart="8dp"
-                    android:text="오전 00:00"
+                    android:text="오전 10:00"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
             </LinearLayout>
