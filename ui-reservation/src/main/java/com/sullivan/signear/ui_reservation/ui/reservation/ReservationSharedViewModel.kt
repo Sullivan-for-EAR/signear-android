@@ -3,8 +3,13 @@ package com.sullivan.signear.ui_reservation.ui.reservation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sullivan.common.ui_common.ex.day
+import com.sullivan.common.ui_common.ex.month
+import com.sullivan.common.ui_common.ex.year
 import com.sullivan.common.ui_common.utils.SharedPreferenceManager
 import com.sullivan.signear.data.model.NewReservationRequest
+import com.sullivan.signear.data.model.ReservationDetailInfo
 import com.sullivan.signear.data.model.UserInfo
 import com.sullivan.signear.domain.SignearRepository
 import com.sullivan.signear.ui_reservation.model.Reservation
@@ -13,8 +18,11 @@ import com.sullivan.signear.ui_reservation.state.ReservationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.text.SimpleDateFormat
+import java.time.Year
 import java.util.*
 import javax.inject.Inject
 
@@ -35,6 +43,7 @@ constructor(
     private val reservationPlace = MutableStateFlow("")
     private val reservationTranslationInfo = MutableStateFlow(1)
     private val reservationPurpose = MutableStateFlow("")
+    private val reservationId = MutableStateFlow(0)
 
     private val _confirmDialogState = MutableLiveData<ReservationConfirmDialogState>()
     val confirmDialogState: LiveData<ReservationConfirmDialogState> = _confirmDialogState
@@ -42,10 +51,34 @@ constructor(
     private val _reservationTotalInfo = MutableLiveData<NewReservationRequest?>()
     val reservationTotalInfo: LiveData<NewReservationRequest?> = _reservationTotalInfo
 
+    private val _reservationDetailInfo = MutableLiveData<ReservationDetailInfo>()
+    val reservationDetailInfo: LiveData<ReservationDetailInfo> = _reservationDetailInfo
+
+    var date = ""
     var startHour = "00"
     var startMinute = "00"
     var endHour = "00"
     var endMinute = "00"
+
+
+    private fun createNewReservation() {
+        viewModelScope.launch {
+            repository.createNewReservation(reservationTotalInfo.value!!).collect { response ->
+                Timber.d("createNewReservation: $response")
+                reservationId.value = response.id
+            }
+        }
+    }
+
+    fun fetchReservationDetail() {
+        viewModelScope.launch {
+            repository.getReservationDetailInfo(reservationId.value).collect { response ->
+                Timber.d("createNewReservation: $response")
+                _reservationDetailInfo.value = response
+            }
+        }
+    }
+
 
     private var reservationList = emptyList<Reservation>()
     private var prevreservationList = mutableListOf(
@@ -142,6 +175,8 @@ constructor(
     }
 
     fun assembleReservationInfo() {
+        convertDate(reservationDate.value)
+
         val calendar = _reservationDate.value
         val currentDate =
             "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${
@@ -149,7 +184,7 @@ constructor(
             }"
 
         val currentReservation = NewReservationRequest(
-            currentDate,
+            date,
             startHour + startMinute,
             endHour + endMinute,
             reservationCenter.value,
@@ -160,7 +195,8 @@ constructor(
         )
 
         _reservationTotalInfo.value = currentReservation
-        Timber.d("${reservationTotalInfo.value}")
+
+        createNewReservation()
     }
 
 
@@ -227,5 +263,10 @@ constructor(
         } else {
             "$minute"
         }
+    }
+
+    private fun convertDate(input: Calendar) {
+        val sdf = SimpleDateFormat("yyyyMMdd")
+        date = sdf.format(Date(input.timeInMillis))
     }
 }

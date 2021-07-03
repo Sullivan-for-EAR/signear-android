@@ -26,17 +26,17 @@ constructor(
     private val _resultCheckAccessToken = MutableLiveData<ResponseCheckAccessToken>()
     val resultCheckAccessToken: LiveData<ResponseCheckAccessToken> = _resultCheckAccessToken
 
-    val rankList = liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
-        emit(DataState.Loading)
-        try {
-            repository.fetchRankInfo().collect {
-                emit(it)
-            }
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            Timber.e(DataState.Error(e).toString())
-        }
-    }
+//    val rankList = liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+//        emit(DataState.Loading)
+//        try {
+//            repository.fetchRankInfo().collect {
+//                emit(it)
+//            }
+//        } catch (e: Exception) {
+//            emit(DataState.Error(e))
+//            Timber.e(DataState.Error(e).toString())
+//        }
+//    }
 
     fun checkAccessToken() = !sharedPreferenceManager.getAccessToken().isNullOrEmpty()
 

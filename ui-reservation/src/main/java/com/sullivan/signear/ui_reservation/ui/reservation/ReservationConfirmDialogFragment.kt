@@ -53,6 +53,7 @@ class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
             tvTime.text = viewModel.fetchReservationTime()
 
             btnView.setOnClickListener {
+                viewModel.fetchReservationDetail()
                 viewModel.updateDialogStatus(ReservationConfirmDialogState.MoveToDetail)
                 dismiss()
             }

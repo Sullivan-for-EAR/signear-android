@@ -14,6 +14,8 @@ import com.sullivan.common.ui_common.ex.makeGone
 import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentReservationInfoBinding
+import com.sullivan.signear.data.model.ReservationDetailInfo
+import com.sullivan.signear.ui_reservation.model.MyReservation
 import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
     private val viewModel: ReservationSharedViewModel by activityViewModels()
-    private lateinit var currentReservationInfo: Reservation
+    private lateinit var currentReservationInfo: ReservationDetailInfo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,14 +40,7 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
     }
 
     override fun setupView() {
-        binding.apply {
-            val id: Int? = arguments?.getInt(ARGS_KEY)
-            if (id != null) {
-                currentReservationInfo = viewModel.findItemWithId(id)!!
-                makeReservationView()
-                makeReservationStatusView()
-            }
-        }
+//        viewModel.fetchReservationDetail()
     }
 
     override fun onPause() {
@@ -54,17 +49,11 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
     }
 
     private fun setupObserve() {
-        viewModel.apply {
-            reservationTotalInfo.observe(viewLifecycleOwner, { reservationTotalInfo ->
-                reservationTotalInfo.let {
-//                    if (it != null) {
-//                        currentReservationInfo = it
-//                        makeReservationView()
-//                        makeReservationStatusView()
-//                    }
-                }
-            })
-        }
+        viewModel.reservationDetailInfo.observe(viewLifecycleOwner, { detailInfo ->
+            currentReservationInfo = detailInfo
+            makeReservationView()
+            makeReservationStatusView()
+        })
     }
 
     private fun makeReservationView() {
@@ -76,17 +65,19 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             tvReservationStartTime.text = currentReservationInfo.startTime
             tvReservationEndTime.text = currentReservationInfo.endTime
 
-            if (!currentReservationInfo.isContactless) {
+            if (currentReservationInfo.method == 1) {
                 tvReservationTranslation.text =
                     context?.getString(R.string.fragment_reservation_tv_sign_translation_title)
-                tvTranslation.text = "(${context?.getString(R.string.fragment_reservation_tv_contact_title)})"
+                tvTranslation.text =
+                    "(${context?.getString(R.string.fragment_reservation_tv_contact_title)})"
             } else {
                 tvReservationTranslation.text =
                     R.string.fragment_reservation_tv_online_translation_title.toString()
-                tvTranslation.text = "(${context?.getString(R.string.fragment_reservation_tv_online_title)})"
+                tvTranslation.text =
+                    "(${context?.getString(R.string.fragment_reservation_tv_online_title)})"
             }
 
-            tvReservationPurpose.text = currentReservationInfo.purpose
+            tvReservationPurpose.text = currentReservationInfo.request
 
             btnBack.setOnClickListener {
                 findNavController().navigate(R.id.action_reservationInfoFragment_pop)
@@ -100,7 +91,7 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
     private fun makeReservationStatusView() {
         binding.apply {
-            when (currentReservationInfo.currentState) {
+            when (convertStatus()) {
                 is ReservationState.NotRead -> {
                     statusNotRead.isSelected = true
                     statusNotConfirm.isSelected = false
@@ -246,7 +237,7 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             requireContext(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
         )
             .setTitle("거절 사유")
-            .setMessage(currentReservationInfo.reject_cancel_reason)
+            .setMessage(currentReservationInfo.reject)
             .setPositiveButton("확인") { dialog, _ ->
                 dialog.dismiss()
             }
@@ -274,6 +265,17 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             .create()
 
         dialog.show()
+    }
+
+    private fun convertStatus(): ReservationState {
+        return when (currentReservationInfo.status) {
+            1 -> ReservationState.NotRead
+            2 -> ReservationState.NotConfirm
+            3 -> ReservationState.Confirm
+            4 -> ReservationState.Cancel()
+            5 -> ReservationState.Reject()
+            else -> ReservationState.None
+        }
     }
 
     companion object {

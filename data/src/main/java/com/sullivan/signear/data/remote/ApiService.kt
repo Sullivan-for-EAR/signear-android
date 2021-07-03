@@ -14,9 +14,6 @@ interface ApiService {
 
     }
 
-    @GET("nrise_data.json")
-    suspend fun fetchRankInfo(): RankingInfo
-
     @GET("customer/check")
     suspend fun checkEmail(@Query("email") email: String): ResponseCheckEmail
 
@@ -43,4 +40,7 @@ interface ApiService {
     suspend fun createReservation(
         @Body reservationInfo: HashMap<String, Any>
     ): NewReservation
+
+    @GET("reservation/customer/")
+    suspend fun getReservationDetailInfo(@Query("reservation_id") id: Int): ReservationDetailInfo
 }

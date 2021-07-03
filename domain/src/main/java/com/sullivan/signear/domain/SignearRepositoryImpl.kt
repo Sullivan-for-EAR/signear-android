@@ -17,19 +17,6 @@ class SignearRepositoryImpl
 @Inject constructor(
     private val networkDataSource: NetworkDataSource
 ) : SignearRepository {
-    override suspend fun fetchRankInfo(): Flow<DataState<RankingInfo>> =
-        callbackFlow {
-            networkDataSource.fetchRankInfo().collect {
-                when (it) {
-                    is DataState.Success -> {
-                        offer(it)
-                    }
-                    is DataState.Error -> {
-                        Timber.e("DataState.Error")
-                    }
-                }
-            }
-        }
 
     override suspend fun checkEmail(email: String): Flow<ResponseCheckEmail> =
         callbackFlow {
@@ -119,9 +106,23 @@ class SignearRepositoryImpl
             }
         }
 
-    override suspend fun applyReservation(newReservation: NewReservation): Flow<NewReservation> =
+    override suspend fun createNewReservation(newReservation: NewReservationRequest): Flow<NewReservation> =
         callbackFlow {
             networkDataSource.applyReservation(newReservation).collect {
+                when (it) {
+                    is DataState.Success -> {
+                        offer(it.data)
+                    }
+                    is DataState.Error -> {
+                        Timber.e("DataState.Error")
+                    }
+                }
+            }
+        }
+
+    override suspend fun getReservationDetailInfo(id: Int): Flow<ReservationDetailInfo> =
+        callbackFlow {
+            networkDataSource.getReservationDetailInfo(id).collect {
                 when (it) {
                     is DataState.Success -> {
                         offer(it.data)

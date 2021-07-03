@@ -78,7 +78,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             awaitClose { close() }
         }
 
-    suspend fun applyReservation(newReservation: NewReservation): Flow<DataState<NewReservation>> =
+    suspend fun applyReservation(newReservation: NewReservationRequest): Flow<DataState<NewReservation>> =
         callbackFlow {
             offer(
                 DataState.Success(
@@ -100,19 +100,13 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             awaitClose { close() }
         }
 
-    suspend fun fetchRankInfo(): Flow<DataState<RankingInfo>> =
+    suspend fun getReservationDetailInfo(id: Int): Flow<DataState<ReservationDetailInfo>> =
         callbackFlow {
-
-//            emit(DataState.Loading)
-//            delay(1000)
-//            try {
-//                val resultList = apiService.fetchRankInfo()
-//                emit(DataState.Success(resultList))
-//            } catch (e: Exception) {
-//                emit(DataState.Error(e))
-//            }
-
-            offer(DataState.Success(apiService.fetchRankInfo()))
+            offer(
+                DataState.Success(
+                    apiService.getReservationDetailInfo(id)
+                )
+            )
             awaitClose { close() }
         }
 }

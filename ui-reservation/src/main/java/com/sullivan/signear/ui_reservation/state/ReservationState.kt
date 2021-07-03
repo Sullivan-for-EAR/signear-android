@@ -7,4 +7,5 @@ sealed class ReservationState {
     class Cancel(reason: String = "") : ReservationState()
     class Reject(reason: String = "") : ReservationState()
     object Served : ReservationState()
+    object None : ReservationState()
 }

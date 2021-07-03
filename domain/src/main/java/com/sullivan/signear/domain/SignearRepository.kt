@@ -5,7 +5,6 @@ import com.sullivan.signear.data.model.*
 import kotlinx.coroutines.flow.Flow
 
 interface SignearRepository {
-    suspend fun fetchRankInfo(): Flow<DataState<RankingInfo>>
 
     suspend fun checkEmail(email: String): Flow<ResponseCheckEmail>
 
@@ -19,5 +18,7 @@ interface SignearRepository {
 
     suspend fun getReservationList(id: Int): Flow<List<ReservationData>>
 
-    suspend fun applyReservation(newReservation: NewReservation): Flow<NewReservation>
+    suspend fun createNewReservation(newReservation: NewReservationRequest): Flow<NewReservation>
+
+    suspend fun getReservationDetailInfo(id: Int): Flow<ReservationDetailInfo>
 }
