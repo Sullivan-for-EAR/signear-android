@@ -9,8 +9,10 @@ import com.sullivan.signear.data.model.ResponseCheckEmail
 import com.sullivan.signear.data.model.ResponseLogin
 import com.sullivan.signear.domain.SignearRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,6 +34,9 @@ constructor(
     private val _resultJoin = MutableLiveData<ResponseLogin>()
     val resultJoin: LiveData<ResponseLogin> = _resultJoin
 
+    private val _errorMsg = MutableLiveData<String>()
+    val errorMsg: LiveData<String> = _errorMsg
+
     fun updateLoginState(currentState: LoginState) {
         _loginState.value = currentState
     }
@@ -48,17 +53,20 @@ constructor(
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
-            repository.login(email, password).collect { response ->
-                response.let {
-                    with(sharedPreferenceManager) {
-                        setAccessToken(response.accessToken)
-                        setUserId(response.userProfile.id)
-//                        setUserName(response.userProfile.email)
-//                        setUserPHONE(response.userProfile.phone)
-                    }
-                    _resultLogin.value = response
+            repository.login(email, password)
+                .catch { exception ->
+                    _errorMsg.value = "로그인에 실패했습니다."
+                    Timber.e(exception)
                 }
-            }
+                .collect { response ->
+                    response.let {
+                        with(sharedPreferenceManager) {
+                            setAccessToken(response.accessToken)
+                            setUserId(response.userProfile.id)
+                        }
+                        _resultLogin.value = response
+                    }
+                }
         }
     }
 

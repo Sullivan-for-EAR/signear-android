@@ -14,8 +14,6 @@ import com.sullivan.common.ui_common.ex.makeGone
 import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.HomeFragmentBinding
-import com.sullivan.signear.ui_reservation.model.Reservation
-import com.sullivan.signear.ui_reservation.state.ReservationState
 import com.sullivan.signear.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +22,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
     private val sharedViewModel: ReservationSharedViewModel by activityViewModels()
-    private val reservationListAdapter = ReservationListAdapter(mutableListOf())
+    private lateinit var reservationListAdapter : ReservationListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +52,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 findNavController().navigate(R.id.action_homeFragment_to_myPageFragment)
             }
 
+            reservationListAdapter = ReservationListAdapter(mutableListOf(), sharedViewModel)
             rvReservation.apply {
                 setHasFixedSize(true)
                 adapter = reservationListAdapter

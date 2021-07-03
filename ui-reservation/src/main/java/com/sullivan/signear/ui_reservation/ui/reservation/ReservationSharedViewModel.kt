@@ -8,6 +8,7 @@ import com.sullivan.common.ui_common.ex.day
 import com.sullivan.common.ui_common.ex.month
 import com.sullivan.common.ui_common.ex.year
 import com.sullivan.common.ui_common.utils.SharedPreferenceManager
+import com.sullivan.signear.data.model.NewEmergencyReservationRequest
 import com.sullivan.signear.data.model.NewReservationRequest
 import com.sullivan.signear.data.model.ReservationDetailInfo
 import com.sullivan.signear.data.model.UserInfo
@@ -16,6 +17,7 @@ import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationConfirmDialogState
 import com.sullivan.signear.ui_reservation.state.ReservationState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -45,17 +47,19 @@ constructor(
     private val reservationTranslationInfo = MutableStateFlow(1)
     private val reservationPurpose = MutableStateFlow("")
     private val reservationId = MutableStateFlow(0)
+    private val emergencyReservationId = MutableStateFlow(0)
 
     private val _confirmDialogState = MutableLiveData<ReservationConfirmDialogState>()
     val confirmDialogState: LiveData<ReservationConfirmDialogState> = _confirmDialogState
 
     private val reservationTotalInfo = MutableLiveData<NewReservationRequest?>()
+    private val emergencyReservationInfo = MutableLiveData<NewReservationRequest?>()
 
     private val _reservationDetailInfo = MutableLiveData<ReservationDetailInfo>()
     val reservationDetailInfo: LiveData<ReservationDetailInfo> = _reservationDetailInfo
 
-    private val _reservationCanCelResponse = MutableLiveData<ReservationDetailInfo>()
-    val reservationCanCelResponse: LiveData<ReservationDetailInfo> = _reservationCanCelResponse
+    private val _reservationCanCelResponse = MutableLiveData<ReservationDetailInfo?>()
+    val reservationCanCelResponse: LiveData<ReservationDetailInfo?> = _reservationCanCelResponse
 
     private val _errorMsg = MutableLiveData<String>()
     val errorMsg: LiveData<String> = _errorMsg
@@ -69,8 +73,12 @@ constructor(
 
     private fun createNewReservation() {
         viewModelScope.launch {
-            repository.createNewReservation(reservationTotalInfo.value!!).collect { response ->
-                Timber.d("createNewReservation: $response")
+            repository.createNewReservation(reservationTotalInfo.value!!)
+                .catch { exception ->
+                    _errorMsg.value = "예약 취소가 실패했습니다."
+                    Timber.e(exception)
+                }
+                .collect { response ->
                 reservationId.value = response.id
             }
         }
@@ -93,6 +101,37 @@ constructor(
                 }
                 .collect { response ->
                     _reservationCanCelResponse.value = response
+                }
+        }
+    }
+
+    fun createEmergencyReservation() {
+
+        val calendar = Calendar.getInstance()
+        val newEmergencyReservation = NewEmergencyReservationRequest(
+            convertDate(calendar),
+            convertStartTime(calendar),
+            UserInfo(sharedPreferenceManager.getUserId())
+        )
+
+        viewModelScope.launch {
+            repository.createEmergencyReservation(newEmergencyReservation)
+                .collect { response ->
+                    sharedPreferenceManager.setEmergencyReservationID(response.id)
+                }
+        }
+    }
+
+    fun cancelEmergencyReservation() {
+        val id = sharedPreferenceManager.getEmergencyReservationID()
+        viewModelScope.launch {
+            repository.cancelEmergencyReservation(id)
+                .catch { exception ->
+                    _errorMsg.value = "예약 취소가 실패했습니다."
+                    Timber.e(exception)
+                }
+                .collect { response ->
+//                    _reservationCanCelResponse.value = response
                 }
         }
     }
@@ -196,16 +235,9 @@ constructor(
     }
 
     fun assembleReservationInfo() {
-        convertDate(reservationDate.value)
-
-        val calendar = _reservationDate.value
-        val currentDate =
-            "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${
-                getCurrentDayOfName(calendar)
-            }"
 
         val currentReservation = NewReservationRequest(
-            date,
+            convertDate(reservationDate.value),
             startHour + startMinute,
             endHour + endMinute,
             reservationCenter.value,
@@ -281,8 +313,13 @@ constructor(
         }
     }
 
-    private fun convertDate(input: Calendar) {
-        val sdf = SimpleDateFormat("yyyyMMdd")
-        date = sdf.format(Date(input.timeInMillis))
+    private fun convertDate(input: Calendar): String {
+        val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+        return sdf.format(Date(input.timeInMillis))
+    }
+
+    private fun convertStartTime(input: Calendar): String {
+        val sdf = SimpleDateFormat("HHmm", Locale.getDefault())
+        return sdf.format(Date(input.timeInMillis))
     }
 }

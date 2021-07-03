@@ -13,13 +13,13 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
 
     suspend fun checkEmail(email: String): Flow<DataState<ResponseCheckEmail>> =
         callbackFlow {
-            offer(DataState.Success(apiService.checkEmail(email)))
+            trySend(DataState.Success(apiService.checkEmail(email)))
             awaitClose { close() }
         }
 
     suspend fun login(email: String, password: String): Flow<DataState<ResponseLogin>> =
         callbackFlow {
-            offer(
+            trySend(
                 DataState.Success(
                     apiService.login(
                         hashMapOf(
@@ -34,7 +34,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
 
     suspend fun checkAccessToken(): Flow<DataState<ResponseCheckAccessToken>> =
         callbackFlow {
-            offer(DataState.Success(apiService.checkAccessToken()))
+            trySend(DataState.Success(apiService.checkAccessToken()))
             awaitClose { close() }
         }
 
@@ -44,7 +44,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
         phone: String
     ): Flow<DataState<ResponseLogin>> =
         callbackFlow {
-            offer(
+            trySend(
                 DataState.Success(
                     apiService.createUser(
                         hashMapOf(
@@ -60,7 +60,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
 
     suspend fun getUserInfo(id: Int): Flow<DataState<UserProfile>> =
         callbackFlow {
-            offer(
+            trySend(
                 DataState.Success(
                     apiService.getUserInfo(id)
                 )
@@ -70,7 +70,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
 
     suspend fun getReservationList(id: Int): Flow<DataState<List<ReservationData>>> =
         callbackFlow {
-            offer(
+            trySend(
                 DataState.Success(
                     apiService.getReservationList(id)
                 )
@@ -78,9 +78,9 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             awaitClose { close() }
         }
 
-    suspend fun applyReservation(newReservation: NewReservationRequest): Flow<DataState<NewReservation>> =
+    suspend fun createReservation(newReservation: NewReservationRequest): Flow<DataState<NewReservation>> =
         callbackFlow {
-            offer(
+            trySend(
                 DataState.Success(
                     apiService.createReservation(
                         hashMapOf(
@@ -102,7 +102,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
 
     suspend fun getReservationDetailInfo(id: Int): Flow<DataState<ReservationDetailInfo>> =
         callbackFlow {
-            offer(
+            trySend(
                 DataState.Success(
                     apiService.getReservationDetailInfo(id)
                 )
@@ -115,6 +115,37 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             trySend(
                 DataState.Success(
                     apiService.cancelReservation(id)
+                )
+            )
+            awaitClose { close() }
+        }
+
+    suspend fun createEmergencyReservation(newReservation: NewEmergencyReservationRequest): Flow<DataState<NewReservation>> =
+        callbackFlow {
+            trySend(
+                DataState.Success(
+                    apiService.createEmergencyReservation(
+                        hashMapOf(
+                            "date" to newReservation.date,
+                            "start_time" to newReservation.startTime,
+                            "end_time" to newReservation.endTime,
+                            "area" to newReservation.center,
+                            "address" to newReservation.place,
+                            "method" to newReservation.method,
+                            "type" to newReservation.type,
+                            "customerUser" to newReservation.userInfo
+                        )
+                    )
+                )
+            )
+            awaitClose { close() }
+        }
+
+    suspend fun cancelEmergencyReservation(id: Int): Flow<DataState<ReservationDetailInfo>> =
+        callbackFlow {
+            trySend(
+                DataState.Success(
+                    apiService.cancelEmergencyReservation(id)
                 )
             )
             awaitClose { close() }

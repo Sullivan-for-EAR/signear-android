@@ -58,3 +58,26 @@ data class NewReservationRequest(
     @SerializedName("type")
     val type: Int = 1,
 )
+
+data class NewEmergencyReservationRequest(
+    @SerializedName("date")
+    val date: String,
+    @SerializedName("start_time")
+    val startTime: String,
+    @SerializedName("customerUser")
+    val userInfo: UserInfo,
+    @SerializedName("end_time")
+    val endTime: String = "",
+    @SerializedName("area")
+    val center: String = "",
+    @SerializedName("address")
+    val place: String = "",
+    @SerializedName("method")
+    val method: Int = 0,
+    @SerializedName("request")
+    val request: String = "",
+    @SerializedName("status")
+    val status: Int = 8,
+    @SerializedName("type")
+    val type: Int = 8,
+)

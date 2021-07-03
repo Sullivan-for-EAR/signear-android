@@ -24,15 +24,15 @@ class SignearRepositoryImpl
             networkDataSource.checkEmail(email)
                 .catch { exception -> Timber.e(exception) }
                 .collect {
-                when (it) {
-                    is DataState.Success -> {
-                        offer(it.data)
-                    }
-                    is DataState.Error -> {
-                        Timber.e("DataState.Error")
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
                     }
                 }
-            }
         }
 
     override suspend fun login(email: String, password: String): Flow<ResponseLogin> =
@@ -40,15 +40,15 @@ class SignearRepositoryImpl
             networkDataSource.login(email, password)
                 .catch { exception -> Timber.e(exception) }
                 .collect {
-                when (it) {
-                    is DataState.Success -> {
-                        offer(it.data)
-                    }
-                    is DataState.Error -> {
-                        Timber.e("DataState.Error")
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
                     }
                 }
-            }
         }
 
     override suspend fun checkAccessToken(): Flow<ResponseCheckAccessToken> =
@@ -56,15 +56,15 @@ class SignearRepositoryImpl
             networkDataSource.checkAccessToken()
                 .catch { exception -> Timber.e(exception) }
                 .collect {
-                when (it) {
-                    is DataState.Success -> {
-                        trySend(it.data)
-                    }
-                    is DataState.Error -> {
-                        Timber.e("DataState.Error")
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
                     }
                 }
-            }
         }
 
     override suspend fun createUser(
@@ -76,15 +76,15 @@ class SignearRepositoryImpl
             networkDataSource.createUser(email, password, phone)
                 .catch { exception -> Timber.e(exception) }
                 .collect {
-                when (it) {
-                    is DataState.Success -> {
-                        offer(it.data)
-                    }
-                    is DataState.Error -> {
-                        Timber.e("DataState.Error")
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
                     }
                 }
-            }
         }
 
     override suspend fun getUserInfo(id: Int): Flow<UserProfile> =
@@ -92,15 +92,15 @@ class SignearRepositoryImpl
             networkDataSource.getUserInfo(id)
                 .catch { exception -> Timber.e(exception) }
                 .collect {
-                when (it) {
-                    is DataState.Success -> {
-                        offer(it.data)
-                    }
-                    is DataState.Error -> {
-                        Timber.e("DataState.Error")
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
                     }
                 }
-            }
         }
 
     override suspend fun getReservationList(id: Int): Flow<List<ReservationData>> =
@@ -108,31 +108,40 @@ class SignearRepositoryImpl
             networkDataSource.getReservationList(id)
                 .catch { exception -> Timber.e(exception) }
                 .collect {
-                when (it) {
-                    is DataState.Success -> {
-                        offer(it.data)
-                    }
-                    is DataState.Error -> {
-                        Timber.e("DataState.Error")
+                    when (it) {
+                        is DataState.Success -> {
+
+                            val list = it.data.toMutableList()
+                            list.forEach { item ->
+                                if (item.status == 8) {
+                                    list.remove(item)
+                                    list.add(item)
+                                }
+                            }
+
+                            trySend(list)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
                     }
                 }
-            }
         }
 
     override suspend fun createNewReservation(newReservation: NewReservationRequest): Flow<NewReservation> =
         callbackFlow {
-            networkDataSource.applyReservation(newReservation)
+            networkDataSource.createReservation(newReservation)
                 .catch { exception -> Timber.e(exception) }
                 .collect {
-                when (it) {
-                    is DataState.Success -> {
-                        offer(it.data)
-                    }
-                    is DataState.Error -> {
-                        Timber.e("DataState.Error")
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
                     }
                 }
-            }
         }
 
     override suspend fun getReservationDetailInfo(id: Int): Flow<ReservationDetailInfo> =
@@ -140,29 +149,60 @@ class SignearRepositoryImpl
             networkDataSource.getReservationDetailInfo(id)
                 .catch { exception -> Timber.e(exception) }
                 .collect {
-                when (it) {
-                    is DataState.Success -> {
-                        trySend(it.data)
-                    }
-                    is DataState.Error -> {
-                        Timber.e("DataState.Error")
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
                     }
                 }
-            }
         }
 
     override suspend fun cancelReservation(id: Int): Flow<ReservationDetailInfo> =
         callbackFlow {
             networkDataSource.cancelReservation(id)
                 .collect {
-                when (it) {
-                    is DataState.Success -> {
-                        trySend(it.data)
-                    }
-                    else -> {
-                        Timber.e("DataState.Error")
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        else -> {
+                            Timber.e("DataState.Error")
+                        }
                     }
                 }
-            }
+        }
+
+    override suspend fun createEmergencyReservation(newEmergencyReservationRequest: NewEmergencyReservationRequest): Flow<NewReservation> =
+        callbackFlow {
+            networkDataSource.createEmergencyReservation(newEmergencyReservationRequest)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
+                    }
+                }
+        }
+
+    override suspend fun cancelEmergencyReservation(id: Int): Flow<ReservationDetailInfo> =
+        callbackFlow {
+            networkDataSource.cancelEmergencyReservation(id)
+                .collect {
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        else -> {
+                            Timber.e("DataState.Error")
+                        }
+                    }
+                }
         }
 }

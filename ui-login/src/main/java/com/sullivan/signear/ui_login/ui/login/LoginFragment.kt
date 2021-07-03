@@ -21,6 +21,7 @@ import com.sullivan.signear.ui_login.R
 import com.sullivan.signear.ui_login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.catch
 import timber.log.Timber
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -181,6 +182,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 } else {
                     makeToast("회원 가입 실패!")
                 }
+            })
+
+            errorMsg.observe(viewLifecycleOwner, { msg ->
+                makeToast(msg)
             })
         }
     }

@@ -15,16 +15,19 @@ import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemReservationBinding
 import com.sullivan.signear.ui_reservation.model.MyReservation
-import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
+import com.sullivan.signear.ui_reservation.ui.reservation.ReservationSharedViewModel
 
-class ReservationListAdapter(private val reservationList: MutableList<MyReservation>) :
+class ReservationListAdapter(
+    private val reservationList: MutableList<MyReservation>,
+    private val viewModel: ReservationSharedViewModel,
+) :
     RecyclerView.Adapter<ReservationListAdapter.ReservationListViewHolder>() {
     private lateinit var bindingItem: ItemReservationBinding
 
     inner class ReservationListViewHolder(private val binding: ItemReservationBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: MyReservation) {
+        fun bind(item: MyReservation, position: Int, viewModel: ReservationSharedViewModel) {
             convertStatus(item)
             binding.apply {
                 if (item.isEmergency) {
@@ -67,7 +70,7 @@ class ReservationListAdapter(private val reservationList: MutableList<MyReservat
                 }
 
                 btnCancel.setOnClickListener {
-                    showDialog(it.context)
+                    showDialog(it.context, position, viewModel)
                 }
             }
         }
@@ -108,14 +111,19 @@ class ReservationListAdapter(private val reservationList: MutableList<MyReservat
             }
         }
 
-        private fun showDialog(context: Context) {
+        private fun showDialog(
+            context: Context,
+            position: Int,
+            viewModel: ReservationSharedViewModel
+        ) {
             val dialog = MaterialAlertDialogBuilder(
                 context, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
             )
                 .setTitle(R.string.fragment_reservation_dialog_reservation_cancel_title)
                 .setMessage(R.string.fragment_reservation_dialog_reservation_cancel_body)
                 .setPositiveButton(R.string.fragment_reservation_dialog_reservation_cancel_positive_btn_title) { dialog, _ ->
-                    //todo 예약 취소 로직 추가 예정
+                    viewModel.cancelEmergencyReservation()
+                    removeAt(position)
                     dialog.dismiss()
                 }
                 .setNegativeButton(R.string.fragment_reservation_dialog_reservation_cancel_negative_btn_title) { dialog, _ ->
@@ -134,7 +142,7 @@ class ReservationListAdapter(private val reservationList: MutableList<MyReservat
                 3 -> item.currentState = ReservationState.Confirm
                 4 -> item.currentState = ReservationState.Cancel()
                 5 -> item.currentState = ReservationState.Reject()
-                7 -> item.isEmergency = true
+                8 -> item.isEmergency = true
             }
         }
     }
@@ -147,7 +155,7 @@ class ReservationListAdapter(private val reservationList: MutableList<MyReservat
 
     override fun onBindViewHolder(holder: ReservationListViewHolder, position: Int) {
         val item = reservationList[position]
-        holder.bind(item)
+        holder.bind(item, position, viewModel)
     }
 
     override fun getItemCount() = reservationList.size
@@ -156,5 +164,11 @@ class ReservationListAdapter(private val reservationList: MutableList<MyReservat
         reservationList.clear()
         reservationList.addAll(newList)
         notifyDataSetChanged()
+    }
+
+    private fun removeAt(position: Int) {
+        reservationList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, itemCount)
     }
 }
