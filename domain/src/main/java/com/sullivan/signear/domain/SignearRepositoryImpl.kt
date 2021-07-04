@@ -221,4 +221,8 @@ class SignearRepositoryImpl
                     }
                 }
         }
+
+    override suspend fun removePrevReservation(id: Int) {
+        networkDataSource.removePrevReservation(id)
+    }
 }

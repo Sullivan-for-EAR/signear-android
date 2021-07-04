@@ -9,6 +9,7 @@ import com.sullivan.signear.data.model.ReservationData
 import com.sullivan.signear.domain.SignearRepository
 import com.sullivan.signear.ui_reservation.model.MyReservation
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,10 +19,10 @@ class PreviousReservationListViewModel @Inject
 constructor(
     private val repository: SignearRepository,
     private val sharedPreferenceManager: SharedPreferenceManager
-): ViewModel() {
+) : ViewModel() {
 
     private val _myPrevReservationList = MutableLiveData<List<MyReservation>>()
-    val myPrevReservationList: LiveData<List<MyReservation>> =  _myPrevReservationList
+    val myPrevReservationList: LiveData<List<MyReservation>> = _myPrevReservationList
 
     init {
         getPrevReservationList()
@@ -58,5 +59,13 @@ constructor(
             )
         }
         return myList
+    }
+
+    fun removePrevReservation(id: Int) {
+        viewModelScope.launch {
+            repository.removePrevReservation(id)
+            delay(1_000)
+            getPrevReservationList()
+        }
     }
 }

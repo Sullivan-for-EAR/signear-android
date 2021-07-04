@@ -18,11 +18,13 @@ import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.FragmentPreviousReservationBinding
 import com.sullivan.signear.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBinding>() {
 
     private val viewModel: PreviousReservationListViewModel by viewModels()
+    private val sharedViewModel: ReservationSharedViewModel by activityViewModels()
     private lateinit var reservationListAdapter: PreviousReservationListAdapter
     private val swipeHelperCallback = SwipeHelperCallback().apply {
         setClamp(220f)
@@ -49,11 +51,6 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
                 viewModel,
                 swipeHelperCallback
             )
-
-        val id = arguments?.getInt(ARGS_KEY)
-        if (id != null) {
-            reservationListAdapter.remove(id)
-        }
 
         binding.apply {
             val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
@@ -98,6 +95,14 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
                     tvEmptyList.makeVisible()
                     ivPrevReservation.makeVisible()
                 }
+            }
+        })
+
+        sharedViewModel.refreshList.observe(viewLifecycleOwner, { status ->
+            Timber.d("status: $status")
+            if (status) {
+                viewModel.getPrevReservationList()
+                sharedViewModel.clearRefreshList()
             }
         })
     }

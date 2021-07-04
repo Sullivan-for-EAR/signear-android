@@ -48,7 +48,6 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
     }
 
     override fun setupView() {
-        Timber.d("setupView")
         val id = arguments?.getInt(ARGS_KEY)
         if (id != null) {
             viewModel.updateReservationID(id)
@@ -58,15 +57,12 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
     override fun onStop() {
         super.onStop()
-        Timber.d("onStop")
         viewModel.clearPrevData()
     }
 
     private fun setupObserve() {
-        Timber.d("setupObserve")
         with(viewModel) {
             reservationDetailInfo.observe(viewLifecycleOwner, { detailInfo ->
-                Timber.d("setupObserve: $detailInfo")
                 currentReservationInfo = detailInfo
                 makeReservationView()
                 makeReservationStatusView()
@@ -312,22 +308,6 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             else -> ReservationState.None
         }
     }
-
-//    private fun convertDate(date: String): String {
-//        val format = SimpleDateFormat("yyyyMMdd", Locale.KOREA)
-//        val calendar = Calendar.getInstance()
-//        try {
-//            calendar.time = format.parse(date)!!
-//
-//        } catch (e: ParseException) {
-//            Timber.e(e)
-//        }
-//        return "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${
-//            viewModel.getCurrentDayOfName(
-//                calendar
-//            )
-//        }"
-//    }
 
     private fun getTimeInfo(view: TextView, hour: Int, minute: Int) {
         Timber.d("hour: $hour")

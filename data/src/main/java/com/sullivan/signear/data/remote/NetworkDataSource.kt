@@ -160,4 +160,8 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             )
             awaitClose { close() }
         }
+
+    suspend fun removePrevReservation(id: Int) {
+        apiService.removePrevReservation(id)
+    }
 }

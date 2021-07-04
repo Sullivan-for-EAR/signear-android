@@ -80,8 +80,8 @@ constructor(
                     Timber.e(exception)
                 }
                 .collect { response ->
-                reservationId.value = response.id
-            }
+                    reservationId.value = response.id
+                }
         }
     }
 
@@ -107,7 +107,6 @@ constructor(
     }
 
     fun createEmergencyReservation() {
-
         val calendar = Calendar.getInstance()
         val newEmergencyReservation = NewEmergencyReservationRequest(
             convertDate(calendar),
@@ -135,6 +134,12 @@ constructor(
 //                    _reservationCanCelResponse.value = response
                     refreshList()
                 }
+        }
+    }
+
+    fun removePrevReservation(id: Int) {
+        viewModelScope.launch {
+            repository.removePrevReservation(id)
         }
     }
 
