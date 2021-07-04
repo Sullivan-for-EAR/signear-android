@@ -18,6 +18,7 @@ import com.sullivan.common.ui_common.base.BaseFragment
 import com.sullivan.common.ui_common.ex.*
 import com.sullivan.common.ui_common.navigator.ReservationNavigator
 import com.sullivan.signear.ui_login.R
+import com.sullivan.signear.ui_login.R.*
 import com.sullivan.signear.ui_login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -101,14 +102,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             clearFocus()
                             hideKeyboard()
                         }
-                        viewModel.createUser(email, password, password)
+                        viewModel.createUser(email, phone, password)
                     }
-
                 }
 
-//                btnFindAccount.setOnClickListener {
+                btnFindAccount.setOnClickListener {
 //                    viewModel.updateLoginState(LoginState.FindAccount)
-//                }
+                    requireContext().showDialog(
+                        getString(string.dialog_title),
+                        getString(string.future_develop),
+                        getString(string.future_develop_positive_btn_title)
+                    )
+                }
 
             }
 
@@ -214,7 +219,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             binding.loginLayout.btnNext,
                             ContextCompat.getColorStateList(
                                 requireContext(),
-                                R.color.black
+                                color.black
                             )
                         )
                     } else {
@@ -222,7 +227,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             binding.loginLayout.btnNext,
                             ContextCompat.getColorStateList(
                                 requireContext(),
-                                R.color.btn_next_disable
+                                color.btn_next_disable
                             )
                         )
                     }
@@ -335,7 +340,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             ivPhone.makeVisible()
             etPhoneInput.makeVisible()
             btnNext.makeGone()
-//            btnFindAccount.makeGone()
+            btnFindAccount.makeGone()
             tvRule.makeVisible()
             btnJoin.makeVisible()
         }
@@ -394,7 +399,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 hideKeyboard()
             }
             btnNext.makeVisible()
-//            btnFindAccount.makeVisible()
+            btnFindAccount.makeVisible()
 
             etPasswordInput.apply {
                 text = null
@@ -434,7 +439,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             btn,
             ContextCompat.getColorStateList(
                 requireContext(),
-                R.color.black
+                color.black
             )
         )
         btn.makeEnable()
@@ -445,7 +450,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             btn,
             ContextCompat.getColorStateList(
                 requireContext(),
-                R.color.btn_next_disable
+                color.btn_next_disable
             )
         )
         btn.makeDisable()

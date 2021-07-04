@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context="com.sullivan.signear.ui_reservation.ui.mypage.MyPageFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
     <ImageButton
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
@@ -21,11 +28,13 @@
         android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
+        android:paddingHorizontal="24dp"
         android:textColor="@color/black"
         android:textSize="35sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_back"
         tools:text="홍길동" />
@@ -34,25 +43,13 @@
         android:id="@+id/tv_user_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:textColor="@color/user_phone_text_color"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_user_name"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
         tools:text="010-1234-5678" />
 
-    <!--    <ImageButton-->
-    <!--        android:id="@+id/btn_emergency"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginHorizontal="12dp"-->
-    <!--        android:layout_marginTop="32dp"-->
-    <!--        android:background="#00000000"-->
-    <!--        android:foreground="?attr/selectableItemBackground"-->
-    <!--        android:src="@drawable/btn_emergency"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/rv_mypage"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/tv_user_phone" />-->
 
     <RelativeLayout
         android:id="@+id/btn_emergency"

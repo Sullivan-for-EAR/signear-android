@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.common.ui_common.ex.showDialog
 import com.sullivan.common.ui_common.navigator.LoginNavigator
 import com.sullivan.common.ui_common.utils.SharedPreferenceManager
 import com.sullivan.sigenear.ui_reservation.R
@@ -47,7 +48,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
 
         binding.apply {
             btnEmergency.setOnClickListener {
-                findNavController().navigate(R.id.action_myPageFragment_to_emergencyReservationFragment)
+//                findNavController().navigate(R.id.action_myPageFragment_to_emergencyReservationFragment)
+                requireContext().showDialog(
+                    getString(R.string.dialog_title),
+                    getString(R.string.future_develop),
+                    getString(R.string.future_develop_positive_btn_title)
+                )
             }
 
             btnBack.setOnClickListener {
