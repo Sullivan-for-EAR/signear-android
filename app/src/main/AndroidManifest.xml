@@ -12,8 +12,8 @@
         android:label="@string/signear_app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Signearandroid">
+        android:theme="@style/Theme.Signearandroid"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
@@ -27,12 +27,12 @@
         <activity
             android:name=".ui_login.ui.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ui_reservation.ui.ReservationActivity"
-            android:theme="@style/ReservationTheme"
             android:screenOrientation="portrait"
+            android:theme="@style/ReservationTheme"
             android:windowSoftInputMode="adjustResize" />
 
         <provider
