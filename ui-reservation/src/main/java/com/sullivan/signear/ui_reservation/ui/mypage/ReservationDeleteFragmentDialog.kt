@@ -128,31 +128,12 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
                     R.drawable.served_icon, null
                 )
             )
-            4 -> ivState.setImageDrawable(
+            6 -> ivState.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     ivState.context.resources,
                     R.drawable.cancel_icon, null
                 )
             )
-            5 -> ivState.setImageDrawable(
-                ResourcesCompat.getDrawable(
-                    ivState.context.resources,
-                    R.drawable.reject_icon, null
-                )
-            )
-            9 -> ivState.setImageDrawable(
-                ResourcesCompat.getDrawable(
-                    ivState.context.resources,
-                    R.drawable.cancel_icon, null
-                )
-            )
-            10 -> ivState.setImageDrawable(
-                ResourcesCompat.getDrawable(
-                    ivState.context.resources,
-                    R.drawable.served_icon, null
-                )
-            )
-            else -> ivState.makeGone()
         }
     }
 

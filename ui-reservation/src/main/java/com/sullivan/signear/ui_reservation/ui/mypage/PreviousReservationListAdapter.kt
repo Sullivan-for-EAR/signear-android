@@ -91,14 +91,8 @@ class PreviousReservationListAdapter(
 
         private fun convertStatus(item: MyReservation) {
             when (item.status) {
-                4 -> item.currentState = ReservationState.Cancel()
-                5 -> item.currentState = ReservationState.Reject()
+                6 -> item.currentState = ReservationState.Cancel()
                 7 -> item.currentState = ReservationState.Served
-                9 -> {
-                    item.isEmergency = true
-                    item.currentState = ReservationState.Cancel()
-                }
-                10 -> item.currentState = ReservationState.Served
             }
         }
     }
