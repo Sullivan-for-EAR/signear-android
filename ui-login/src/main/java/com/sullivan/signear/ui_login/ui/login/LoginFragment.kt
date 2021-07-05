@@ -348,13 +348,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private fun showPasswordInputView() {
         binding.loginLayout.apply {
+            ivPassword.makeVisible()
+            etPasswordInput.makeVisible()
             etEmailInput.clearFocus()
             etPasswordInput.apply {
                 requestFocus()
                 showKeyboard()
             }
-            ivPassword.makeVisible()
-            etPasswordInput.makeVisible()
         }
     }
 
