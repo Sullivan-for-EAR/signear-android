@@ -57,6 +57,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         setTextWatcher()
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.updateLoginState(LoginState.Init)
+    }
+
     override fun setupView() {
         with(binding) {
             loginLayout.apply {
@@ -157,7 +162,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             })
 
             resultCheckEmail.observe(viewLifecycleOwner, { response ->
-                Timber.d("response: ${response.result}")
                 if (response.result) {
                     if (viewModel.checkCurrentState() == LoginState.Init) {
                         viewModel.updateLoginState(LoginState.EmailValid)
@@ -167,8 +171,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 } else {
                     if (viewModel.checkCurrentState() == LoginState.Init) {
                         viewModel.updateLoginState(LoginState.JoinMember)
-                    } else {
-                        makeToast("입력하신 이메일의 계정이 존재하지 않습니다!")
                     }
                 }
             })
@@ -176,8 +178,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             resultLogin.observe(viewLifecycleOwner, { response ->
                 if (response.accessToken.isNotEmpty()) {
                     viewModel.updateLoginState(LoginState.Success)
-                } else {
-                    makeToast("로그인 실패: 비밀번호를 다시 입력해주세요!")
                 }
             })
 
@@ -234,17 +234,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
             }
         })
-
-//        binding.loginLayout.etEmailInput.setOnEditorActionListener { _, actionId, _ ->
-//            when (actionId) {
-//                EditorInfo.IME_ACTION_SEND -> {
-//                    makeToast("test")
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
-
 
         binding.findAccountLayout.etEmailInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
