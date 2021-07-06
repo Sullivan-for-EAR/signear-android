@@ -122,7 +122,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="이어의 개인정보 취급방침과 이용약관에 따라 개인정보를\n수집 및 사용하고, 제 3자에게 제공한다는 점에 동의합니다."
         android:textColor="@color/black"
         android:textSize="14sp"
         android:visibility="gone"

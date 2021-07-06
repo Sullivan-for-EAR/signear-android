@@ -13,10 +13,7 @@ import com.sullivan.common.ui_common.ex.makeGone
 import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemReservationBinding
 import com.sullivan.signear.ui_reservation.model.MyReservation
-import com.sullivan.signear.ui_reservation.model.Reservation
 import com.sullivan.signear.ui_reservation.state.ReservationState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 class PreviousReservationListAdapter(
     private val reservationList: MutableList<MyReservation>,

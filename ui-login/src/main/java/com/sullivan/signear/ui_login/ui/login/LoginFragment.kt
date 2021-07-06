@@ -1,7 +1,11 @@
 package com.sullivan.signear.ui_login.ui.login
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +13,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
@@ -90,7 +95,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 btnBack.setOnClickListener {
                     when (viewModel.checkCurrentState()) {
                         is LoginState.Init -> {
-                            findNavController().navigate(R.id.action_loginFragment_to_loginStartFragment)
+                            findNavController().navigate(R.id.action_loginFragment_pop)
                         }
                         else -> {
                             showLoginView()
@@ -119,7 +124,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         getString(string.future_develop_positive_btn_title)
                     )
                 }
-
             }
 
             findAccountLayout.apply {
@@ -135,6 +139,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
             }
         }
+
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    when (viewModel.checkCurrentState()) {
+                        is LoginState.Init -> {
+                            findNavController().navigate(R.id.action_loginFragment_pop)
+                        }
+                        else -> {
+                            showLoginView()
+                        }
+                    }
+                }
+            })
     }
 
     private fun setupObserve() {
@@ -142,6 +161,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             loginState.observe(viewLifecycleOwner, { loginState ->
                 run {
                     when (loginState) {
+                        is LoginState.Init -> {
+                            showLoginView()
+                        }
                         is LoginState.EmailValid -> {
                             showPasswordInputView()
                         }
@@ -330,8 +352,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             etPhoneInput.makeVisible()
             btnNext.makeGone()
             btnFindAccount.makeGone()
-            tvRule.makeVisible()
             btnJoin.makeVisible()
+
+            val guideMsg =
+                "이어의 <a href='https://www.notion.so/Noticeme-a04e2dceff10453dbeb37926bee03e41'>개인정보 취급방침</a> 과 이용약관에 따라 개인정보를\n수집 및 사용하고, 제 3자에게 제공한다는 점에 동의합니다."
+            with(tvRule) {
+                makeVisible()
+                text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(guideMsg, Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(guideMsg)
+                }
+
+                handleUrlClicks {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(it)
+                    startActivity(intent)
+                }
+            }
         }
     }
 
@@ -380,7 +418,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun showLoginView() {
-        viewModel.updateLoginState(LoginState.Init)
         binding.loginLayout.apply {
             loginLayout.makeVisible()
             etEmailInput.apply {

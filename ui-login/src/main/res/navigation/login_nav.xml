@@ -8,7 +8,7 @@
         android:id="@+id/loginStartFragment"
         android:name="com.sullivan.signear.ui_login.ui.login.LoginStartFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_login_start" >
+        tools:layout="@layout/fragment_login_start">
         <action
             android:id="@+id/action_loginStartFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -17,13 +17,14 @@
         android:id="@+id/loginFragment"
         android:name="com.sullivan.signear.ui_login.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_loginFinishFragment"
             app:destination="@id/loginFinishFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_loginStartFragment"
-            app:destination="@id/loginStartFragment" />
+            android:id="@+id/action_loginFragment_pop"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/loginFinishFragment"
