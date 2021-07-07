@@ -1,15 +1,9 @@
 package com.sullivan.signear.data.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
-data class ResponseMyReservation(
-    val result: ReservationList
-)
-
-data class ReservationList(
-    val reservationList: List<ReservationData>
-)
-
+@Keep
 data class ReservationData(
     @SerializedName("rsID")
     val id: Int,

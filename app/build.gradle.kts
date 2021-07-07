@@ -23,7 +23,6 @@ android {
 
     buildTypes {
         getByName(BuildType.DEBUG) {
-            signingConfig = signingConfigs.getByName("debug")
             applicationIdSuffix = ".debug"
         }
 
@@ -31,6 +30,7 @@ android {
             isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
             proguardFiles(getDefaultProguardFile("proguard-android.txt"))
             proguardFiles(file("proguard-rules.pro"))
+            debuggable(true)
         }
     }
 

@@ -182,10 +182,4 @@ class ReservationListAdapter(
         reservationList.addAll(newList)
         notifyDataSetChanged()
     }
-
-    private fun removeAt(position: Int) {
-        reservationList.removeAt(position)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, itemCount)
-    }
 }

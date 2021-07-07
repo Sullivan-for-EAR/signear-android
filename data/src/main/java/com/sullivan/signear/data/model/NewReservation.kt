@@ -1,7 +1,9 @@
 package com.sullivan.signear.data.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class NewReservation(
     @SerializedName("date")
     val date: String,
@@ -31,11 +33,13 @@ data class NewReservation(
     val id: Int,
 )
 
+@Keep
 data class UserInfo(
     @SerializedName("customerID")
     val id: Int
 )
 
+@Keep
 data class NewReservationRequest(
     @SerializedName("date")
     val date: String,
@@ -59,6 +63,7 @@ data class NewReservationRequest(
     val type: Int = 1,
 )
 
+@Keep
 data class NewEmergencyReservationRequest(
     @SerializedName("date")
     val date: String,

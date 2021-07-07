@@ -1,5 +1,8 @@
 package com.sullivan.signear.ui_reservation.state
 
+import androidx.annotation.Keep
+
+@Keep
 sealed class ReservationState {
     object NotRead : ReservationState()
     object NotConfirm : ReservationState()
