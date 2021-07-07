@@ -15,7 +15,7 @@ import com.sullivan.sigenear.ui_reservation.R
 import com.sullivan.sigenear.ui_reservation.databinding.ItemMypageBinding
 
 class MyPageListAdapter(
-    private val itemList: List<MyPageItem>,
+    private val itemList: List<String>,
     private val loginNavigator: LoginNavigator,
     private val activity: Activity,
     private val clearAccessToken: () -> Unit
@@ -26,17 +26,17 @@ class MyPageListAdapter(
 
     inner class MyPageListViewHolder(private val binding: ItemMypageBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun binding(item: MyPageItem) {
+        fun binding(item: String) {
             binding.apply {
-                tvTitle.text = item.title
+                tvTitle.text = item
                 rlMypage.setOnClickListener {
-                    when (item.title) {
-                        itemList[0].title -> {
+                    when (item) {
+                        itemList[0] -> {
                             it.findNavController()
                                 .navigate(R.id.action_myPageFragment_to_previousReservationFragment)
                         }
-                        itemList[1].title -> sendEmail(it.context)
-                        itemList[2].title -> showDialog(it.context)
+                        itemList[1] -> sendEmail(it.context)
+                        itemList[2] -> showDialog(it.context)
                     }
                 }
             }
