@@ -58,4 +58,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_guide_msg2" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressbar"
+        style="?android:progressBarStyleLarge"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:translationZ="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

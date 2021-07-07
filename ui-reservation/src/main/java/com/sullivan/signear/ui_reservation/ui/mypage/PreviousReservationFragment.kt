@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -78,7 +79,9 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
     }
 
     private fun observeViewModel() {
+        showProgressBar()
         viewModel.myPrevReservationList.observe(viewLifecycleOwner, { list ->
+            hideProgressBar()
             if (list.isNotEmpty()) {
                 with(binding) {
                     rvReservation.makeVisible()
@@ -104,4 +107,6 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
             }
         })
     }
+
+    override fun getProgressbarView(): ContentLoadingProgressBar = binding.progressbar
 }

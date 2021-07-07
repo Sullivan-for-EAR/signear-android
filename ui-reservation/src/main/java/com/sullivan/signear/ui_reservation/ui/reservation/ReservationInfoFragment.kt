@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -345,4 +346,6 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
     companion object {
         const val ARGS_KEY = "itemId"
     }
+
+    override fun getProgressbarView(): ContentLoadingProgressBar = binding.progressbar
 }

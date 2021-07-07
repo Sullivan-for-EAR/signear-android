@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.navigation.fragment.findNavController
 import com.sullivan.common.ui_common.base.BaseFragment
 import com.sullivan.signear.ui_login.R
@@ -33,4 +34,6 @@ class LoginStartFragment : BaseFragment<FragmentLoginStartBinding>() {
 
     override fun setupView() {
     }
+
+    override fun getProgressbarView(): ContentLoadingProgressBar = binding.progressbar
 }

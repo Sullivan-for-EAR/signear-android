@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.sullivan.common.ui_common.base.BaseFragment
@@ -295,4 +296,6 @@ class ReservationFragment : BaseFragment<ReservationFragmentBinding>() {
     private fun moveToHome() {
         findNavController().navigate(R.id.action_reservationFragment_pop)
     }
+
+    override fun getProgressbarView(): ContentLoadingProgressBar = binding.progressbar
 }

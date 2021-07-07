@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -30,15 +31,15 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     ): View {
         binding = HomeFragmentBinding.inflate(layoutInflater)
 
-        viewModel.getReservationList()
-
+        observeViewModel()
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
 
-        observeViewModel()
+        showProgressBar()
+        viewModel.getReservationList()
     }
 
     override fun setupView() {
@@ -68,6 +69,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     private fun observeViewModel() {
         with(viewModel) {
             myReservationList.observe(viewLifecycleOwner, { list ->
+                hideProgressBar()
                 if (list.isNotEmpty()) {
                     reservationListAdapter.addAll(list.reversed())
                     with(binding) {
@@ -90,4 +92,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             }
         })
     }
+
+    override fun getProgressbarView(): ContentLoadingProgressBar = binding.progressbar
 }
