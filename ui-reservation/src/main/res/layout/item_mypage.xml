@@ -14,6 +14,7 @@
         android:paddingVertical="24dp"
         android:textColor="@color/black"
         android:textSize="18sp"
+        android:fontFamily="@font/apple_sd_gothic_neo"
         tools:text="지난 예약" />
 
     <ImageButton

@@ -36,7 +36,7 @@ class MyPageListAdapter(
                                 .navigate(R.id.action_myPageFragment_to_previousReservationFragment)
                         }
                         itemList[1] -> sendEmail(it.context)
-                        itemList[2] -> showDialog(it.context)
+                        itemList[4] -> showDialog(it.context)
                     }
                 }
             }
