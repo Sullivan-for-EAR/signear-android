@@ -12,6 +12,7 @@ object Dep {
         const val navSafeArgPlugin =
             "androidx.navigation:navigation-safe-args-gradle-plugin:${AndroidX.Navigation.navSafArgPluginVersion}"
         const val r8 = "com.android.tools:r8:2.2.64"
+        const val sentry = "io.sentry:sentry-android-gradle-plugin:2.0.1"
     }
 
     object AndroidX {
@@ -159,6 +160,7 @@ object Dep {
 
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.6"
+    const val sentry = "io.sentry:sentry-android:5.0.1"
 
     object Test {
         const val junit = "junit:junit:4.13.1"

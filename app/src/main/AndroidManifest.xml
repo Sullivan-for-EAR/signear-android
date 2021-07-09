@@ -44,5 +44,18 @@
                 android:name="com.sullivan.common.ui_common.initializer.TimberInitializer"
                 android:value="androidx.startup" />
         </provider>
+
+        <meta-data
+            android:name="io.sentry.dsn"
+            android:value="https://c1f1b020df4c4e2a9308d24f5e79924b@o914902.ingest.sentry.io/5854448" />
+        <meta-data
+            android:name="io.sentry.debug"
+            android:value="true" />
+        <meta-data
+            android:name="io.sentry.session-tracking.enable"
+            android:value="true" />
+<!--        <meta-data-->
+<!--            android:name="io.sentry.environment"-->
+<!--            android:value="${environment}" />-->
     </application>
 </manifest>

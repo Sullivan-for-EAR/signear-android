@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("io.sentry.android.gradle")
 }
 
 android {
@@ -93,6 +94,7 @@ dependencies {
     implementation(Dep.Retrofit.retrofit)
     
     implementation(Dep.timber)
+    implementation(Dep.sentry)
 }
 
 kapt {
@@ -104,3 +106,8 @@ kapt {
         arg("dagger.experimentalDaggerErrorMessages", "enabled")
     }
 }
+
+sentry {
+    autoUpload.set(true)
+}
+

@@ -47,5 +47,7 @@ fun ScriptHandlerScope.addScriptDependencies() {
         classpath(Dep.GradlePlugin.ktlint)
         classpath(Dep.GradlePlugin.hilt)
         classpath(Dep.GradlePlugin.navSafeArgPlugin)
+        classpath(Dep.GradlePlugin.sentry)
+        classpath(Dep.GradlePlugin.r8)
     }
 }
