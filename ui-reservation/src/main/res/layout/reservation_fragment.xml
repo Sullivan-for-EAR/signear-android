@@ -30,12 +30,13 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.95" />
 
+
             <ImageButton
                 android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="36dp"
                 android:background="#00000000"
                 android:foreground="?attr/selectableItemBackground"
                 android:src="@drawable/btn_back"
@@ -67,11 +68,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="27dp"
                 android:text="@string/tv_date_title"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/iv_date"
                 app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
@@ -82,6 +84,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/white"
+                android:fontFamily="@font/apple_sd_gothic_neo"
                 android:text="4월 23일 금요일"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -112,11 +115,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="27dp"
                 android:text="시간"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/iv_time"
                 app:layout_constraintTop_toBottomOf="@+id/border1" />
 
@@ -202,18 +206,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:background="@drawable/center_icon"
+                android:background="@drawable/center_icon_reservation"
                 app:layout_constraintStart_toEndOf="@id/guideline1"
                 app:layout_constraintTop_toBottomOf="@+id/border3" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="27dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/tv_center_title"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/iv_center"
                 app:layout_constraintTop_toBottomOf="@+id/border3" />
 
@@ -282,11 +287,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="27dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/tv_place_title"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/iv_place"
                 app:layout_constraintTop_toBottomOf="@+id/border4" />
 
@@ -348,18 +354,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="27dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="28dp"
                 android:text="@string/tv_translation_title"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/iv_translation"
                 app:layout_constraintTop_toBottomOf="@+id/border5" />
 
             <RelativeLayout
                 android:id="@+id/rl_sign_translation"
                 android:layout_width="0dp"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/translation_bg_selector"
@@ -378,6 +385,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
                     android:text="@string/fragment_reservation_tv_sign_translation_title"
+                    android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
@@ -395,7 +403,7 @@
             <RelativeLayout
                 android:id="@+id/rl_online_translation"
                 android:layout_width="0dp"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/translation_bg_selector"
@@ -451,11 +459,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="6dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/tv_purpose_title"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/iv_purpose"
                 app:layout_constraintTop_toBottomOf="@+id/border6" />
 
