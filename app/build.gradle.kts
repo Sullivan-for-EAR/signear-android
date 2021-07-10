@@ -25,13 +25,14 @@ android {
     buildTypes {
         getByName(BuildType.DEBUG) {
             applicationIdSuffix = ".debug"
+            manifestPlaceholders(mapOf("environment" to "staging"))
         }
 
         getByName(BuildType.RELEASE) {
             isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
             proguardFiles(getDefaultProguardFile("proguard-android.txt"))
             proguardFiles(file("proguard-rules.pro"))
-            debuggable(true)
+            manifestPlaceholders(mapOf("environment" to "release"))
         }
     }
 
@@ -108,6 +109,6 @@ kapt {
 }
 
 sentry {
-    autoUpload.set(true)
+    autoUpload.set(false)
 }
 

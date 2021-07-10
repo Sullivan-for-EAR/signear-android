@@ -54,8 +54,8 @@
         <meta-data
             android:name="io.sentry.session-tracking.enable"
             android:value="true" />
-<!--        <meta-data-->
-<!--            android:name="io.sentry.environment"-->
-<!--            android:value="${environment}" />-->
+        <meta-data
+            android:name="io.sentry.environment"
+            android:value="${environment}" />
     </application>
 </manifest>
