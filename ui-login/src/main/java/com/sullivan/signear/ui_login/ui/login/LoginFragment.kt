@@ -101,7 +101,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             findNavController().navigate(R.id.action_loginFragment_pop)
                         }
                         else -> {
-                            showLoginView()
+                            viewModel.updateLoginState(LoginState.Init)
                         }
                     }
                 }
@@ -154,7 +154,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             findNavController().navigate(R.id.action_loginFragment_pop)
                         }
                         else -> {
-                            showLoginView()
+                            viewModel.updateLoginState(LoginState.Init)
                         }
                     }
                 }
@@ -361,7 +361,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             btnJoin.makeVisible()
 
             val guideMsg =
-                "이어의 <a href='https://www.notion.so/Noticeme-a04e2dceff10453dbeb37926bee03e41'>개인정보 취급방침</a> 과 이용약관에 따라 개인정보를\n수집 및 사용하고, 제 3자에게 제공한다는 점에 동의합니다."
+                "이어의 <a href='https://www.notion.so/Noticeme-a04e2dceff10453dbeb37926bee03e41'>개인정보 취급방침</a>과 <a href='https://www.notion.so/Noticeme-a04e2dceff10453dbeb37926bee03e41'>이용약관</a>에 따라 개인정보를\n수집 및 사용하고, 제 3자에게 제공한다는 점에 동의합니다."
             with(tvRule) {
                 makeVisible()
                 text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
