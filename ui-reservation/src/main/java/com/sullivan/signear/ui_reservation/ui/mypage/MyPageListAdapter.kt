@@ -3,6 +3,7 @@ package com.sullivan.signear.ui_reservation.ui.mypage
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -36,6 +37,16 @@ class MyPageListAdapter(
                                 .navigate(R.id.action_myPageFragment_to_previousReservationFragment)
                         }
                         itemList[1] -> sendEmail(it.context)
+                        itemList[2] -> {
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(RULE_LINK1)
+                            it.context.startActivity(intent)
+                        }
+                        itemList[3] -> {
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(RULE_LINK2)
+                            it.context.startActivity(intent)
+                        }
                         itemList[4] -> showDialog(it.context)
                     }
                 }
@@ -92,4 +103,9 @@ class MyPageListAdapter(
     }
 
     override fun getItemCount() = itemList.size
+
+    companion object {
+        private const val RULE_LINK1 = "https://www.notion.so/ab2186a351444486bacbc7c3771038ae"
+        private const val RULE_LINK2 = "https://www.notion.so/720c23a2a2b142c3b6c4cabc9f1bea87"
+    }
 }
