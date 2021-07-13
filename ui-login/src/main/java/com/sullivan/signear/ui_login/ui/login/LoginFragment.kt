@@ -112,7 +112,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         }
 
                         showProgressBar()
-                        viewModel.createUser(email, phone, password)
+                        viewModel.createUser(email, password, phone)
                     }
                 }
 
