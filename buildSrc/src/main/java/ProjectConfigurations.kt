@@ -8,7 +8,7 @@ object ProjectConfigurations {
 
     const val appId = "com.sullivan.signear"
     const val versionCode = 1
-    const val versionName = "1.0.0"
+    const val versionName = "0.1.0"
 
     val javaVer = JavaVersion.VERSION_11
 }

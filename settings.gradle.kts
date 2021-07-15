@@ -11,14 +11,15 @@ rootProject.name = "signear-android"
 
 include(
     ":app",
-//    ":data",
-//    ":core",
+    ":data",
+    ":common:core",
 //    ":core-android",
 //    ":model",
-//    ":domain",
+    ":domain",
 //    ":site",
-    ":ui-common",
-    ":ui-login"
+    ":common:ui-common",
+    ":ui-login",
+    ":ui-reservation"
 //    ":ui-weekly",
 //    ":ui-episode",
 //    ":ui-setting",
